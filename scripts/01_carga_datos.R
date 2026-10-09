@@ -4,7 +4,7 @@ install.packages("readxl")
 library(readxl)
 
 # Cargar dataset
-datos <- read_excel("data/satisfaction.xlsx", sheet = "satisfaction_v2")
+datos <- read_excel("data/satisfaction.xlsx")
 
 # Ver las primeras filas
 head(datos)

@@ -5,23 +5,103 @@ format: html
 editor: visual
 ---
 
-## Quarto
+## Introducción 
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+El principal objetivo de este estudio va a ser predecir la satisfacción de los clientes con una aerolínea (no especificada) en función de su género, su lealtad, su edad, su objetivo de vuelo, la distancia de este, ...
 
-## Running Code
+## Datos 
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+Los datos fueron recogidos de la página web [Kaggle](https://www.kaggle.com/datasets/johndddddd/customer-satisfaction) y la procedencia no está esfecificada pero se indica que son datos reales de una aerolínea.
 
-```{r}
-1 + 1
-```
+Hay un total de 129.880 encuestados (filas) y 24 variables (columnas).
 
-You can add options to executable code like this
+Las variables son las siguientes:
+
+- Satisfacción: Nivel de satisfacción con la aerolínea (Satisfacción, neutralidad o insatisfacción)
+
+- Edad: La edad de los pasajeros
+
+- Género: Género de los pasajeros (Femenino, Masculino)
+
+- Tipo de viaje: Propósito del vuelo de los pasajeros (Viaje personal, Viaje de negocios)
+
+- Clase: Clase de viaje en el avión de los pasajeros (Business, Eco, Eco Plus)
+
+- Tipo de cliente: El tipo de cliente (cliente fiel, cliente desleal)
+
+- Distancia de vuelo: La distancia de vuelo de este viaje
+
+- Servicio de wifi a bordo: Nivel de satisfacción con el servicio de wifi a bordo (0 en caso de no haberlo contratado, o del 1 al 5 en orden ascendente de satisfacción)
+
+- Retraso en la salida en minutos: Minutos de retraso en la salida
+
+- Retraso en la llegada en minutos: Minutos de retraso en la llegada
+
+- Vuelo cancelado: Si el vuelo fue cancelado o no (Sí, No)
+
+- Tiempo de vuelo en minutos: Minutos de vuelo
+
+Todas las siguientes variables van del 0 al 5
+
+- Facilidad de reserva en línea: Nivel de satisfacción con la reserva en línea
+
+- Servicio a bordo: Nivel de satisfacción con el servicio a bordo
+
+- Embarque en línea: Nivel de satisfacción con el embarque en línea
+
+- Entretenimiento a bordo: Nivel de satisfacción con el entretenimiento a bordo
+
+- Comida y bebida: Nivel de satisfacción con la comida y la bebida.
+
+- Comodidad del asiento: Nivel de satisfacción con la comodidad del asiento
+
+- Servicio a bordo: Nivel de satisfacción con el servicio a bordo.
+
+- Servicio de espacio para las piernas: Nivel de satisfacción del servicio de espacio para las piernas
+
+- Horario de salida/llegada conveniente: Nivel de satisfacción con el horario de salida/llegada conveniente
+
+- Manejo de equipaje: Nivel de satisfacción con el manejo de equipaje
+
+- Ubicación de la puerta: Nivel de satisfacción con la ubicación de la puerta
+
+- Limpieza: Nivel de satisfacción con la limpieza
+
+- Servicio de registro: Nivel de satisfacción del servicio de registro
+
+## Planteamiento inicial
+
+## Preguntas de partida
+
+## Proceso de exploración
+
+## Principales hallazgos y conclusiones
+
+## Uso de la inteligencia artificial
+
+##Particion de los datos
+
+dada la cantidad de los datos decidimos una partición... train(0,654)-test(0,2)-validacion(0,15)
 
 ```{r}
 #| echo: false
-2 * 2
+#| warning: false
+
+load("datos.Rdata")
+
+library(caret)
+set.seed(6004)
+idx_train <- createDataPartition(datos$satisfaction_v2, p=0.1)
+train <- datos[idx_train$Resample1, ]
+test_valid <- datos[-idx_train$Resample1, ]
+
+idx_test <- createDataPartition(test_valid$satisfaction_v2, p=0.15)
+test <- test_valid[idx_test$Resample1, ]
+valid <- test_valid[-idx_test$Resample1, ]
+
+dim(train)
+dim(test)
+dim(valid)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+A partir de ahora trabajamos únicamente con train. Sobre train haremos todo el análisis exploratorio de datos. Usaremos test para ir evaluando y estudiando la
