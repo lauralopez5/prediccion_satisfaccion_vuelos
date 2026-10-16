@@ -1,7 +1,21 @@
 ---
 title: "Estudio Predictivo de Satisfacción de Vuelos"
 author: "Laura López, Gabriela Súñer y Paula Arroyo"
-format: html
+format: 
+  html:
+    theme: journal
+    toc: true
+    toc-location: left
+    toc-title: "Menú desplegable"
+    code-fold: true
+    code-tools: true
+    df-print: paged
+    number-sections: true
+    
+execute:
+  warning: false
+  message: false
+  
 editor: visual
 ---
 
@@ -55,7 +69,7 @@ Todas las siguientes variables van del 0 al 5
 
 - Comodidad del asiento: Nivel de satisfacción con la comodidad del asiento
 
-- Servicio a bordo: Nivel de satisfacción con el servicio a bordo.
+- Soporte en línea: Nivel de satisfacción con el soporte en línea.
 
 - Servicio de espacio para las piernas: Nivel de satisfacción del servicio de espacio para las piernas
 
@@ -69,35 +83,86 @@ Todas las siguientes variables van del 0 al 5
 
 - Servicio de registro: Nivel de satisfacción del servicio de registro
 
-## Planteamiento inicial
+## Preparación y partición de los datos
 
-## Preguntas de partida
-
-## Proceso de exploración
-
-## Principales hallazgos y conclusiones
-
-## Uso de la inteligencia artificial
-
-##Particion de los datos
-
-dada la cantidad de los datos decidimos una partición... train(0,654)-test(0,2)-validacion(0,15)
+Antes de proceder a la división de los datos, verificamos la estructura interna del conjunto original, la consistencia de los nombres de las variables y el tipo asignado a cada columna.
 
 ```{r}
-#| echo: false
-#| warning: false
+#| label: exploracion-tipos
+
+library(tidyverse)
+library(caret)
+library(janitor)
 
 load("datos.Rdata")
+head(datos)
+```
+
+La dimensión del conjunto de datos original es la siguiente, indicando el número total de observaciones (filas) y de variables (columnas):
+```{r}
+dim(datos)
+
+```
+
+```{r}
+#| label: preparacion-tipos
+
+# Convertimos a tibble y estandarizamos nombres a minúsculas y guiones bajos (snake_case)
+datos <- as_tibble(datos) %>%
+  clean_names()
+
+
+# Conversión a factores de las variables categóricas
+cols_categoricas <- c(
+  "gender", 
+  "customer_type", 
+  "type_of_travel", 
+  "class", 
+  "satisfaction_v2"
+)
+
+# Ajuste condicional por si 'flight_cancelled' existe como columna independiente
+if ("flight_cancelled" %in% names(datos)) {
+  cols_categoricas <- c(cols_categoricas, "flight_cancelled")
+}
+
+datos <- datos %>%
+  mutate(across(all_of(cols_categoricas), as.factor))
+
+```
+
+### Tratamiento de variables no informativas
+Durante la inspección inicial se identifica la variable `id`. Dado que se trata únicamente de un identificador administrativo de fila para cada encuesta y carece de valor predictivo o causal respecto a la satisfacción de los clientes, se procede a su exclusión antes de iniciar el análisis exploratorio para evitar ruido, correlaciones espurias o sesgos en el modelado.
+
+```{r}
+# Eliminación del identificador para todo el flujo de trabajo
+datos <- datos %>% 
+  select(-id)
+
+```
+
+## Particion de los datos
+
+Dado el gran volumen de observaciones disponibles (129.880 registros), optamos por reservar una muestra estratificada representativa para el modelado y exploración, manteniendo la mayor parte de las observaciones para la evaluación final:
+
+* **Entrenamiento (Train, 10%):** 12.989 observaciones. Sobre este conjunto realizamos de forma íntegra el análisis exploratorio de datos (EDA), la auditoría de valores atípicos y las transformaciones.
+* **Prueba (Test, 13,5% del total):** 17.534 observaciones (obtenidas como el 15% del conjunto restante tras extraer train). Reservada para contrastar alternativas y calibrar hiperparámetros.
+* **Validación (Validación/Producción, 76,5% del total):** 99.357 observaciones. Se preserva intacta para simular el comportamiento del modelo final ante datos no observados en un entorno real de producción.
+
+```{r}
 
 library(caret)
 set.seed(6004)
-idx_train <- createDataPartition(datos$satisfaction_v2, p=0.1)
-train <- datos[idx_train$Resample1, ]
-test_valid <- datos[-idx_train$Resample1, ]
 
-idx_test <- createDataPartition(test_valid$satisfaction_v2, p=0.15)
-test <- test_valid[idx_test$Resample1, ]
-valid <- test_valid[-idx_test$Resample1, ]
+# 10% para el conjunto de entrenamiento
+idx_train <- createDataPartition(datos$satisfaction_v2, p = 0.1, list = FALSE)
+train <- datos[idx_train, ]
+test_valid <- datos[-idx_train, ]
+
+# 15% del resto para el conjunto de prueba
+idx_test <- createDataPartition(test_valid$satisfaction_v2, p = 0.15, list = FALSE)
+test <- test_valid[idx_test, ]
+valid <- test_valid[-idx_test, ]
 
 dim(train)
 dim(test)
@@ -105,3 +170,179 @@ dim(valid)
 ```
 
 A partir de ahora trabajamos únicamente con train. Sobre train haremos todo el análisis exploratorio de datos. Usaremos test para ir evaluando y estudiando la
+
+## Planteamiento inicial
+
+El objetivo de este Análisis Exploratorio de Datos (EDA) es examinar la estructura de las variables, evaluar la calidad de los datos y detectar patrones relevantes en el comportamiento de los pasajeros antes de abordar tareas de modelado predictivo. 
+
+Para ello, sobre la muestra de entrenamiento (`train`) se abordarán las siguientes fases:
+
+1. **Auditoría de integridad y calidad del dato:**
+   - Detección de posibles valores ausentes (`NA`) y definición razonada de su tratamiento.
+   - Inspección del valor 0 en las valoraciones de servicios (evaluar si denota servicio no contratado/no aplicable o la mínima satisfacción).
+   - Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (`flight_distance` y minutos de retraso).
+
+2. **Análisis Univariante:**
+   - Estudio del balance de la variable respuesta (`satisfaction_v2`)[cite: 1, 8].
+   - Distribución de las características demográficas de los clientes (`age`, `gender`) y de los vuelos (`class`, `type_of_travel`, `customer_type`).
+   - Análisis de frecuencias de las escalas de satisfacción de los 13 servicios evaluados.
+
+3. **Análisis Bivariante y Multivariante:**
+   - Relación entre la satisfacción global y las variables clave del viaje (`class`, `type_of_travel`).
+   - Comparación del peso de los retrasos operativos frente al confort a bordo.
+   - Estudio de correlaciones entre las distintas valoraciones de servicio.
+
+## Preguntas de partida
+Para guiar la exploración analítica y contrastar hipótesis concretas sobre el comportamiento de los clientes, se formulan las siguientes preguntas de partida:
+
+* **P1 (Operatividad vs. Experiencia):** ¿Son los retrasos en salida y llegada el principal desencadenante de la insatisfacción del pasajero, o tiene un impacto más determinante el confort dentro de la cabina (`seat_comfort`, `cleanliness`)?
+* **P2 (Segmentación de viaje):** ¿Existe una diferencia sustancial en la satisfacción de los clientes al contrastar según el motivo de vuelo (`type_of_travel`: negocios vs. personal) y la cabina (`class`: Business vs. Eco)?
+* **P3 (Servicios digitales y fidelización):** ¿Qué servicios asociados a la tecnología (`inflight_wifi_service`, `online_boarding`, `online_support`) tienen una relación más estrecha con la lealtad del cliente (`customer_type`)?
+* **P4 (Demografía):** ¿Varía de forma significativa el grado de exigencia o satisfacción global en función de la edad o el género del pasajero?
+
+## Proceso de exploración
+### 1. Auditoría de valores ausentes (NAs) en Train
+Comprobamos si existen observaciones incompletas y en qué variables se concentran:
+
+```{r}
+#| label: auditoria-nas
+
+# Conteo y porcentaje de NAs por columna
+na_resumen <- train %>%
+  summarise(across(everything(), ~ sum(is.na(.)))) %>%
+  pivot_longer(everything(), names_to = "variable", values_to = "n_nas") %>%
+  filter(n_nas > 0) %>%
+  mutate(porcentaje = (n_nas / nrow(train)) * 100)
+
+na_resumen
+```
+
+### 2. Inspección del valor 0 en las valoraciones del servicio
+Las variables de encuesta van teóricamente del 1 al 5; revisamos la frecuencia del valor 0 (que indica servicio no contratado o no aplicable):
+
+```{r}
+#| label: ceros-servicios
+
+# Seleccionamos las columnas de valoración del servicio y contamos cuántos ceros presentan
+train %>%
+  select(seat_comfort:cleanliness) %>%
+  summarise(across(everything(), ~ sum(. == 0, na.rm = TRUE))) %>%
+  pivot_longer(everything(), names_to = "servicio", values_to = "conteo_ceros") %>%
+  arrange(desc(conteo_ceros))
+```
+
+### 3. Asimetrías y valores atípicos en variables numéricas
+
+Analizamos el rango, dispersión y posible presencia de valores extremos en la distancia y los retrasos mediante estadísticos descriptivos (`summary`) y representaciones gráficas:
+
+```{r}
+#| label: asimetrias-atipicos
+#| fig-width: 9
+#| fig-height: 4
+
+# Estadísticos resumen de las variables cuantitativas continuas
+train %>%
+  select(flight_distance, departure_delay_in_minutes, arrival_delay_in_minutes) %>%
+  summary()
+
+# Histograma de distancia de vuelo
+ggplot(train, aes(x = flight_distance)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  theme_minimal() +
+  labs(
+    title = "Distribución de la Distancia de Vuelo",
+    x = "Distancia",
+    y = "Frecuencia"
+  )
+
+# Diagrama de caja para los retrasos (detección de outliers y asimetría a la derecha)
+ggplot(train, aes(y = departure_delay_in_minutes)) +
+  geom_boxplot(fill = "pink", outlier.color = "purple", alpha = 0.6) +
+  theme_minimal() +
+  labs(
+    title = "Diagrama de Caja: Retraso en la Salida (minutos)",
+    y = "Minutos de retraso"
+  )
+```
+
+De la inspección descriptiva y gráfica de estas variables cuantitativas se extraen las siguientes conclusiones:
+
+* **Distancia de vuelo (`flight_distance`):** Presenta una distribución asimétrica a la derecha con dos concentraciones claras: una masa predominante de vuelos de corta distancia (inferiores a 1.000 millas) y un segundo grupo en trayectos medios (entre 1.800 y 2.500 millas). El máximo se sitúa en 6.598 millas.
+* **Retrasos operativos (`departure_delay_in_minutes` y `arrival_delay_in_minutes`):** Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).
+
+Siguiendo esta directriz metodológica y la recomendación de John Fox para variables con rangos que abarcan varios órdenes de magnitud, aplicamos una transformación logarítmica. Dado que la variable contiene ceros (vuelos sin retraso), empleamos la transformación $\log(x + 1)$ (función log1p() en R) para evitar indeterminaciones matemáticas: 
+
+```{r}
+#| label: boxplot-retraso-log
+#| fig-width: 8
+#| fig-height: 4
+
+ggplot(train, aes(y = log1p(departure_delay_in_minutes))) +
+  geom_boxplot(fill = "pink", outlier.color = "purple", alpha = 0.6) +
+  theme_minimal() +
+  labs(
+    title = "Diagrama de Caja Transformado: Retraso en la Salida (log(minutos + 1))",
+    y = "log(Minutos de retraso + 1)"
+  )
+```
+
+Con la escala logarítmica la dispersión de los datos queda estabilizada y el rango intercuartílico se expande visualmente, permitiendo distinguir la estructura de las demoras y evaluar con mayor claridad la separación entre los vuelos puntuales y aquellos con retrasos significativos.
+
+### 4. Distribución de la variable objetivo y características de los pasajeros
+Antes de estudiar relaciones cruzadas, analizamos la proporción de la variable de salida y la distribución de los clientes según su edad, género y fidelidad en la muestra de entrenamiento (`train`):
+
+```{r}
+#| label: univariante-objetivo-demografia
+#| fig-width: 8
+#| fig-height: 4.5
+
+library(ggplot2)
+library(scales)
+
+# 1. Gráfico de la variable objetivo con frecuencias relativas y recuentos
+p_target <- ggplot(train, aes(x = satisfaction_v2, fill = satisfaction_v2)) +
+  geom_bar(aes(y = after_stat(count) / sum(after_stat(count))), show.legend = FALSE, width = 0.55) +
+  geom_text(
+    aes(
+      y = after_stat(count) / sum(after_stat(count)),
+      label = paste0(after_stat(count), "\n(", percent(after_stat(count) / sum(after_stat(count)), accuracy = 0.1), ")")
+    ),
+    stat = "count",
+    vjust = -0.3,
+    size = 4
+  ) +
+  scale_y_continuous(labels = percent, limits = c(0, 0.68)) +
+  labs(
+    title = "Distribución de la Variable Objetivo en Train",
+    x = "Nivel de Satisfacción",
+    y = "Frecuencia Relativa"
+  ) +
+  theme_minimal()
+
+p_target
+
+# 2. Distribución de la edad de los pasajeros (estilo temario con binwidth = 5)
+p_edad <- ggplot(train, aes(x = age)) +
+  geom_histogram(binwidth = 5, fill = "cadetblue", color = "white") +
+  geom_vline(aes(xintercept = median(age)), color = "red", linetype = "dashed", linewidth = 1) +
+  labs(
+    title = "Distribución de la Edad de los Pasajeros",
+    subtitle = "La línea discontinua roja indica la mediana",
+    x = "Edad (años)",
+    y = "Frecuencia"
+  ) +
+  theme_minimal()
+
+p_edad
+```
+
+**Interpretación y conclusiones del análisis univariante:**
+
+* **Variable objetivo (`satisfaction_v2`):** La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados). Al no existir un desbalanceo severo entre clases, no será necesario recurrir a técnicas de remuestreo (como sobremuestreo o submuestreo) en las etapas posteriores de modelado supervisado.
+* **Distribución demográfica de la edad (`age`):** La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que hace pertinente contrastar si la edad modula la exigencia y el nivel de satisfacción final con el servicio.
+
+## Principales hallazgos y conclusiones
+
+## Uso de la inteligencia artificial
+
+
