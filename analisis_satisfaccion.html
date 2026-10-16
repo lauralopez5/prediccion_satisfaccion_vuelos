@@ -124,18 +124,27 @@ window.Quarto = {
   <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1</span> Introducción</a></li>
   <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos"><span class="header-section-number">2</span> Datos</a></li>
   <li><a href="#preparación-y-partición-de-los-datos" id="toc-preparación-y-partición-de-los-datos" class="nav-link" data-scroll-target="#preparación-y-partición-de-los-datos"><span class="header-section-number">3</span> Preparación y partición de los datos</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#tratamiento-de-variables-no-informativas" id="toc-tratamiento-de-variables-no-informativas" class="nav-link" data-scroll-target="#tratamiento-de-variables-no-informativas"><span class="header-section-number">3.1</span> Tratamiento de variables no informativas</a></li>
   </ul></li>
   <li><a href="#particion-de-los-datos" id="toc-particion-de-los-datos" class="nav-link" data-scroll-target="#particion-de-los-datos"><span class="header-section-number">4</span> Particion de los datos</a></li>
   <li><a href="#planteamiento-inicial" id="toc-planteamiento-inicial" class="nav-link" data-scroll-target="#planteamiento-inicial"><span class="header-section-number">5</span> Planteamiento inicial</a></li>
   <li><a href="#preguntas-de-partida" id="toc-preguntas-de-partida" class="nav-link" data-scroll-target="#preguntas-de-partida"><span class="header-section-number">6</span> Preguntas de partida</a></li>
   <li><a href="#proceso-de-exploración" id="toc-proceso-de-exploración" class="nav-link" data-scroll-target="#proceso-de-exploración"><span class="header-section-number">7</span> Proceso de exploración</a>
+  <ul>
+  <li><a href="#auditoría-de-valores-ausentes-nas-en-train" id="toc-auditoría-de-valores-ausentes-nas-en-train" class="nav-link" data-scroll-target="#auditoría-de-valores-ausentes-nas-en-train"><span class="header-section-number">7.1</span> Auditoría de valores ausentes (NAs) en Train</a></li>
+  <li><a href="#inspección-del-valor-0-en-las-valoraciones-del-servicio" id="toc-inspección-del-valor-0-en-las-valoraciones-del-servicio" class="nav-link" data-scroll-target="#inspección-del-valor-0-en-las-valoraciones-del-servicio"><span class="header-section-number">7.2</span> Inspección del valor 0 en las valoraciones del servicio</a></li>
+  <li><a href="#asimetrías-y-valores-atípicos-en-variables-numéricas" id="toc-asimetrías-y-valores-atípicos-en-variables-numéricas" class="nav-link" data-scroll-target="#asimetrías-y-valores-atípicos-en-variables-numéricas"><span class="header-section-number">7.3</span> Asimetrías y valores atípicos en variables numéricas</a>
   <ul class="collapse">
-  <li><a href="#auditoría-de-valores-ausentes-nas-en-train" id="toc-auditoría-de-valores-ausentes-nas-en-train" class="nav-link" data-scroll-target="#auditoría-de-valores-ausentes-nas-en-train"><span class="header-section-number">7.1</span> 1. Auditoría de valores ausentes (NAs) en Train</a></li>
-  <li><a href="#inspección-del-valor-0-en-las-valoraciones-del-servicio" id="toc-inspección-del-valor-0-en-las-valoraciones-del-servicio" class="nav-link" data-scroll-target="#inspección-del-valor-0-en-las-valoraciones-del-servicio"><span class="header-section-number">7.2</span> 2. Inspección del valor 0 en las valoraciones del servicio</a></li>
-  <li><a href="#asimetrías-y-valores-atípicos-en-variables-numéricas" id="toc-asimetrías-y-valores-atípicos-en-variables-numéricas" class="nav-link" data-scroll-target="#asimetrías-y-valores-atípicos-en-variables-numéricas"><span class="header-section-number">7.3</span> 3. Asimetrías y valores atípicos en variables numéricas</a></li>
-  <li><a href="#distribución-de-la-variable-objetivo-y-características-de-los-pasajeros" id="toc-distribución-de-la-variable-objetivo-y-características-de-los-pasajeros" class="nav-link" data-scroll-target="#distribución-de-la-variable-objetivo-y-características-de-los-pasajeros"><span class="header-section-number">7.4</span> 4. Distribución de la variable objetivo y características de los pasajeros</a></li>
+  <li><a href="#relación-entre-retraso-de-salida-y-retraso-de-llegada" id="toc-relación-entre-retraso-de-salida-y-retraso-de-llegada" class="nav-link" data-scroll-target="#relación-entre-retraso-de-salida-y-retraso-de-llegada"><span class="header-section-number">7.3.1</span> Relación entre retraso de salida y retraso de llegada</a></li>
+  </ul></li>
+  <li><a href="#distribución-de-la-variable-objetivo-y-características-de-los-pasajeros" id="toc-distribución-de-la-variable-objetivo-y-características-de-los-pasajeros" class="nav-link" data-scroll-target="#distribución-de-la-variable-objetivo-y-características-de-los-pasajeros"><span class="header-section-number">7.4</span> Distribución de la variable objetivo y características de los pasajeros</a></li>
+  <li><a href="#características-sociodemográficas-y-del-viaje" id="toc-características-sociodemográficas-y-del-viaje" class="nav-link" data-scroll-target="#características-sociodemográficas-y-del-viaje"><span class="header-section-number">7.5</span> Características sociodemográficas y del viaje</a></li>
+  <li><a href="#contraste-de-las-preguntas-de-partida" id="toc-contraste-de-las-preguntas-de-partida" class="nav-link" data-scroll-target="#contraste-de-las-preguntas-de-partida"><span class="header-section-number">7.6</span> Contraste de las preguntas de partida</a>
+  <ul class="collapse">
+  <li><a href="#pregunta-2-existe-una-diferencia-sustancial-según-el-tipo-de-viaje-y-la-clase" id="toc-pregunta-2-existe-una-diferencia-sustancial-según-el-tipo-de-viaje-y-la-clase" class="nav-link" data-scroll-target="#pregunta-2-existe-una-diferencia-sustancial-según-el-tipo-de-viaje-y-la-clase"><span class="header-section-number">7.6.1</span> Pregunta 2: ¿Existe una diferencia sustancial según el Tipo de Viaje y la Clase?</a></li>
+  <li><a href="#pregunta-1-operatividad-retrasos-vs.-confort-en-cabina-asiento-y-limpieza" id="toc-pregunta-1-operatividad-retrasos-vs.-confort-en-cabina-asiento-y-limpieza" class="nav-link" data-scroll-target="#pregunta-1-operatividad-retrasos-vs.-confort-en-cabina-asiento-y-limpieza"><span class="header-section-number">7.6.2</span> Pregunta 1: Operatividad (retrasos) vs.&nbsp;Confort en cabina (asiento y limpieza)</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#principales-hallazgos-y-conclusiones" id="toc-principales-hallazgos-y-conclusiones" class="nav-link" data-scroll-target="#principales-hallazgos-y-conclusiones"><span class="header-section-number">8</span> Principales hallazgos y conclusiones</a></li>
   <li><a href="#uso-de-la-inteligencia-artificial" id="toc-uso-de-la-inteligencia-artificial" class="nav-link" data-scroll-target="#uso-de-la-inteligencia-artificial"><span class="header-section-number">9</span> Uso de la inteligencia artificial</a></li>
@@ -194,7 +203,7 @@ window.Quarto = {
 <li><p>Vuelo cancelado: Si el vuelo fue cancelado o no (Sí, No)</p></li>
 <li><p>Tiempo de vuelo en minutos: Minutos de vuelo</p></li>
 </ul>
-<p>Todas las siguientes variables van del 0 al 5</p>
+<p>Las siguientes variables corresponden a preguntas de valoración del servicio y se miden en una escala ordinal de <strong>1 a 5</strong> (donde 1 representa la mínima satisfacción y 5 la máxima), figurando el valor <strong>0</strong> en aquellos casos en los que el servicio no fue contratado o no resultaba aplicable:</p>
 <ul>
 <li><p>Facilidad de reserva en línea: Nivel de satisfacción con la reserva en línea</p></li>
 <li><p>Servicio a bordo: Nivel de satisfacción con el servicio a bordo</p></li>
@@ -365,7 +374,7 @@ window.Quarto = {
 <section id="proceso-de-exploración" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="proceso-de-exploración"><span class="header-section-number">7</span> Proceso de exploración</h2>
 <section id="auditoría-de-valores-ausentes-nas-en-train" class="level3" data-number="7.1">
-<h3 data-number="7.1" class="anchored" data-anchor-id="auditoría-de-valores-ausentes-nas-en-train"><span class="header-section-number">7.1</span> 1. Auditoría de valores ausentes (NAs) en Train</h3>
+<h3 data-number="7.1" class="anchored" data-anchor-id="auditoría-de-valores-ausentes-nas-en-train"><span class="header-section-number">7.1</span> Auditoría de valores ausentes (NAs) en Train</h3>
 <p>Comprobamos si existen observaciones incompletas y en qué variables se concentran:</p>
 <div class="cell">
 <details class="code-fold">
@@ -389,7 +398,7 @@ window.Quarto = {
 </div>
 </section>
 <section id="inspección-del-valor-0-en-las-valoraciones-del-servicio" class="level3" data-number="7.2">
-<h3 data-number="7.2" class="anchored" data-anchor-id="inspección-del-valor-0-en-las-valoraciones-del-servicio"><span class="header-section-number">7.2</span> 2. Inspección del valor 0 en las valoraciones del servicio</h3>
+<h3 data-number="7.2" class="anchored" data-anchor-id="inspección-del-valor-0-en-las-valoraciones-del-servicio"><span class="header-section-number">7.2</span> Inspección del valor 0 en las valoraciones del servicio</h3>
 <p>Las variables de encuesta van teóricamente del 1 al 5; revisamos la frecuencia del valor 0 (que indica servicio no contratado o no aplicable):</p>
 <div class="cell">
 <details class="code-fold">
@@ -411,37 +420,93 @@ window.Quarto = {
 </div>
 </section>
 <section id="asimetrías-y-valores-atípicos-en-variables-numéricas" class="level3" data-number="7.3">
-<h3 data-number="7.3" class="anchored" data-anchor-id="asimetrías-y-valores-atípicos-en-variables-numéricas"><span class="header-section-number">7.3</span> 3. Asimetrías y valores atípicos en variables numéricas</h3>
-<p>Analizamos el rango, dispersión y posible presencia de valores extremos en la distancia y los retrasos mediante estadísticos descriptivos (<code>summary</code>) y representaciones gráficas:</p>
+<h3 data-number="7.3" class="anchored" data-anchor-id="asimetrías-y-valores-atípicos-en-variables-numéricas"><span class="header-section-number">7.3</span> Asimetrías y valores atípicos en variables numéricas</h3>
+<p>Analizamos el rango, dispersión y posible presencia de valores extremos en la distancia y los retrasos mediante estadísticos descriptivos tabulados y representaciones gráficas:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estadísticos resumen de las variables cuantitativas continuas</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(flight_distance, departure_delay_in_minutes, arrival_delay_in_minutes) <span class="sc">%&gt;%</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>resumen_stats <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(flight_distance, departure_delay_in_minutes, arrival_delay_in_minutes) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(resumen_stats, <span class="at">caption =</span> <span class="st">"Estadísticos descriptivos de las variables cuantitativas de vuelo"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code> flight_distance departure_delay_in_minutes arrival_delay_in_minutes
- Min.   :  51    Min.   :  0.00             Min.   :  0.00          
- 1st Qu.:1360    1st Qu.:  0.00             1st Qu.:  0.00          
- Median :1929    Median :  0.00             Median :  0.00          
- Mean   :1985    Mean   : 14.67             Mean   : 15.16          
- 3rd Qu.:2552    3rd Qu.: 12.00             3rd Qu.: 13.00          
- Max.   :6598    Max.   :933.00             Max.   :920.00          
-                                            NAs    :41              </code></pre>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Estadísticos descriptivos de las variables cuantitativas de vuelo</caption>
+<colgroup>
+<col style="width: 4%">
+<col style="width: 22%">
+<col style="width: 38%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">flight_distance</th>
+<th style="text-align: left;">departure_delay_in_minutes</th>
+<th style="text-align: left;">arrival_delay_in_minutes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Min. : 51</td>
+<td style="text-align: left;">Min. : 0.00</td>
+<td style="text-align: left;">Min. : 0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">1st Qu.:1360</td>
+<td style="text-align: left;">1st Qu.: 0.00</td>
+<td style="text-align: left;">1st Qu.: 0.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Median :1929</td>
+<td style="text-align: left;">Median : 0.00</td>
+<td style="text-align: left;">Median : 0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Mean :1985</td>
+<td style="text-align: left;">Mean : 14.67</td>
+<td style="text-align: left;">Mean : 15.16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">3rd Qu.:2552</td>
+<td style="text-align: left;">3rd Qu.: 12.00</td>
+<td style="text-align: left;">3rd Qu.: 13.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Max. :6598</td>
+<td style="text-align: left;">Max. :933.00</td>
+<td style="text-align: left;">Max. :920.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NAs :41</td>
+</tr>
+</tbody>
+</table>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma de distancia de vuelo</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> flight_distance)) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Distancia de Vuelo"</span>,</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distancia"</span>,</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma de distancia de vuelo</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> flight_distance)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Distancia de Vuelo"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distancia"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -452,14 +517,14 @@ window.Quarto = {
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de caja para los retrasos (detección de outliers y asimetría a la derecha)</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> departure_delay_in_minutes)) <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja: Retraso en la Salida (minutos)"</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Minutos de retraso"</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de caja para los retrasos (detección de outliers y asimetría a la derecha)</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> departure_delay_in_minutes)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja: Retraso en la Salida (minutos)"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Minutos de retraso"</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -472,19 +537,19 @@ window.Quarto = {
 <p>De la inspección descriptiva y gráfica de estas variables cuantitativas se extraen las siguientes conclusiones:</p>
 <ul>
 <li><strong>Distancia de vuelo (<code>flight_distance</code>):</strong> Presenta una distribución asimétrica a la derecha con dos concentraciones claras: una masa predominante de vuelos de corta distancia (inferiores a 1.000 millas) y un segundo grupo en trayectos medios (entre 1.800 y 2.500 millas). El máximo se sitúa en 6.598 millas.</li>
-<li><strong>Retrasos operativos (<code>departure_delay_in_minutes</code> y <code>arrival_delay_in_minutes</code>):</strong> Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).</li>
+<li><strong>Retraso en la salida (<code>departure_delay_in_minutes</code>):</strong> Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).</li>
 </ul>
 <p>Siguiendo esta directriz metodológica y la recomendación de John Fox para variables con rangos que abarcan varios órdenes de magnitud, aplicamos una transformación logarítmica. Dado que la variable contiene ceros (vuelos sin retraso), empleamos la transformación <span class="math inline">\(\log(x + 1)\)</span> (función log1p() en R) para evitar indeterminaciones matemáticas:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">log1p</span>(departure_delay_in_minutes))) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja Transformado: Retraso en la Salida (log(minutos + 1))"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"log(Minutos de retraso + 1)"</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">log1p</span>(departure_delay_in_minutes))) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja Transformado: Retraso en la Salida (log(minutos + 1))"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"log(Minutos de retraso + 1)"</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -495,10 +560,45 @@ window.Quarto = {
 </div>
 </div>
 <p>Con la escala logarítmica la dispersión de los datos queda estabilizada y el rango intercuartílico se expande visualmente, permitiendo distinguir la estructura de las demoras y evaluar con mayor claridad la separación entre los vuelos puntuales y aquellos con retrasos significativos.</p>
+<section id="relación-entre-retraso-de-salida-y-retraso-de-llegada" class="level4" data-number="7.3.1">
+<h4 data-number="7.3.1" class="anchored" data-anchor-id="relación-entre-retraso-de-salida-y-retraso-de-llegada"><span class="header-section-number">7.3.1</span> Relación entre retraso de salida y retraso de llegada</h4>
+<p>A nivel operativo en la industria aeronáutica, cabe esperar que el retraso en la salida condicione de forma directa el retraso en la llegada, dado que difícilmente un avión puede recuperar en ruta demoras prolongadas producidas antes del despegue. Para contrastar esta hipótesis, evaluar si ambas variables varían de forma conjunta y comprobar si aportan información redundante, recurrimos a dos de las herramientas vistas en la asignatura: el diagrama de dispersión (<em>scatter plot</em>) y el coeficiente de correlación lineal de Pearson.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cálculo del coeficiente de Pearson (omitiendo los 41 NAs de llegada)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>cor_retrasos <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  train<span class="sc">$</span>departure_delay_in_minutes, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  train<span class="sc">$</span>arrival_delay_in_minutes, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"complete.obs"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de dispersión con recta de identidad y = x</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> departure_delay_in_minutes, <span class="at">y =</span> arrival_delay_in_minutes)) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"Retraso en Salida vs. Retraso en Llegada (r = "</span>, <span class="fu">round</span>(cor_retrasos, <span class="dv">3</span>), <span class="st">")"</span>),</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"La línea discontinua roja representa la recta de identidad (y = x)"</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Minutos de retraso en la salida"</span>,</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Minutos de retraso en la llegada"</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="analisis_satisfaccion_files/figure-html/relacion-retrasos-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Tal y como se observa en el gráfico, los puntos se concentran de manera casi perfecta a lo largo de la recta de identidad (línea roja discontinua), lo que indica que el tiempo de retraso acumulado en el despegue se reproduce casi idénticamente al aterrizar. Esto queda corroborado cuantitativamente por el coeficiente de correlación de Pearson, cuyo valor (<span class="math inline">\(r = 0.962\)</span>) se encuentra sumamente próximo a <span class="math inline">\(+1\)</span>. En consecuencia, ambas aportan información redundante, por lo que de cara al modelado predictivo bastará con mantener únicamente una de ellas para prevenir problemas de multicolinealidad.</p>
+</section>
 </section>
 <section id="distribución-de-la-variable-objetivo-y-características-de-los-pasajeros" class="level3" data-number="7.4">
-<h3 data-number="7.4" class="anchored" data-anchor-id="distribución-de-la-variable-objetivo-y-características-de-los-pasajeros"><span class="header-section-number">7.4</span> 4. Distribución de la variable objetivo y características de los pasajeros</h3>
-<p>Antes de estudiar relaciones cruzadas, analizamos la proporción de la variable de salida y la distribución de los clientes según su edad, género y fidelidad en la muestra de entrenamiento (<code>train</code>):</p>
+<h3 data-number="7.4" class="anchored" data-anchor-id="distribución-de-la-variable-objetivo-y-características-de-los-pasajeros"><span class="header-section-number">7.4</span> Distribución de la variable objetivo y características de los pasajeros</h3>
+<p>Una vez evaluadas la integridad y las características de las variables operativas cuantitativas, pasamos al análisis univariante de la variable objetivo (<code>satisfaction_v2</code>) y de los factores demográficos de los pasajeros en la muestra de entrenamiento (<code>train</code>), sentando la base para los contrastes bivariantes con la satisfacción:</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -563,6 +663,151 @@ window.Quarto = {
 <li><strong>Variable objetivo (<code>satisfaction_v2</code>):</strong> La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados). Al no existir un desbalanceo severo entre clases, no será necesario recurrir a técnicas de remuestreo (como sobremuestreo o submuestreo) en las etapas posteriores de modelado supervisado.</li>
 <li><strong>Distribución demográfica de la edad (<code>age</code>):</strong> La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que hace pertinente contrastar si la edad modula la exigencia y el nivel de satisfacción final con el servicio.</li>
 </ul>
+</section>
+<section id="características-sociodemográficas-y-del-viaje" class="level3" data-number="7.5">
+<h3 data-number="7.5" class="anchored" data-anchor-id="características-sociodemográficas-y-del-viaje"><span class="header-section-number">7.5</span> Características sociodemográficas y del viaje</h3>
+<p>Inspeccionamos la distribución de las variables categóricas que definen el perfil de los pasajeros y las condiciones de su viaje (<code>gender</code>, <code>customer_type</code>, <code>type_of_travel</code> y <code>class</code>):</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Clase</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>g_class <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribución por Clase"</span>, <span class="at">x =</span> <span class="st">"Clase"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Tipo de Viaje</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>g_travel <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> type_of_travel, <span class="at">fill =</span> type_of_travel)) <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tipo de Viaje"</span>, <span class="at">x =</span> <span class="st">"Propósito"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Fidelidad</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>g_cust <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> customer_type, <span class="at">fill =</span> customer_type)) <span class="sc">+</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Fidelidad del Cliente"</span>, <span class="at">x =</span> <span class="st">"Tipo de Cliente"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Género</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>g_gender <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">fill =</span> gender)) <span class="sc">+</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Género de los Pasajeros"</span>, <span class="at">x =</span> <span class="st">"Género"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>(g_class <span class="sc">+</span> g_travel) <span class="sc">/</span> (g_cust <span class="sc">+</span> g_gender)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="analisis_satisfaccion_files/figure-html/univariante-categoricas-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Conclusiones de la distribución categórica:</strong></p>
+<ul>
+<li><strong>Clase (<code>class</code>):</strong> Existe una división equilibrada entre la clase <code>Business</code> (cerca del 48%) y la clase <code>Eco</code> (45%), mientras que <code>Eco Plus</code> representa una minoría residual (en torno al 7%).</li>
+<li><strong>Propósito del viaje (<code>type_of_travel</code>):</strong> Predominan notablemente los viajes de negocios (<code>Business travel</code>), que representan más del 68% de las observaciones, frente al viaje personal.</li>
+<li><strong>Fidelidad (<code>customer_type</code>):</strong> La gran mayoría de los encuestados son clientes fidelizados (<code>Loyal Customer</code>, &gt;80%).</li>
+<li><strong>Género (<code>gender</code>):</strong> La paridad es casi perfecta entre hombres y mujeres (50%-50%), descartando sesgos demográficos de género en la recogida de encuestas.</li>
+</ul>
+</section>
+<section id="contraste-de-las-preguntas-de-partida" class="level3" data-number="7.6">
+<h3 data-number="7.6" class="anchored" data-anchor-id="contraste-de-las-preguntas-de-partida"><span class="header-section-number">7.6</span> Contraste de las preguntas de partida</h3>
+<p>Una vez caracterizadas las variables de forma individual, procedemos a realizar el análisis bivariante cruzando los factores explicativos con la satisfacción para contrastar las hipótesis planteadas inicialmente:</p>
+<section id="pregunta-2-existe-una-diferencia-sustancial-según-el-tipo-de-viaje-y-la-clase" class="level4" data-number="7.6.1">
+<h4 data-number="7.6.1" class="anchored" data-anchor-id="pregunta-2-existe-una-diferencia-sustancial-según-el-tipo-de-viaje-y-la-clase"><span class="header-section-number">7.6.1</span> Pregunta 2: ¿Existe una diferencia sustancial según el Tipo de Viaje y la Clase?</h4>
+<p>Evaluamos conjuntamente el impacto del propósito del vuelo (<code>type_of_travel</code>) y la cabina contratada (<code>class</code>) sobre la satisfacción global mediante barras normalizadas al 100%:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de contingencia en porcentajes</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(train<span class="sc">$</span>class, train<span class="sc">$</span>satisfaction_v2), <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>          
+           neutral or dissatisfied satisfied
+  Business                    28.9      71.1
+  Eco                         60.9      39.1
+  Eco Plus                    55.3      44.7</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de barras apiladas al 100% facetado por tipo de viaje</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> type_of_travel) <span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Nivel de Satisfacción según Clase y Tipo de Viaje"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Clase de Cabina"</span>,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Porcentaje Relativo"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Satisfacción"</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="analisis_satisfaccion_files/figure-html/p2-clase-tipo-viaje-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Hallazgos de la P2:</strong></p>
+<p>Al segmentar la satisfacción conjuntamente por el propósito del vuelo y la clase de cabina, se aprecian dos comportamientos claramente diferenciados:</p>
+<ul>
+<li><strong>En viajes de negocios (<code>Business travel</code>):</strong> La clase de cabina resulta determinante en la experiencia. En clase <code>Business</code>, aproximadamente el <strong>72%</strong> de los viajeros manifiesta estar satisfecho. En contraste, cuando viajan por trabajo en cabinas turista (<code>Eco</code> o <code>Eco Plus</code>), la satisfaccción desciende a entre el <strong>30% y el 40%</strong>.</li>
+<li><strong>En viajes personales (<code>Personal Travel</code>):</strong> El efecto de la clase de cabina es prácticamente nulo. En las tres categorías (<code>Business</code>, <code>Eco</code> y <code>Eco Plus</code>), los pasajeros se dividen casi de manera idéntica al 50% entre satisfechos y no satisfechos (con tasas de satisfacción contenidas entre el <strong>46% y el 51%</strong>).</li>
+</ul>
+<p>En conclusión, la exigencia y sensibilidad hacia la categoría de cabina dependen del motivo de vuelo: mientras que para el cliente corporativo volar en turista es un motivo de insatisfacción, el viajero personal muestra una percepción dividida e independiente de la clase contratada.</p>
+</section>
+<section id="pregunta-1-operatividad-retrasos-vs.-confort-en-cabina-asiento-y-limpieza" class="level4" data-number="7.6.2">
+<h4 data-number="7.6.2" class="anchored" data-anchor-id="pregunta-1-operatividad-retrasos-vs.-confort-en-cabina-asiento-y-limpieza"><span class="header-section-number">7.6.2</span> Pregunta 1: Operatividad (retrasos) vs.&nbsp;Confort en cabina (asiento y limpieza)</h4>
+<p>Contrastamos si un retraso operativo condiciona la insatisfacción más que la experiencia física del confort en cabina:</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos una variable binaria para vuelos con demora notable (&gt;15 min)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">retraso_demora =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(departure_delay_in_minutes <span class="sc">&gt;</span> <span class="dv">15</span>, <span class="st">"Con retraso (&gt;15m)"</span>, <span class="st">"Puntual (&lt;=15m)"</span>)))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico 1: Impacto del retraso</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>p_ret <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> retraso_demora, <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Satisfacción vs. Retraso"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>, <span class="at">fill =</span> <span class="st">"Satisfacción"</span>)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico 2: Impacto del confort del asiento (filtrando ceros para ver escala 1 a 5)</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>p_seat <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train <span class="sc">%&gt;%</span> <span class="fu">filter</span>(seat_comfort <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(seat_comfort), <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Satisfacción vs. Comodidad Asiento"</span>, <span class="at">x =</span> <span class="st">"Calificación Asiento (1 al 5)"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>, <span class="at">fill =</span> <span class="st">"Satisfacción"</span>)</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>p_ret <span class="sc">+</span> p_seat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="analisis_satisfaccion_files/figure-html/p1-retraso-vs-confort-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Hallazgos de la P1:</strong></p>
+<ul>
+<li>El retraso en la salida apenas eleva la insatisfacción en torno a un 10-12% en comparación con los vuelos puntuales.</li>
+<li>Por el contrario, las calificaciones del asiento resultan decisivas: ante valoraciones de 1 o 2 la insatisfacción supera el 75%, mientras que notas de 4 o 5 garantizan satisfacción en más del 80% de los casos. La comodidad a bordo tiene un poder predictivo y explicativo superior a la puntualidad.</li>
+</ul>
+</section>
 </section>
 </section>
 <section id="principales-hallazgos-y-conclusiones" class="level2" data-number="8">
@@ -1027,352 +1272,515 @@ window.Quarto = {
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Estudio Predictivo de Satisfacción de Vuelos"</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Laura López, Gabriela Súñer y Paula Arroyo"</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: journal</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: left</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-title: "Menú desplegable"</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introducción </span></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>El principal objetivo de este estudio va a ser predecir la satisfacción de los clientes con una aerolínea (no especificada) en función de su género, su lealtad, su edad, su objetivo de vuelo, la distancia de este, ...</span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Datos </span></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>Los datos fueron recogidos de la página web <span class="co">[</span><span class="ot">Kaggle</span><span class="co">](https://www.kaggle.com/datasets/johndddddd/customer-satisfaction)</span> y la procedencia no está esfecificada pero se indica que son datos reales de una aerolínea.</span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>Hay un total de 129.880 encuestados (filas) y 24 variables (columnas).</span>
-<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>Las variables son las siguientes:</span>
-<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Satisfacción: Nivel de satisfacción con la aerolínea (Satisfacción, neutralidad o insatisfacción)</span>
-<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Edad: La edad de los pasajeros</span>
-<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Género: Género de los pasajeros (Femenino, Masculino)</span>
-<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tipo de viaje: Propósito del vuelo de los pasajeros (Viaje personal, Viaje de negocios)</span>
-<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Clase: Clase de viaje en el avión de los pasajeros (Business, Eco, Eco Plus)</span>
-<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tipo de cliente: El tipo de cliente (cliente fiel, cliente desleal)</span>
-<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Distancia de vuelo: La distancia de vuelo de este viaje</span>
-<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio de wifi a bordo: Nivel de satisfacción con el servicio de wifi a bordo (0 en caso de no haberlo contratado, o del 1 al 5 en orden ascendente de satisfacción)</span>
-<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Retraso en la salida en minutos: Minutos de retraso en la salida</span>
-<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Retraso en la llegada en minutos: Minutos de retraso en la llegada</span>
-<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vuelo cancelado: Si el vuelo fue cancelado o no (Sí, No)</span>
-<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tiempo de vuelo en minutos: Minutos de vuelo</span>
-<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>Todas las siguientes variables van del 0 al 5</span>
-<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Facilidad de reserva en línea: Nivel de satisfacción con la reserva en línea</span>
-<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio a bordo: Nivel de satisfacción con el servicio a bordo</span>
-<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Embarque en línea: Nivel de satisfacción con el embarque en línea</span>
-<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Entretenimiento a bordo: Nivel de satisfacción con el entretenimiento a bordo</span>
-<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comida y bebida: Nivel de satisfacción con la comida y la bebida.</span>
-<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comodidad del asiento: Nivel de satisfacción con la comodidad del asiento</span>
-<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Soporte en línea: Nivel de satisfacción con el soporte en línea.</span>
-<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio de espacio para las piernas: Nivel de satisfacción del servicio de espacio para las piernas</span>
-<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Horario de salida/llegada conveniente: Nivel de satisfacción con el horario de salida/llegada conveniente</span>
-<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Manejo de equipaje: Nivel de satisfacción con el manejo de equipaje</span>
-<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ubicación de la puerta: Nivel de satisfacción con la ubicación de la puerta</span>
-<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Limpieza: Nivel de satisfacción con la limpieza</span>
-<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio de registro: Nivel de satisfacción del servicio de registro</span>
-<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preparación y partición de los datos</span></span>
-<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a>Antes de proceder a la división de los datos, verificamos la estructura interna del conjunto original, la consistencia de los nombres de las variables y el tipo asignado a cada columna.</span>
-<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: exploracion-tipos</span></span>
-<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"datos.Rdata"</span>)</span>
-<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span>
-<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a>La dimensión del conjunto de datos original es la siguiente, indicando el número total de observaciones (filas) y de variables (columnas):</span>
-<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(datos)</span>
-<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: preparacion-tipos</span></span>
-<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertimos a tibble y estandarizamos nombres a minúsculas y guiones bajos (snake_case)</span></span>
-<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(datos) <span class="sc">%&gt;%</span></span>
-<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
-<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversión a factores de las variables categóricas</span></span>
-<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a>cols_categoricas <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gender"</span>, </span>
-<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a>  <span class="st">"customer_type"</span>, </span>
-<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a>  <span class="st">"type_of_travel"</span>, </span>
-<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a>  <span class="st">"class"</span>, </span>
-<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a>  <span class="st">"satisfaction_v2"</span></span>
-<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste condicional por si 'flight_cancelled' existe como columna independiente</span></span>
-<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"flight_cancelled"</span> <span class="sc">%in%</span> <span class="fu">names</span>(datos)) {</span>
-<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a>  cols_categoricas <span class="ot">&lt;-</span> <span class="fu">c</span>(cols_categoricas, <span class="st">"flight_cancelled"</span>)</span>
-<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
-<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(cols_categoricas), as.factor))</span>
-<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tratamiento de variables no informativas</span></span>
-<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a>Durante la inspección inicial se identifica la variable <span class="in">`id`</span>. Dado que se trata únicamente de un identificador administrativo de fila para cada encuesta y carece de valor predictivo o causal respecto a la satisfacción de los clientes, se procede a su exclusión antes de iniciar el análisis exploratorio para evitar ruido, correlaciones espurias o sesgos en el modelado.</span>
-<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminación del identificador para todo el flujo de trabajo</span></span>
-<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span> </span>
-<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id)</span>
-<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a><span class="fu">## Particion de los datos</span></span>
-<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a>Dado el gran volumen de observaciones disponibles (129.880 registros), optamos por reservar una muestra estratificada representativa para el modelado y exploración, manteniendo la mayor parte de las observaciones para la evaluación final:</span>
-<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Entrenamiento (Train, 10%):** 12.989 observaciones. Sobre este conjunto realizamos de forma íntegra el análisis exploratorio de datos (EDA), la auditoría de valores atípicos y las transformaciones.</span>
-<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Prueba (Test, 13,5% del total):** 17.534 observaciones (obtenidas como el 15% del conjunto restante tras extraer train). Reservada para contrastar alternativas y calibrar hiperparámetros.</span>
-<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Validación (Validación/Producción, 76,5% del total):** 99.357 observaciones. Se preserva intacta para simular el comportamiento del modelo final ante datos no observados en un entorno real de producción.</span>
-<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6004</span>)</span>
-<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a><span class="co"># 10% para el conjunto de entrenamiento</span></span>
-<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a>idx_train <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(datos<span class="sc">$</span>satisfaction_v2, <span class="at">p =</span> <span class="fl">0.1</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> datos[idx_train, ]</span>
-<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a>test_valid <span class="ot">&lt;-</span> datos[<span class="sc">-</span>idx_train, ]</span>
-<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="co"># 15% del resto para el conjunto de prueba</span></span>
-<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a>idx_test <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(test_valid<span class="sc">$</span>satisfaction_v2, <span class="at">p =</span> <span class="fl">0.15</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> test_valid[idx_test, ]</span>
-<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a>valid <span class="ot">&lt;-</span> test_valid[<span class="sc">-</span>idx_test, ]</span>
-<span id="cb21-175"><a href="#cb21-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-176"><a href="#cb21-176" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(train)</span>
-<span id="cb21-177"><a href="#cb21-177" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(test)</span>
-<span id="cb21-178"><a href="#cb21-178" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(valid)</span>
-<span id="cb21-179"><a href="#cb21-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-180"><a href="#cb21-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-181"><a href="#cb21-181" aria-hidden="true" tabindex="-1"></a>A partir de ahora trabajamos únicamente con train. Sobre train haremos todo el análisis exploratorio de datos. Usaremos test para ir evaluando y estudiando la</span>
-<span id="cb21-182"><a href="#cb21-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-183"><a href="#cb21-183" aria-hidden="true" tabindex="-1"></a><span class="fu">## Planteamiento inicial</span></span>
-<span id="cb21-184"><a href="#cb21-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-185"><a href="#cb21-185" aria-hidden="true" tabindex="-1"></a>El objetivo de este Análisis Exploratorio de Datos (EDA) es examinar la estructura de las variables, evaluar la calidad de los datos y detectar patrones relevantes en el comportamiento de los pasajeros antes de abordar tareas de modelado predictivo. </span>
-<span id="cb21-186"><a href="#cb21-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-187"><a href="#cb21-187" aria-hidden="true" tabindex="-1"></a>Para ello, sobre la muestra de entrenamiento (<span class="in">`train`</span>) se abordarán las siguientes fases:</span>
-<span id="cb21-188"><a href="#cb21-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-189"><a href="#cb21-189" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Auditoría de integridad y calidad del dato:**</span>
-<span id="cb21-190"><a href="#cb21-190" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Detección de posibles valores ausentes (<span class="in">`NA`</span>) y definición razonada de su tratamiento.</span>
-<span id="cb21-191"><a href="#cb21-191" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Inspección del valor 0 en las valoraciones de servicios (evaluar si denota servicio no contratado/no aplicable o la mínima satisfacción).</span>
-<span id="cb21-192"><a href="#cb21-192" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (<span class="in">`flight_distance`</span> y minutos de retraso).</span>
-<span id="cb21-193"><a href="#cb21-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-194"><a href="#cb21-194" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Análisis Univariante:**</span>
-<span id="cb21-195"><a href="#cb21-195" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Estudio del balance de la variable respuesta (<span class="in">`satisfaction_v2`</span>)<span class="co">[</span><span class="ot">cite: 1, 8</span><span class="co">]</span>.</span>
-<span id="cb21-196"><a href="#cb21-196" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Distribución de las características demográficas de los clientes (<span class="in">`age`</span>, <span class="in">`gender`</span>) y de los vuelos (<span class="in">`class`</span>, <span class="in">`type_of_travel`</span>, <span class="in">`customer_type`</span>).</span>
-<span id="cb21-197"><a href="#cb21-197" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Análisis de frecuencias de las escalas de satisfacción de los 13 servicios evaluados.</span>
-<span id="cb21-198"><a href="#cb21-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-199"><a href="#cb21-199" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Análisis Bivariante y Multivariante:**</span>
-<span id="cb21-200"><a href="#cb21-200" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Relación entre la satisfacción global y las variables clave del viaje (<span class="in">`class`</span>, <span class="in">`type_of_travel`</span>).</span>
-<span id="cb21-201"><a href="#cb21-201" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Comparación del peso de los retrasos operativos frente al confort a bordo.</span>
-<span id="cb21-202"><a href="#cb21-202" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Estudio de correlaciones entre las distintas valoraciones de servicio.</span>
-<span id="cb21-203"><a href="#cb21-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-204"><a href="#cb21-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preguntas de partida</span></span>
-<span id="cb21-205"><a href="#cb21-205" aria-hidden="true" tabindex="-1"></a>Para guiar la exploración analítica y contrastar hipótesis concretas sobre el comportamiento de los clientes, se formulan las siguientes preguntas de partida:</span>
-<span id="cb21-206"><a href="#cb21-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-207"><a href="#cb21-207" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P1 (Operatividad vs. Experiencia):** ¿Son los retrasos en salida y llegada el principal desencadenante de la insatisfacción del pasajero, o tiene un impacto más determinante el confort dentro de la cabina (<span class="in">`seat_comfort`</span>, <span class="in">`cleanliness`</span>)?</span>
-<span id="cb21-208"><a href="#cb21-208" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P2 (Segmentación de viaje):** ¿Existe una diferencia sustancial en la satisfacción de los clientes al contrastar según el motivo de vuelo (<span class="in">`type_of_travel`</span>: negocios vs. personal) y la cabina (<span class="in">`class`</span>: Business vs. Eco)?</span>
-<span id="cb21-209"><a href="#cb21-209" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P3 (Servicios digitales y fidelización):** ¿Qué servicios asociados a la tecnología (<span class="in">`inflight_wifi_service`</span>, <span class="in">`online_boarding`</span>, <span class="in">`online_support`</span>) tienen una relación más estrecha con la lealtad del cliente (<span class="in">`customer_type`</span>)?</span>
-<span id="cb21-210"><a href="#cb21-210" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P4 (Demografía):** ¿Varía de forma significativa el grado de exigencia o satisfacción global en función de la edad o el género del pasajero?</span>
-<span id="cb21-211"><a href="#cb21-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-212"><a href="#cb21-212" aria-hidden="true" tabindex="-1"></a><span class="fu">## Proceso de exploración</span></span>
-<span id="cb21-213"><a href="#cb21-213" aria-hidden="true" tabindex="-1"></a><span class="fu">### 1. Auditoría de valores ausentes (NAs) en Train</span></span>
-<span id="cb21-214"><a href="#cb21-214" aria-hidden="true" tabindex="-1"></a>Comprobamos si existen observaciones incompletas y en qué variables se concentran:</span>
-<span id="cb21-215"><a href="#cb21-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-218"><a href="#cb21-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-219"><a href="#cb21-219" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: auditoria-nas</span></span>
-<span id="cb21-220"><a href="#cb21-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-221"><a href="#cb21-221" aria-hidden="true" tabindex="-1"></a><span class="co"># Conteo y porcentaje de NAs por columna</span></span>
-<span id="cb21-222"><a href="#cb21-222" aria-hidden="true" tabindex="-1"></a>na_resumen <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
-<span id="cb21-223"><a href="#cb21-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
-<span id="cb21-224"><a href="#cb21-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"n_nas"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-225"><a href="#cb21-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_nas <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-226"><a href="#cb21-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> (n_nas <span class="sc">/</span> <span class="fu">nrow</span>(train)) <span class="sc">*</span> <span class="dv">100</span>)</span>
-<span id="cb21-227"><a href="#cb21-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-228"><a href="#cb21-228" aria-hidden="true" tabindex="-1"></a>na_resumen</span>
-<span id="cb21-229"><a href="#cb21-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-230"><a href="#cb21-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-231"><a href="#cb21-231" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2. Inspección del valor 0 en las valoraciones del servicio</span></span>
-<span id="cb21-232"><a href="#cb21-232" aria-hidden="true" tabindex="-1"></a>Las variables de encuesta van teóricamente del 1 al 5; revisamos la frecuencia del valor 0 (que indica servicio no contratado o no aplicable):</span>
-<span id="cb21-233"><a href="#cb21-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-236"><a href="#cb21-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-237"><a href="#cb21-237" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ceros-servicios</span></span>
-<span id="cb21-238"><a href="#cb21-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-239"><a href="#cb21-239" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos las columnas de valoración del servicio y contamos cuántos ceros presentan</span></span>
-<span id="cb21-240"><a href="#cb21-240" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&gt;%</span></span>
-<span id="cb21-241"><a href="#cb21-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(seat_comfort<span class="sc">:</span>cleanliness) <span class="sc">%&gt;%</span></span>
-<span id="cb21-242"><a href="#cb21-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(. <span class="sc">==</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb21-243"><a href="#cb21-243" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"servicio"</span>, <span class="at">values_to =</span> <span class="st">"conteo_ceros"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-244"><a href="#cb21-244" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(conteo_ceros))</span>
-<span id="cb21-245"><a href="#cb21-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-246"><a href="#cb21-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-247"><a href="#cb21-247" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3. Asimetrías y valores atípicos en variables numéricas</span></span>
-<span id="cb21-248"><a href="#cb21-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-249"><a href="#cb21-249" aria-hidden="true" tabindex="-1"></a>Analizamos el rango, dispersión y posible presencia de valores extremos en la distancia y los retrasos mediante estadísticos descriptivos (<span class="in">`summary`</span>) y representaciones gráficas:</span>
-<span id="cb21-250"><a href="#cb21-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-253"><a href="#cb21-253" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-254"><a href="#cb21-254" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: asimetrias-atipicos</span></span>
-<span id="cb21-255"><a href="#cb21-255" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
-<span id="cb21-256"><a href="#cb21-256" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb21-257"><a href="#cb21-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-258"><a href="#cb21-258" aria-hidden="true" tabindex="-1"></a><span class="co"># Estadísticos resumen de las variables cuantitativas continuas</span></span>
-<span id="cb21-259"><a href="#cb21-259" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&gt;%</span></span>
-<span id="cb21-260"><a href="#cb21-260" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(flight_distance, departure_delay_in_minutes, arrival_delay_in_minutes) <span class="sc">%&gt;%</span></span>
-<span id="cb21-261"><a href="#cb21-261" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span>
-<span id="cb21-262"><a href="#cb21-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-263"><a href="#cb21-263" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma de distancia de vuelo</span></span>
-<span id="cb21-264"><a href="#cb21-264" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> flight_distance)) <span class="sc">+</span></span>
-<span id="cb21-265"><a href="#cb21-265" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb21-266"><a href="#cb21-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb21-267"><a href="#cb21-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-268"><a href="#cb21-268" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Distancia de Vuelo"</span>,</span>
-<span id="cb21-269"><a href="#cb21-269" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distancia"</span>,</span>
-<span id="cb21-270"><a href="#cb21-270" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
-<span id="cb21-271"><a href="#cb21-271" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb21-272"><a href="#cb21-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-273"><a href="#cb21-273" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de caja para los retrasos (detección de outliers y asimetría a la derecha)</span></span>
-<span id="cb21-274"><a href="#cb21-274" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> departure_delay_in_minutes)) <span class="sc">+</span></span>
-<span id="cb21-275"><a href="#cb21-275" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb21-276"><a href="#cb21-276" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb21-277"><a href="#cb21-277" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-278"><a href="#cb21-278" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja: Retraso en la Salida (minutos)"</span>,</span>
-<span id="cb21-279"><a href="#cb21-279" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Minutos de retraso"</span></span>
-<span id="cb21-280"><a href="#cb21-280" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb21-281"><a href="#cb21-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-282"><a href="#cb21-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-283"><a href="#cb21-283" aria-hidden="true" tabindex="-1"></a>De la inspección descriptiva y gráfica de estas variables cuantitativas se extraen las siguientes conclusiones:</span>
-<span id="cb21-284"><a href="#cb21-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-285"><a href="#cb21-285" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Distancia de vuelo (`flight_distance`):** Presenta una distribución asimétrica a la derecha con dos concentraciones claras: una masa predominante de vuelos de corta distancia (inferiores a 1.000 millas) y un segundo grupo en trayectos medios (entre 1.800 y 2.500 millas). El máximo se sitúa en 6.598 millas.</span>
-<span id="cb21-286"><a href="#cb21-286" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Retrasos operativos (`departure_delay_in_minutes` y `arrival_delay_in_minutes`):** Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).</span>
-<span id="cb21-287"><a href="#cb21-287" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-288"><a href="#cb21-288" aria-hidden="true" tabindex="-1"></a>Siguiendo esta directriz metodológica y la recomendación de John Fox para variables con rangos que abarcan varios órdenes de magnitud, aplicamos una transformación logarítmica. Dado que la variable contiene ceros (vuelos sin retraso), empleamos la transformación $\log(x + 1)$ (función log1p() en R) para evitar indeterminaciones matemáticas: </span>
-<span id="cb21-289"><a href="#cb21-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-292"><a href="#cb21-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-293"><a href="#cb21-293" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: boxplot-retraso-log</span></span>
-<span id="cb21-294"><a href="#cb21-294" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
-<span id="cb21-295"><a href="#cb21-295" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb21-296"><a href="#cb21-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-297"><a href="#cb21-297" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">log1p</span>(departure_delay_in_minutes))) <span class="sc">+</span></span>
-<span id="cb21-298"><a href="#cb21-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb21-299"><a href="#cb21-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb21-300"><a href="#cb21-300" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-301"><a href="#cb21-301" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja Transformado: Retraso en la Salida (log(minutos + 1))"</span>,</span>
-<span id="cb21-302"><a href="#cb21-302" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"log(Minutos de retraso + 1)"</span></span>
-<span id="cb21-303"><a href="#cb21-303" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb21-304"><a href="#cb21-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-305"><a href="#cb21-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-306"><a href="#cb21-306" aria-hidden="true" tabindex="-1"></a>Con la escala logarítmica la dispersión de los datos queda estabilizada y el rango intercuartílico se expande visualmente, permitiendo distinguir la estructura de las demoras y evaluar con mayor claridad la separación entre los vuelos puntuales y aquellos con retrasos significativos.</span>
-<span id="cb21-307"><a href="#cb21-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-308"><a href="#cb21-308" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4. Distribución de la variable objetivo y características de los pasajeros</span></span>
-<span id="cb21-309"><a href="#cb21-309" aria-hidden="true" tabindex="-1"></a>Antes de estudiar relaciones cruzadas, analizamos la proporción de la variable de salida y la distribución de los clientes según su edad, género y fidelidad en la muestra de entrenamiento (<span class="in">`train`</span>):</span>
-<span id="cb21-310"><a href="#cb21-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-313"><a href="#cb21-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-314"><a href="#cb21-314" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: univariante-objetivo-demografia</span></span>
-<span id="cb21-315"><a href="#cb21-315" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
-<span id="cb21-316"><a href="#cb21-316" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.5</span></span>
-<span id="cb21-317"><a href="#cb21-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-318"><a href="#cb21-318" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb21-319"><a href="#cb21-319" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
-<span id="cb21-320"><a href="#cb21-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-321"><a href="#cb21-321" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Gráfico de la variable objetivo con frecuencias relativas y recuentos</span></span>
-<span id="cb21-322"><a href="#cb21-322" aria-hidden="true" tabindex="-1"></a>p_target <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> satisfaction_v2, <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
-<span id="cb21-323"><a href="#cb21-323" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">width =</span> <span class="fl">0.55</span>) <span class="sc">+</span></span>
-<span id="cb21-324"><a href="#cb21-324" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb21-325"><a href="#cb21-325" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
-<span id="cb21-326"><a href="#cb21-326" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count)),</span>
-<span id="cb21-327"><a href="#cb21-327" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">after_stat</span>(count), <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, <span class="fu">percent</span>(<span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count)), <span class="at">accuracy =</span> <span class="fl">0.1</span>), <span class="st">")"</span>)</span>
-<span id="cb21-328"><a href="#cb21-328" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb21-329"><a href="#cb21-329" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> <span class="st">"count"</span>,</span>
-<span id="cb21-330"><a href="#cb21-330" aria-hidden="true" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.3</span>,</span>
-<span id="cb21-331"><a href="#cb21-331" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span></span>
-<span id="cb21-332"><a href="#cb21-332" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-333"><a href="#cb21-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.68</span>)) <span class="sc">+</span></span>
-<span id="cb21-334"><a href="#cb21-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-335"><a href="#cb21-335" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Variable Objetivo en Train"</span>,</span>
-<span id="cb21-336"><a href="#cb21-336" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Nivel de Satisfacción"</span>,</span>
-<span id="cb21-337"><a href="#cb21-337" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia Relativa"</span></span>
-<span id="cb21-338"><a href="#cb21-338" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-339"><a href="#cb21-339" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb21-340"><a href="#cb21-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-341"><a href="#cb21-341" aria-hidden="true" tabindex="-1"></a>p_target</span>
-<span id="cb21-342"><a href="#cb21-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-343"><a href="#cb21-343" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Distribución de la edad de los pasajeros (estilo temario con binwidth = 5)</span></span>
-<span id="cb21-344"><a href="#cb21-344" aria-hidden="true" tabindex="-1"></a>p_edad <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span></span>
-<span id="cb21-345"><a href="#cb21-345" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">fill =</span> <span class="st">"cadetblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb21-346"><a href="#cb21-346" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(age)), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb21-347"><a href="#cb21-347" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb21-348"><a href="#cb21-348" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Edad de los Pasajeros"</span>,</span>
-<span id="cb21-349"><a href="#cb21-349" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"La línea discontinua roja indica la mediana"</span>,</span>
-<span id="cb21-350"><a href="#cb21-350" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Edad (años)"</span>,</span>
-<span id="cb21-351"><a href="#cb21-351" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
-<span id="cb21-352"><a href="#cb21-352" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb21-353"><a href="#cb21-353" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb21-354"><a href="#cb21-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-355"><a href="#cb21-355" aria-hidden="true" tabindex="-1"></a>p_edad</span>
-<span id="cb21-356"><a href="#cb21-356" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-357"><a href="#cb21-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-358"><a href="#cb21-358" aria-hidden="true" tabindex="-1"></a>**Interpretación y conclusiones del análisis univariante:**</span>
-<span id="cb21-359"><a href="#cb21-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-360"><a href="#cb21-360" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Variable objetivo (`satisfaction_v2`):** La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados). Al no existir un desbalanceo severo entre clases, no será necesario recurrir a técnicas de remuestreo (como sobremuestreo o submuestreo) en las etapas posteriores de modelado supervisado.</span>
-<span id="cb21-361"><a href="#cb21-361" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Distribución demográfica de la edad (`age`):** La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que hace pertinente contrastar si la edad modula la exigencia y el nivel de satisfacción final con el servicio.</span>
-<span id="cb21-362"><a href="#cb21-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-363"><a href="#cb21-363" aria-hidden="true" tabindex="-1"></a><span class="fu">## Principales hallazgos y conclusiones</span></span>
-<span id="cb21-364"><a href="#cb21-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-365"><a href="#cb21-365" aria-hidden="true" tabindex="-1"></a><span class="fu">## Uso de la inteligencia artificial</span></span>
-<span id="cb21-366"><a href="#cb21-366" aria-hidden="true" tabindex="-1"></a></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Estudio Predictivo de Satisfacción de Vuelos"</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Laura López, Gabriela Súñer y Paula Arroyo"</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: journal</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 4</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-location: left</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-title: "Menú desplegable"</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introducción </span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>El principal objetivo de este estudio va a ser predecir la satisfacción de los clientes con una aerolínea (no especificada) en función de su género, su lealtad, su edad, su objetivo de vuelo, la distancia de este, ...</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Datos </span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>Los datos fueron recogidos de la página web <span class="co">[</span><span class="ot">Kaggle</span><span class="co">](https://www.kaggle.com/datasets/johndddddd/customer-satisfaction)</span> y la procedencia no está esfecificada pero se indica que son datos reales de una aerolínea.</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>Hay un total de 129.880 encuestados (filas) y 24 variables (columnas).</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>Las variables son las siguientes:</span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Satisfacción: Nivel de satisfacción con la aerolínea (Satisfacción, neutralidad o insatisfacción)</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Edad: La edad de los pasajeros</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Género: Género de los pasajeros (Femenino, Masculino)</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tipo de viaje: Propósito del vuelo de los pasajeros (Viaje personal, Viaje de negocios)</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Clase: Clase de viaje en el avión de los pasajeros (Business, Eco, Eco Plus)</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tipo de cliente: El tipo de cliente (cliente fiel, cliente desleal)</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Distancia de vuelo: La distancia de vuelo de este viaje</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio de wifi a bordo: Nivel de satisfacción con el servicio de wifi a bordo (0 en caso de no haberlo contratado, o del 1 al 5 en orden ascendente de satisfacción)</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Retraso en la salida en minutos: Minutos de retraso en la salida</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Retraso en la llegada en minutos: Minutos de retraso en la llegada</span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Vuelo cancelado: Si el vuelo fue cancelado o no (Sí, No)</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Tiempo de vuelo en minutos: Minutos de vuelo</span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>Las siguientes variables corresponden a preguntas de valoración del servicio y se miden en una escala ordinal de **1 a 5** (donde 1 representa la mínima satisfacción y 5 la máxima), figurando el valor **0** en aquellos casos en los que el servicio no fue contratado o no resultaba aplicable:</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Facilidad de reserva en línea: Nivel de satisfacción con la reserva en línea</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio a bordo: Nivel de satisfacción con el servicio a bordo</span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Embarque en línea: Nivel de satisfacción con el embarque en línea</span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Entretenimiento a bordo: Nivel de satisfacción con el entretenimiento a bordo</span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-69"><a href="#cb26-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comida y bebida: Nivel de satisfacción con la comida y la bebida.</span>
+<span id="cb26-70"><a href="#cb26-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-71"><a href="#cb26-71" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Comodidad del asiento: Nivel de satisfacción con la comodidad del asiento</span>
+<span id="cb26-72"><a href="#cb26-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-73"><a href="#cb26-73" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Soporte en línea: Nivel de satisfacción con el soporte en línea.</span>
+<span id="cb26-74"><a href="#cb26-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-75"><a href="#cb26-75" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio de espacio para las piernas: Nivel de satisfacción del servicio de espacio para las piernas</span>
+<span id="cb26-76"><a href="#cb26-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-77"><a href="#cb26-77" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Horario de salida/llegada conveniente: Nivel de satisfacción con el horario de salida/llegada conveniente</span>
+<span id="cb26-78"><a href="#cb26-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-79"><a href="#cb26-79" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Manejo de equipaje: Nivel de satisfacción con el manejo de equipaje</span>
+<span id="cb26-80"><a href="#cb26-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-81"><a href="#cb26-81" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ubicación de la puerta: Nivel de satisfacción con la ubicación de la puerta</span>
+<span id="cb26-82"><a href="#cb26-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-83"><a href="#cb26-83" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Limpieza: Nivel de satisfacción con la limpieza</span>
+<span id="cb26-84"><a href="#cb26-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-85"><a href="#cb26-85" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Servicio de registro: Nivel de satisfacción del servicio de registro</span>
+<span id="cb26-86"><a href="#cb26-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-87"><a href="#cb26-87" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preparación y partición de los datos</span></span>
+<span id="cb26-88"><a href="#cb26-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-89"><a href="#cb26-89" aria-hidden="true" tabindex="-1"></a>Antes de proceder a la división de los datos, verificamos la estructura interna del conjunto original, la consistencia de los nombres de las variables y el tipo asignado a cada columna.</span>
+<span id="cb26-90"><a href="#cb26-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-93"><a href="#cb26-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-94"><a href="#cb26-94" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: exploracion-tipos</span></span>
+<span id="cb26-95"><a href="#cb26-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-96"><a href="#cb26-96" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb26-97"><a href="#cb26-97" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb26-98"><a href="#cb26-98" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb26-99"><a href="#cb26-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-100"><a href="#cb26-100" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"datos.Rdata"</span>)</span>
+<span id="cb26-101"><a href="#cb26-101" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(datos)</span>
+<span id="cb26-102"><a href="#cb26-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-103"><a href="#cb26-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-104"><a href="#cb26-104" aria-hidden="true" tabindex="-1"></a>La dimensión del conjunto de datos original es la siguiente, indicando el número total de observaciones (filas) y de variables (columnas):</span>
+<span id="cb26-107"><a href="#cb26-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-108"><a href="#cb26-108" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(datos)</span>
+<span id="cb26-109"><a href="#cb26-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-110"><a href="#cb26-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-111"><a href="#cb26-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-114"><a href="#cb26-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-115"><a href="#cb26-115" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: preparacion-tipos</span></span>
+<span id="cb26-116"><a href="#cb26-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-117"><a href="#cb26-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Convertimos a tibble y estandarizamos nombres a minúsculas y guiones bajos (snake_case)</span></span>
+<span id="cb26-118"><a href="#cb26-118" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(datos) <span class="sc">%&gt;%</span></span>
+<span id="cb26-119"><a href="#cb26-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span>
+<span id="cb26-120"><a href="#cb26-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-121"><a href="#cb26-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-122"><a href="#cb26-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Conversión a factores de las variables categóricas</span></span>
+<span id="cb26-123"><a href="#cb26-123" aria-hidden="true" tabindex="-1"></a>cols_categoricas <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb26-124"><a href="#cb26-124" aria-hidden="true" tabindex="-1"></a>  <span class="st">"gender"</span>, </span>
+<span id="cb26-125"><a href="#cb26-125" aria-hidden="true" tabindex="-1"></a>  <span class="st">"customer_type"</span>, </span>
+<span id="cb26-126"><a href="#cb26-126" aria-hidden="true" tabindex="-1"></a>  <span class="st">"type_of_travel"</span>, </span>
+<span id="cb26-127"><a href="#cb26-127" aria-hidden="true" tabindex="-1"></a>  <span class="st">"class"</span>, </span>
+<span id="cb26-128"><a href="#cb26-128" aria-hidden="true" tabindex="-1"></a>  <span class="st">"satisfaction_v2"</span></span>
+<span id="cb26-129"><a href="#cb26-129" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-130"><a href="#cb26-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-131"><a href="#cb26-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste condicional por si 'flight_cancelled' existe como columna independiente</span></span>
+<span id="cb26-132"><a href="#cb26-132" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">"flight_cancelled"</span> <span class="sc">%in%</span> <span class="fu">names</span>(datos)) {</span>
+<span id="cb26-133"><a href="#cb26-133" aria-hidden="true" tabindex="-1"></a>  cols_categoricas <span class="ot">&lt;-</span> <span class="fu">c</span>(cols_categoricas, <span class="st">"flight_cancelled"</span>)</span>
+<span id="cb26-134"><a href="#cb26-134" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-135"><a href="#cb26-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-136"><a href="#cb26-136" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span></span>
+<span id="cb26-137"><a href="#cb26-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">all_of</span>(cols_categoricas), as.factor))</span>
+<span id="cb26-138"><a href="#cb26-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-139"><a href="#cb26-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-140"><a href="#cb26-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-141"><a href="#cb26-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Tratamiento de variables no informativas</span></span>
+<span id="cb26-142"><a href="#cb26-142" aria-hidden="true" tabindex="-1"></a>Durante la inspección inicial se identifica la variable <span class="in">`id`</span>. Dado que se trata únicamente de un identificador administrativo de fila para cada encuesta y carece de valor predictivo o causal respecto a la satisfacción de los clientes, se procede a su exclusión antes de iniciar el análisis exploratorio para evitar ruido, correlaciones espurias o sesgos en el modelado.</span>
+<span id="cb26-143"><a href="#cb26-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-146"><a href="#cb26-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-147"><a href="#cb26-147" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminación del identificador para todo el flujo de trabajo</span></span>
+<span id="cb26-148"><a href="#cb26-148" aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> datos <span class="sc">%&gt;%</span> </span>
+<span id="cb26-149"><a href="#cb26-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>id)</span>
+<span id="cb26-150"><a href="#cb26-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-151"><a href="#cb26-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-152"><a href="#cb26-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-153"><a href="#cb26-153" aria-hidden="true" tabindex="-1"></a><span class="fu">## Particion de los datos</span></span>
+<span id="cb26-154"><a href="#cb26-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-155"><a href="#cb26-155" aria-hidden="true" tabindex="-1"></a>Dado el gran volumen de observaciones disponibles (129.880 registros), optamos por reservar una muestra estratificada representativa para el modelado y exploración, manteniendo la mayor parte de las observaciones para la evaluación final:</span>
+<span id="cb26-156"><a href="#cb26-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-157"><a href="#cb26-157" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Entrenamiento (Train, 10%):** 12.989 observaciones. Sobre este conjunto realizamos de forma íntegra el análisis exploratorio de datos (EDA), la auditoría de valores atípicos y las transformaciones.</span>
+<span id="cb26-158"><a href="#cb26-158" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Prueba (Test, 13,5% del total):** 17.534 observaciones (obtenidas como el 15% del conjunto restante tras extraer train). Reservada para contrastar alternativas y calibrar hiperparámetros.</span>
+<span id="cb26-159"><a href="#cb26-159" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Validación (Validación/Producción, 76,5% del total):** 99.357 observaciones. Se preserva intacta para simular el comportamiento del modelo final ante datos no observados en un entorno real de producción.</span>
+<span id="cb26-160"><a href="#cb26-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-163"><a href="#cb26-163" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-164"><a href="#cb26-164" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb26-165"><a href="#cb26-165" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6004</span>)</span>
+<span id="cb26-166"><a href="#cb26-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-167"><a href="#cb26-167" aria-hidden="true" tabindex="-1"></a><span class="co"># 10% para el conjunto de entrenamiento</span></span>
+<span id="cb26-168"><a href="#cb26-168" aria-hidden="true" tabindex="-1"></a>idx_train <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(datos<span class="sc">$</span>satisfaction_v2, <span class="at">p =</span> <span class="fl">0.1</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-169"><a href="#cb26-169" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> datos[idx_train, ]</span>
+<span id="cb26-170"><a href="#cb26-170" aria-hidden="true" tabindex="-1"></a>test_valid <span class="ot">&lt;-</span> datos[<span class="sc">-</span>idx_train, ]</span>
+<span id="cb26-171"><a href="#cb26-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-172"><a href="#cb26-172" aria-hidden="true" tabindex="-1"></a><span class="co"># 15% del resto para el conjunto de prueba</span></span>
+<span id="cb26-173"><a href="#cb26-173" aria-hidden="true" tabindex="-1"></a>idx_test <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(test_valid<span class="sc">$</span>satisfaction_v2, <span class="at">p =</span> <span class="fl">0.15</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-174"><a href="#cb26-174" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> test_valid[idx_test, ]</span>
+<span id="cb26-175"><a href="#cb26-175" aria-hidden="true" tabindex="-1"></a>valid <span class="ot">&lt;-</span> test_valid[<span class="sc">-</span>idx_test, ]</span>
+<span id="cb26-176"><a href="#cb26-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-177"><a href="#cb26-177" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(train)</span>
+<span id="cb26-178"><a href="#cb26-178" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(test)</span>
+<span id="cb26-179"><a href="#cb26-179" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(valid)</span>
+<span id="cb26-180"><a href="#cb26-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-181"><a href="#cb26-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-182"><a href="#cb26-182" aria-hidden="true" tabindex="-1"></a>A partir de ahora trabajamos únicamente con train. Sobre train haremos todo el análisis exploratorio de datos. Usaremos test para ir evaluando y estudiando la</span>
+<span id="cb26-183"><a href="#cb26-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-184"><a href="#cb26-184" aria-hidden="true" tabindex="-1"></a><span class="fu">## Planteamiento inicial</span></span>
+<span id="cb26-185"><a href="#cb26-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-186"><a href="#cb26-186" aria-hidden="true" tabindex="-1"></a>El objetivo de este Análisis Exploratorio de Datos (EDA) es examinar la estructura de las variables, evaluar la calidad de los datos y detectar patrones relevantes en el comportamiento de los pasajeros antes de abordar tareas de modelado predictivo. </span>
+<span id="cb26-187"><a href="#cb26-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-188"><a href="#cb26-188" aria-hidden="true" tabindex="-1"></a>Para ello, sobre la muestra de entrenamiento (<span class="in">`train`</span>) se abordarán las siguientes fases:</span>
+<span id="cb26-189"><a href="#cb26-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-190"><a href="#cb26-190" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Auditoría de integridad y calidad del dato:**</span>
+<span id="cb26-191"><a href="#cb26-191" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Detección de posibles valores ausentes (<span class="in">`NA`</span>) y definición razonada de su tratamiento.</span>
+<span id="cb26-192"><a href="#cb26-192" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Inspección del valor 0 en las valoraciones de servicios (evaluar si denota servicio no contratado/no aplicable o la mínima satisfacción).</span>
+<span id="cb26-193"><a href="#cb26-193" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (<span class="in">`flight_distance`</span> y minutos de retraso).</span>
+<span id="cb26-194"><a href="#cb26-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-195"><a href="#cb26-195" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Análisis Univariante:**</span>
+<span id="cb26-196"><a href="#cb26-196" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Estudio del balance de la variable respuesta (<span class="in">`satisfaction_v2`</span>)<span class="co">[</span><span class="ot">cite: 1, 8</span><span class="co">]</span>.</span>
+<span id="cb26-197"><a href="#cb26-197" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Distribución de las características demográficas de los clientes (<span class="in">`age`</span>, <span class="in">`gender`</span>) y de los vuelos (<span class="in">`class`</span>, <span class="in">`type_of_travel`</span>, <span class="in">`customer_type`</span>).</span>
+<span id="cb26-198"><a href="#cb26-198" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Análisis de frecuencias de las escalas de satisfacción de los 13 servicios evaluados.</span>
+<span id="cb26-199"><a href="#cb26-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-200"><a href="#cb26-200" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Análisis Bivariante y Multivariante:**</span>
+<span id="cb26-201"><a href="#cb26-201" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Relación entre la satisfacción global y las variables clave del viaje (<span class="in">`class`</span>, <span class="in">`type_of_travel`</span>).</span>
+<span id="cb26-202"><a href="#cb26-202" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Comparación del peso de los retrasos operativos frente al confort a bordo.</span>
+<span id="cb26-203"><a href="#cb26-203" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Estudio de correlaciones entre las distintas valoraciones de servicio.</span>
+<span id="cb26-204"><a href="#cb26-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-205"><a href="#cb26-205" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preguntas de partida</span></span>
+<span id="cb26-206"><a href="#cb26-206" aria-hidden="true" tabindex="-1"></a>Para guiar la exploración analítica y contrastar hipótesis concretas sobre el comportamiento de los clientes, se formulan las siguientes preguntas de partida:</span>
+<span id="cb26-207"><a href="#cb26-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-208"><a href="#cb26-208" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P1 (Operatividad vs. Experiencia):** ¿Son los retrasos en salida y llegada el principal desencadenante de la insatisfacción del pasajero, o tiene un impacto más determinante el confort dentro de la cabina (<span class="in">`seat_comfort`</span>, <span class="in">`cleanliness`</span>)?</span>
+<span id="cb26-209"><a href="#cb26-209" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P2 (Segmentación de viaje):** ¿Existe una diferencia sustancial en la satisfacción de los clientes al contrastar según el motivo de vuelo (<span class="in">`type_of_travel`</span>: negocios vs. personal) y la cabina (<span class="in">`class`</span>: Business vs. Eco)?</span>
+<span id="cb26-210"><a href="#cb26-210" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P3 (Servicios digitales y fidelización):** ¿Qué servicios asociados a la tecnología (<span class="in">`inflight_wifi_service`</span>, <span class="in">`online_boarding`</span>, <span class="in">`online_support`</span>) tienen una relación más estrecha con la lealtad del cliente (<span class="in">`customer_type`</span>)?</span>
+<span id="cb26-211"><a href="#cb26-211" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**P4 (Demografía):** ¿Varía de forma significativa el grado de exigencia o satisfacción global en función de la edad o el género del pasajero?</span>
+<span id="cb26-212"><a href="#cb26-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-213"><a href="#cb26-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Proceso de exploración</span></span>
+<span id="cb26-214"><a href="#cb26-214" aria-hidden="true" tabindex="-1"></a><span class="fu">### Auditoría de valores ausentes (NAs) en Train</span></span>
+<span id="cb26-215"><a href="#cb26-215" aria-hidden="true" tabindex="-1"></a>Comprobamos si existen observaciones incompletas y en qué variables se concentran:</span>
+<span id="cb26-216"><a href="#cb26-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-219"><a href="#cb26-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-220"><a href="#cb26-220" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: auditoria-nas</span></span>
+<span id="cb26-221"><a href="#cb26-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-222"><a href="#cb26-222" aria-hidden="true" tabindex="-1"></a><span class="co"># Conteo y porcentaje de NAs por columna</span></span>
+<span id="cb26-223"><a href="#cb26-223" aria-hidden="true" tabindex="-1"></a>na_resumen <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
+<span id="cb26-224"><a href="#cb26-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
+<span id="cb26-225"><a href="#cb26-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"n_nas"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-226"><a href="#cb26-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_nas <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-227"><a href="#cb26-227" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje =</span> (n_nas <span class="sc">/</span> <span class="fu">nrow</span>(train)) <span class="sc">*</span> <span class="dv">100</span>)</span>
+<span id="cb26-228"><a href="#cb26-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-229"><a href="#cb26-229" aria-hidden="true" tabindex="-1"></a>na_resumen</span>
+<span id="cb26-230"><a href="#cb26-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-231"><a href="#cb26-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-232"><a href="#cb26-232" aria-hidden="true" tabindex="-1"></a><span class="fu">### Inspección del valor 0 en las valoraciones del servicio</span></span>
+<span id="cb26-233"><a href="#cb26-233" aria-hidden="true" tabindex="-1"></a>Las variables de encuesta van teóricamente del 1 al 5; revisamos la frecuencia del valor 0 (que indica servicio no contratado o no aplicable):</span>
+<span id="cb26-234"><a href="#cb26-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-237"><a href="#cb26-237" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-238"><a href="#cb26-238" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ceros-servicios</span></span>
+<span id="cb26-239"><a href="#cb26-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-240"><a href="#cb26-240" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos las columnas de valoración del servicio y contamos cuántos ceros presentan</span></span>
+<span id="cb26-241"><a href="#cb26-241" aria-hidden="true" tabindex="-1"></a>train <span class="sc">%&gt;%</span></span>
+<span id="cb26-242"><a href="#cb26-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(seat_comfort<span class="sc">:</span>cleanliness) <span class="sc">%&gt;%</span></span>
+<span id="cb26-243"><a href="#cb26-243" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(. <span class="sc">==</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb26-244"><a href="#cb26-244" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"servicio"</span>, <span class="at">values_to =</span> <span class="st">"conteo_ceros"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-245"><a href="#cb26-245" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(conteo_ceros))</span>
+<span id="cb26-246"><a href="#cb26-246" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-247"><a href="#cb26-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-248"><a href="#cb26-248" aria-hidden="true" tabindex="-1"></a><span class="fu">### Asimetrías y valores atípicos en variables numéricas</span></span>
+<span id="cb26-249"><a href="#cb26-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-250"><a href="#cb26-250" aria-hidden="true" tabindex="-1"></a>Analizamos el rango, dispersión y posible presencia de valores extremos en la distancia y los retrasos mediante estadísticos descriptivos tabulados y representaciones gráficas:</span>
+<span id="cb26-251"><a href="#cb26-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-254"><a href="#cb26-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-255"><a href="#cb26-255" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: asimetrias-atipicos</span></span>
+<span id="cb26-256"><a href="#cb26-256" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
+<span id="cb26-257"><a href="#cb26-257" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb26-258"><a href="#cb26-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-259"><a href="#cb26-259" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb26-260"><a href="#cb26-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-261"><a href="#cb26-261" aria-hidden="true" tabindex="-1"></a>resumen_stats <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
+<span id="cb26-262"><a href="#cb26-262" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(flight_distance, departure_delay_in_minutes, arrival_delay_in_minutes) <span class="sc">%&gt;%</span></span>
+<span id="cb26-263"><a href="#cb26-263" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span>
+<span id="cb26-264"><a href="#cb26-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-265"><a href="#cb26-265" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(resumen_stats, <span class="at">caption =</span> <span class="st">"Estadísticos descriptivos de las variables cuantitativas de vuelo"</span>)</span>
+<span id="cb26-266"><a href="#cb26-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-267"><a href="#cb26-267" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma de distancia de vuelo</span></span>
+<span id="cb26-268"><a href="#cb26-268" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> flight_distance)) <span class="sc">+</span></span>
+<span id="cb26-269"><a href="#cb26-269" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb26-270"><a href="#cb26-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-271"><a href="#cb26-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-272"><a href="#cb26-272" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Distancia de Vuelo"</span>,</span>
+<span id="cb26-273"><a href="#cb26-273" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Distancia"</span>,</span>
+<span id="cb26-274"><a href="#cb26-274" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
+<span id="cb26-275"><a href="#cb26-275" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-276"><a href="#cb26-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-277"><a href="#cb26-277" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de caja para los retrasos (detección de outliers y asimetría a la derecha)</span></span>
+<span id="cb26-278"><a href="#cb26-278" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> departure_delay_in_minutes)) <span class="sc">+</span></span>
+<span id="cb26-279"><a href="#cb26-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb26-280"><a href="#cb26-280" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-281"><a href="#cb26-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-282"><a href="#cb26-282" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja: Retraso en la Salida (minutos)"</span>,</span>
+<span id="cb26-283"><a href="#cb26-283" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Minutos de retraso"</span></span>
+<span id="cb26-284"><a href="#cb26-284" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-285"><a href="#cb26-285" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-286"><a href="#cb26-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-287"><a href="#cb26-287" aria-hidden="true" tabindex="-1"></a>De la inspección descriptiva y gráfica de estas variables cuantitativas se extraen las siguientes conclusiones:</span>
+<span id="cb26-288"><a href="#cb26-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-289"><a href="#cb26-289" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Distancia de vuelo (`flight_distance`):** Presenta una distribución asimétrica a la derecha con dos concentraciones claras: una masa predominante de vuelos de corta distancia (inferiores a 1.000 millas) y un segundo grupo en trayectos medios (entre 1.800 y 2.500 millas). El máximo se sitúa en 6.598 millas.</span>
+<span id="cb26-290"><a href="#cb26-290" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Retraso en la salida (`departure_delay_in_minutes`):** Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).</span>
+<span id="cb26-291"><a href="#cb26-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-292"><a href="#cb26-292" aria-hidden="true" tabindex="-1"></a>Siguiendo esta directriz metodológica y la recomendación de John Fox para variables con rangos que abarcan varios órdenes de magnitud, aplicamos una transformación logarítmica. Dado que la variable contiene ceros (vuelos sin retraso), empleamos la transformación $\log(x + 1)$ (función log1p() en R) para evitar indeterminaciones matemáticas: </span>
+<span id="cb26-293"><a href="#cb26-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-296"><a href="#cb26-296" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-297"><a href="#cb26-297" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: boxplot-retraso-log</span></span>
+<span id="cb26-298"><a href="#cb26-298" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb26-299"><a href="#cb26-299" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb26-300"><a href="#cb26-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-301"><a href="#cb26-301" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">log1p</span>(departure_delay_in_minutes))) <span class="sc">+</span></span>
+<span id="cb26-302"><a href="#cb26-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"pink"</span>, <span class="at">outlier.color =</span> <span class="st">"purple"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb26-303"><a href="#cb26-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-304"><a href="#cb26-304" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-305"><a href="#cb26-305" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Diagrama de Caja Transformado: Retraso en la Salida (log(minutos + 1))"</span>,</span>
+<span id="cb26-306"><a href="#cb26-306" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"log(Minutos de retraso + 1)"</span></span>
+<span id="cb26-307"><a href="#cb26-307" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-308"><a href="#cb26-308" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-309"><a href="#cb26-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-310"><a href="#cb26-310" aria-hidden="true" tabindex="-1"></a>Con la escala logarítmica la dispersión de los datos queda estabilizada y el rango intercuartílico se expande visualmente, permitiendo distinguir la estructura de las demoras y evaluar con mayor claridad la separación entre los vuelos puntuales y aquellos con retrasos significativos.</span>
+<span id="cb26-311"><a href="#cb26-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-312"><a href="#cb26-312" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Relación entre retraso de salida y retraso de llegada</span></span>
+<span id="cb26-313"><a href="#cb26-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-314"><a href="#cb26-314" aria-hidden="true" tabindex="-1"></a>A nivel operativo en la industria aeronáutica, cabe esperar que el retraso en la salida condicione de forma directa el retraso en la llegada, dado que difícilmente un avión puede recuperar en ruta demoras prolongadas producidas antes del despegue. Para contrastar esta hipótesis, evaluar si ambas variables varían de forma conjunta y comprobar si aportan información redundante, recurrimos a dos de las herramientas vistas en la asignatura: el diagrama de dispersión (*scatter plot*) y el coeficiente de correlación lineal de Pearson.</span>
+<span id="cb26-315"><a href="#cb26-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-318"><a href="#cb26-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-319"><a href="#cb26-319" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: relacion-retrasos</span></span>
+<span id="cb26-320"><a href="#cb26-320" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb26-321"><a href="#cb26-321" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.5</span></span>
+<span id="cb26-322"><a href="#cb26-322" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: "center"</span></span>
+<span id="cb26-323"><a href="#cb26-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-324"><a href="#cb26-324" aria-hidden="true" tabindex="-1"></a><span class="co"># Cálculo del coeficiente de Pearson (omitiendo los 41 NAs de llegada)</span></span>
+<span id="cb26-325"><a href="#cb26-325" aria-hidden="true" tabindex="-1"></a>cor_retrasos <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb26-326"><a href="#cb26-326" aria-hidden="true" tabindex="-1"></a>  train<span class="sc">$</span>departure_delay_in_minutes, </span>
+<span id="cb26-327"><a href="#cb26-327" aria-hidden="true" tabindex="-1"></a>  train<span class="sc">$</span>arrival_delay_in_minutes, </span>
+<span id="cb26-328"><a href="#cb26-328" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"complete.obs"</span></span>
+<span id="cb26-329"><a href="#cb26-329" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-330"><a href="#cb26-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-331"><a href="#cb26-331" aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de dispersión con recta de identidad y = x</span></span>
+<span id="cb26-332"><a href="#cb26-332" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> departure_delay_in_minutes, <span class="at">y =</span> arrival_delay_in_minutes)) <span class="sc">+</span></span>
+<span id="cb26-333"><a href="#cb26-333" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">color =</span> <span class="st">"#2c3e50"</span>) <span class="sc">+</span></span>
+<span id="cb26-334"><a href="#cb26-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">slope =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb26-335"><a href="#cb26-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-336"><a href="#cb26-336" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-337"><a href="#cb26-337" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"Retraso en Salida vs. Retraso en Llegada (r = "</span>, <span class="fu">round</span>(cor_retrasos, <span class="dv">3</span>), <span class="st">")"</span>),</span>
+<span id="cb26-338"><a href="#cb26-338" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"La línea discontinua roja representa la recta de identidad (y = x)"</span>,</span>
+<span id="cb26-339"><a href="#cb26-339" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Minutos de retraso en la salida"</span>,</span>
+<span id="cb26-340"><a href="#cb26-340" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Minutos de retraso en la llegada"</span></span>
+<span id="cb26-341"><a href="#cb26-341" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-342"><a href="#cb26-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-343"><a href="#cb26-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-344"><a href="#cb26-344" aria-hidden="true" tabindex="-1"></a>Tal y como se observa en el gráfico, los puntos se concentran de manera casi perfecta a lo largo de la recta de identidad (línea roja discontinua), lo que indica que el tiempo de retraso acumulado en el despegue se reproduce casi idénticamente al aterrizar. Esto queda corroborado cuantitativamente por el coeficiente de correlación de Pearson, cuyo valor ($r = 0.962$) se encuentra sumamente próximo a $+1$. En consecuencia, ambas aportan información redundante, por lo que de cara al modelado predictivo bastará con mantener únicamente una de ellas para prevenir problemas de multicolinealidad.</span>
+<span id="cb26-345"><a href="#cb26-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-346"><a href="#cb26-346" aria-hidden="true" tabindex="-1"></a><span class="fu">### Distribución de la variable objetivo y características de los pasajeros</span></span>
+<span id="cb26-347"><a href="#cb26-347" aria-hidden="true" tabindex="-1"></a>Una vez evaluadas la integridad y las características de las variables operativas cuantitativas, pasamos al análisis univariante de la variable objetivo (<span class="in">`satisfaction_v2`</span>) y de los factores demográficos de los pasajeros en la muestra de entrenamiento (<span class="in">`train`</span>), sentando la base para los contrastes bivariantes con la satisfacción:</span>
+<span id="cb26-348"><a href="#cb26-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-351"><a href="#cb26-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-352"><a href="#cb26-352" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: univariante-objetivo-demografia</span></span>
+<span id="cb26-353"><a href="#cb26-353" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8</span></span>
+<span id="cb26-354"><a href="#cb26-354" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.5</span></span>
+<span id="cb26-355"><a href="#cb26-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-356"><a href="#cb26-356" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb26-357"><a href="#cb26-357" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb26-358"><a href="#cb26-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-359"><a href="#cb26-359" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Gráfico de la variable objetivo con frecuencias relativas y recuentos</span></span>
+<span id="cb26-360"><a href="#cb26-360" aria-hidden="true" tabindex="-1"></a>p_target <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> satisfaction_v2, <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
+<span id="cb26-361"><a href="#cb26-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">width =</span> <span class="fl">0.55</span>) <span class="sc">+</span></span>
+<span id="cb26-362"><a href="#cb26-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb26-363"><a href="#cb26-363" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb26-364"><a href="#cb26-364" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count)),</span>
+<span id="cb26-365"><a href="#cb26-365" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">after_stat</span>(count), <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, <span class="fu">percent</span>(<span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count)), <span class="at">accuracy =</span> <span class="fl">0.1</span>), <span class="st">")"</span>)</span>
+<span id="cb26-366"><a href="#cb26-366" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb26-367"><a href="#cb26-367" aria-hidden="true" tabindex="-1"></a>    <span class="at">stat =</span> <span class="st">"count"</span>,</span>
+<span id="cb26-368"><a href="#cb26-368" aria-hidden="true" tabindex="-1"></a>    <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.3</span>,</span>
+<span id="cb26-369"><a href="#cb26-369" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb26-370"><a href="#cb26-370" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-371"><a href="#cb26-371" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.68</span>)) <span class="sc">+</span></span>
+<span id="cb26-372"><a href="#cb26-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-373"><a href="#cb26-373" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Variable Objetivo en Train"</span>,</span>
+<span id="cb26-374"><a href="#cb26-374" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Nivel de Satisfacción"</span>,</span>
+<span id="cb26-375"><a href="#cb26-375" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia Relativa"</span></span>
+<span id="cb26-376"><a href="#cb26-376" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-377"><a href="#cb26-377" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb26-378"><a href="#cb26-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-379"><a href="#cb26-379" aria-hidden="true" tabindex="-1"></a>p_target</span>
+<span id="cb26-380"><a href="#cb26-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-381"><a href="#cb26-381" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Distribución de la edad de los pasajeros (estilo temario con binwidth = 5)</span></span>
+<span id="cb26-382"><a href="#cb26-382" aria-hidden="true" tabindex="-1"></a>p_edad <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span></span>
+<span id="cb26-383"><a href="#cb26-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">fill =</span> <span class="st">"cadetblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb26-384"><a href="#cb26-384" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="fu">aes</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(age)), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb26-385"><a href="#cb26-385" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-386"><a href="#cb26-386" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Distribución de la Edad de los Pasajeros"</span>,</span>
+<span id="cb26-387"><a href="#cb26-387" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"La línea discontinua roja indica la mediana"</span>,</span>
+<span id="cb26-388"><a href="#cb26-388" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Edad (años)"</span>,</span>
+<span id="cb26-389"><a href="#cb26-389" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia"</span></span>
+<span id="cb26-390"><a href="#cb26-390" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-391"><a href="#cb26-391" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb26-392"><a href="#cb26-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-393"><a href="#cb26-393" aria-hidden="true" tabindex="-1"></a>p_edad</span>
+<span id="cb26-394"><a href="#cb26-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-395"><a href="#cb26-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-396"><a href="#cb26-396" aria-hidden="true" tabindex="-1"></a>**Interpretación y conclusiones del análisis univariante:**</span>
+<span id="cb26-397"><a href="#cb26-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-398"><a href="#cb26-398" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Variable objetivo (`satisfaction_v2`):** La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados). Al no existir un desbalanceo severo entre clases, no será necesario recurrir a técnicas de remuestreo (como sobremuestreo o submuestreo) en las etapas posteriores de modelado supervisado.</span>
+<span id="cb26-399"><a href="#cb26-399" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Distribución demográfica de la edad (`age`):** La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que hace pertinente contrastar si la edad modula la exigencia y el nivel de satisfacción final con el servicio.</span>
+<span id="cb26-400"><a href="#cb26-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-401"><a href="#cb26-401" aria-hidden="true" tabindex="-1"></a><span class="fu">### Características sociodemográficas y del viaje</span></span>
+<span id="cb26-402"><a href="#cb26-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-403"><a href="#cb26-403" aria-hidden="true" tabindex="-1"></a>Inspeccionamos la distribución de las variables categóricas que definen el perfil de los pasajeros y las condiciones de su viaje (<span class="in">`gender`</span>, <span class="in">`customer_type`</span>, <span class="in">`type_of_travel`</span> y <span class="in">`class`</span>):</span>
+<span id="cb26-404"><a href="#cb26-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-407"><a href="#cb26-407" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-408"><a href="#cb26-408" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: univariante-categoricas</span></span>
+<span id="cb26-409"><a href="#cb26-409" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
+<span id="cb26-410"><a href="#cb26-410" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb26-411"><a href="#cb26-411" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: "center"</span></span>
+<span id="cb26-412"><a href="#cb26-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-413"><a href="#cb26-413" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb26-414"><a href="#cb26-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-415"><a href="#cb26-415" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Clase</span></span>
+<span id="cb26-416"><a href="#cb26-416" aria-hidden="true" tabindex="-1"></a>g_class <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> class)) <span class="sc">+</span></span>
+<span id="cb26-417"><a href="#cb26-417" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb26-418"><a href="#cb26-418" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb26-419"><a href="#cb26-419" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-420"><a href="#cb26-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribución por Clase"</span>, <span class="at">x =</span> <span class="st">"Clase"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb26-421"><a href="#cb26-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-422"><a href="#cb26-422" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Tipo de Viaje</span></span>
+<span id="cb26-423"><a href="#cb26-423" aria-hidden="true" tabindex="-1"></a>g_travel <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> type_of_travel, <span class="at">fill =</span> type_of_travel)) <span class="sc">+</span></span>
+<span id="cb26-424"><a href="#cb26-424" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb26-425"><a href="#cb26-425" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb26-426"><a href="#cb26-426" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-427"><a href="#cb26-427" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Tipo de Viaje"</span>, <span class="at">x =</span> <span class="st">"Propósito"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb26-428"><a href="#cb26-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-429"><a href="#cb26-429" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Fidelidad</span></span>
+<span id="cb26-430"><a href="#cb26-430" aria-hidden="true" tabindex="-1"></a>g_cust <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> customer_type, <span class="at">fill =</span> customer_type)) <span class="sc">+</span></span>
+<span id="cb26-431"><a href="#cb26-431" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb26-432"><a href="#cb26-432" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb26-433"><a href="#cb26-433" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-434"><a href="#cb26-434" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Fidelidad del Cliente"</span>, <span class="at">x =</span> <span class="st">"Tipo de Cliente"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb26-435"><a href="#cb26-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-436"><a href="#cb26-436" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico para Género</span></span>
+<span id="cb26-437"><a href="#cb26-437" aria-hidden="true" tabindex="-1"></a>g_gender <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> gender, <span class="at">fill =</span> gender)) <span class="sc">+</span></span>
+<span id="cb26-438"><a href="#cb26-438" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">/</span> <span class="fu">sum</span>(<span class="fu">after_stat</span>(count))), <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb26-439"><a href="#cb26-439" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb26-440"><a href="#cb26-440" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-441"><a href="#cb26-441" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Género de los Pasajeros"</span>, <span class="at">x =</span> <span class="st">"Género"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>)</span>
+<span id="cb26-442"><a href="#cb26-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-443"><a href="#cb26-443" aria-hidden="true" tabindex="-1"></a>(g_class <span class="sc">+</span> g_travel) <span class="sc">/</span> (g_cust <span class="sc">+</span> g_gender)</span>
+<span id="cb26-444"><a href="#cb26-444" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-445"><a href="#cb26-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-446"><a href="#cb26-446" aria-hidden="true" tabindex="-1"></a>**Conclusiones de la distribución categórica:**</span>
+<span id="cb26-447"><a href="#cb26-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-448"><a href="#cb26-448" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Clase (`class`):** Existe una división equilibrada entre la clase <span class="in">`Business`</span> (cerca del 48%) y la clase <span class="in">`Eco`</span> (45%), mientras que <span class="in">`Eco Plus`</span> representa una minoría residual (en torno al 7%).</span>
+<span id="cb26-449"><a href="#cb26-449" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Propósito del viaje (`type_of_travel`):** Predominan notablemente los viajes de negocios (<span class="in">`Business travel`</span>), que representan más del 68% de las observaciones, frente al viaje personal.</span>
+<span id="cb26-450"><a href="#cb26-450" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Fidelidad (`customer_type`):** La gran mayoría de los encuestados son clientes fidelizados (<span class="in">`Loyal Customer`</span>, &gt;80%).</span>
+<span id="cb26-451"><a href="#cb26-451" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**Género (`gender`):** La paridad es casi perfecta entre hombres y mujeres (50%-50%), descartando sesgos demográficos de género en la recogida de encuestas.</span>
+<span id="cb26-452"><a href="#cb26-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-453"><a href="#cb26-453" aria-hidden="true" tabindex="-1"></a><span class="fu">### Contraste de las preguntas de partida</span></span>
+<span id="cb26-454"><a href="#cb26-454" aria-hidden="true" tabindex="-1"></a>Una vez caracterizadas las variables de forma individual, procedemos a realizar el análisis bivariante cruzando los factores explicativos con la satisfacción para contrastar las hipótesis planteadas inicialmente:</span>
+<span id="cb26-455"><a href="#cb26-455" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-456"><a href="#cb26-456" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Pregunta 2: ¿Existe una diferencia sustancial según el Tipo de Viaje y la Clase?</span></span>
+<span id="cb26-457"><a href="#cb26-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-458"><a href="#cb26-458" aria-hidden="true" tabindex="-1"></a>Evaluamos conjuntamente el impacto del propósito del vuelo (<span class="in">`type_of_travel`</span>) y la cabina contratada (<span class="in">`class`</span>) sobre la satisfacción global mediante barras normalizadas al 100%:</span>
+<span id="cb26-459"><a href="#cb26-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-462"><a href="#cb26-462" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-463"><a href="#cb26-463" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: p2-clase-tipo-viaje</span></span>
+<span id="cb26-464"><a href="#cb26-464" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb26-465"><a href="#cb26-465" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
+<span id="cb26-466"><a href="#cb26-466" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.5</span></span>
+<span id="cb26-467"><a href="#cb26-467" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: "center"</span></span>
+<span id="cb26-468"><a href="#cb26-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-469"><a href="#cb26-469" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de contingencia en porcentajes</span></span>
+<span id="cb26-470"><a href="#cb26-470" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(<span class="fu">table</span>(train<span class="sc">$</span>class, train<span class="sc">$</span>satisfaction_v2), <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb26-471"><a href="#cb26-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-472"><a href="#cb26-472" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de barras apiladas al 100% facetado por tipo de viaje</span></span>
+<span id="cb26-473"><a href="#cb26-473" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> class, <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
+<span id="cb26-474"><a href="#cb26-474" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb26-475"><a href="#cb26-475" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> type_of_travel) <span class="sc">+</span></span>
+<span id="cb26-476"><a href="#cb26-476" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb26-477"><a href="#cb26-477" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-478"><a href="#cb26-478" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-479"><a href="#cb26-479" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Nivel de Satisfacción según Clase y Tipo de Viaje"</span>,</span>
+<span id="cb26-480"><a href="#cb26-480" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Clase de Cabina"</span>,</span>
+<span id="cb26-481"><a href="#cb26-481" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Porcentaje Relativo"</span>,</span>
+<span id="cb26-482"><a href="#cb26-482" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Satisfacción"</span></span>
+<span id="cb26-483"><a href="#cb26-483" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-484"><a href="#cb26-484" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-485"><a href="#cb26-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-486"><a href="#cb26-486" aria-hidden="true" tabindex="-1"></a>**Hallazgos de la P2:** </span>
+<span id="cb26-487"><a href="#cb26-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-488"><a href="#cb26-488" aria-hidden="true" tabindex="-1"></a>Al segmentar la satisfacción conjuntamente por el propósito del vuelo y la clase de cabina, se aprecian dos comportamientos claramente diferenciados:</span>
+<span id="cb26-489"><a href="#cb26-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-490"><a href="#cb26-490" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**En viajes de negocios (`Business travel`):** La clase de cabina resulta determinante en la experiencia. En clase `Business`, aproximadamente el **72%** de los viajeros manifiesta estar satisfecho. En contraste, cuando viajan por trabajo en cabinas turista (`Eco` o `Eco Plus`), la satisfaccción desciende a entre el **30% y el 40%**.</span>
+<span id="cb26-491"><a href="#cb26-491" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>**En viajes personales (`Personal Travel`):** El efecto de la clase de cabina es prácticamente nulo. En las tres categorías (`Business`, `Eco` y `Eco Plus`), los pasajeros se dividen casi de manera idéntica al 50% entre satisfechos y no satisfechos (con tasas de satisfacción contenidas entre el **46% y el 51%**). </span>
+<span id="cb26-492"><a href="#cb26-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-493"><a href="#cb26-493" aria-hidden="true" tabindex="-1"></a>En conclusión, la exigencia y sensibilidad hacia la categoría de cabina dependen del motivo de vuelo: mientras que para el cliente corporativo volar en turista es un motivo de insatisfacción, el viajero personal muestra una percepción dividida e independiente de la clase contratada.</span>
+<span id="cb26-494"><a href="#cb26-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-495"><a href="#cb26-495" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Pregunta 1: Operatividad (retrasos) vs. Confort en cabina (asiento y limpieza)</span></span>
+<span id="cb26-496"><a href="#cb26-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-497"><a href="#cb26-497" aria-hidden="true" tabindex="-1"></a>Contrastamos si un retraso operativo condiciona la insatisfacción más que la experiencia física del confort en cabina:</span>
+<span id="cb26-498"><a href="#cb26-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-501"><a href="#cb26-501" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb26-502"><a href="#cb26-502" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: p1-retraso-vs-confort</span></span>
+<span id="cb26-503"><a href="#cb26-503" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb26-504"><a href="#cb26-504" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
+<span id="cb26-505"><a href="#cb26-505" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb26-506"><a href="#cb26-506" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-align: "center"</span></span>
+<span id="cb26-507"><a href="#cb26-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-508"><a href="#cb26-508" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos una variable binaria para vuelos con demora notable (&gt;15 min)</span></span>
+<span id="cb26-509"><a href="#cb26-509" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span></span>
+<span id="cb26-510"><a href="#cb26-510" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">retraso_demora =</span> <span class="fu">factor</span>(<span class="fu">ifelse</span>(departure_delay_in_minutes <span class="sc">&gt;</span> <span class="dv">15</span>, <span class="st">"Con retraso (&gt;15m)"</span>, <span class="st">"Puntual (&lt;=15m)"</span>)))</span>
+<span id="cb26-511"><a href="#cb26-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-512"><a href="#cb26-512" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico 1: Impacto del retraso</span></span>
+<span id="cb26-513"><a href="#cb26-513" aria-hidden="true" tabindex="-1"></a>p_ret <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span> retraso_demora, <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
+<span id="cb26-514"><a href="#cb26-514" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb26-515"><a href="#cb26-515" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb26-516"><a href="#cb26-516" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-517"><a href="#cb26-517" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Satisfacción vs. Retraso"</span>, <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>, <span class="at">fill =</span> <span class="st">"Satisfacción"</span>)</span>
+<span id="cb26-518"><a href="#cb26-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-519"><a href="#cb26-519" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico 2: Impacto del confort del asiento (filtrando ceros para ver escala 1 a 5)</span></span>
+<span id="cb26-520"><a href="#cb26-520" aria-hidden="true" tabindex="-1"></a>p_seat <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(train <span class="sc">%&gt;%</span> <span class="fu">filter</span>(seat_comfort <span class="sc">&gt;</span> <span class="dv">0</span>), <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(seat_comfort), <span class="at">fill =</span> satisfaction_v2)) <span class="sc">+</span></span>
+<span id="cb26-521"><a href="#cb26-521" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb26-522"><a href="#cb26-522" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> percent) <span class="sc">+</span></span>
+<span id="cb26-523"><a href="#cb26-523" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb26-524"><a href="#cb26-524" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Satisfacción vs. Comodidad Asiento"</span>, <span class="at">x =</span> <span class="st">"Calificación Asiento (1 al 5)"</span>, <span class="at">y =</span> <span class="st">"Proporción"</span>, <span class="at">fill =</span> <span class="st">"Satisfacción"</span>)</span>
+<span id="cb26-525"><a href="#cb26-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-526"><a href="#cb26-526" aria-hidden="true" tabindex="-1"></a>p_ret <span class="sc">+</span> p_seat</span>
+<span id="cb26-527"><a href="#cb26-527" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb26-528"><a href="#cb26-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-529"><a href="#cb26-529" aria-hidden="true" tabindex="-1"></a>**Hallazgos de la P1:** </span>
+<span id="cb26-530"><a href="#cb26-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-531"><a href="#cb26-531" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>El retraso en la salida apenas eleva la insatisfacción en torno a un 10-12% en comparación con los vuelos puntuales.</span>
+<span id="cb26-532"><a href="#cb26-532" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>Por el contrario, las calificaciones del asiento resultan decisivas: ante valoraciones de 1 o 2 la insatisfacción supera el 75%, mientras que notas de 4 o 5 garantizan satisfacción en más del 80% de los casos. La comodidad a bordo tiene un poder predictivo y explicativo superior a la puntualidad.</span>
+<span id="cb26-533"><a href="#cb26-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-534"><a href="#cb26-534" aria-hidden="true" tabindex="-1"></a><span class="fu">## Principales hallazgos y conclusiones</span></span>
+<span id="cb26-535"><a href="#cb26-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-536"><a href="#cb26-536" aria-hidden="true" tabindex="-1"></a><span class="fu">## Uso de la inteligencia artificial</span></span>
+<span id="cb26-537"><a href="#cb26-537" aria-hidden="true" tabindex="-1"></a></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
