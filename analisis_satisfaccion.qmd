@@ -184,7 +184,7 @@ Para ello, sobre la muestra de entrenamiento (`train`) se abordarán las siguien
    - Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (`flight_distance` y minutos de retraso).
 
 2. **Análisis Univariante:**
-   - Estudio del balance de la variable respuesta (`satisfaction_v2`)[cite: 1, 8].
+   - Estudio del balance de la variable respuesta (`satisfaction_v2`).
    - Distribución de las características demográficas de los clientes (`age`, `gender`) y de los vuelos (`class`, `type_of_travel`, `customer_type`).
    - Análisis de frecuencias de las escalas de satisfacción de los 13 servicios evaluados.
 
@@ -503,6 +503,59 @@ p_ret + p_seat
 
 * El retraso en la salida apenas eleva la insatisfacción en torno a un 10-12% en comparación con los vuelos puntuales.
 * Por el contrario, las calificaciones del asiento resultan decisivas: ante valoraciones de 1 o 2 la insatisfacción supera el 75%, mientras que notas de 4 o 5 garantizan satisfacción en más del 80% de los casos. La comodidad a bordo tiene un poder predictivo y explicativo superior a la puntualidad.
+
+### Escalamiento Multidimensional Métrico (Metric MDS)
+
+Ahora aplicamos **Metric MDS** (*Multidimensional Scaling*) a partir de la matriz de distancias euclídeas de las 13 valoraciones de servicio. 
+
+Dado que el cálculo de los autovectores sobre la matriz de distancias completa ($12.989 \times 12.989$) presenta un coste computacional cúbico no viable en memoria local y produciría un solapamiento masivo de puntos (*overplotting*), extraemos una submuestra representativa y reproducible de 400 observaciones (`set.seed(6004)`) para proyectar la configuración espacial de los pasajeros:
+
+```{r}
+#| label: matriz-mds
+#| echo: true
+#| fig-width: 8
+#| fig-height: 5.5
+#| fig-align: "center"
+
+# 1. Estandarización de las 13 variables de servicio
+servicios_scaled <- scale(train %>% select(seat_comfort:cleanliness))
+
+# 2. Submuestra representativa reproducible (400 pasajeros)
+set.seed(6004)
+idx_mds <- sample(nrow(servicios_scaled), 400)
+
+sub_scaled <- servicios_scaled[idx_mds, ]
+sub_target <- train$satisfaction_v2[idx_mds]
+
+# 3. Matriz de distancias euclídeas sobre la muestra
+d_mat <- dist(sub_scaled, method = "euclidean")
+
+# 4. Escalamiento multidimensional métrico (2 coordenadas)
+mds_res <- cmdscale(d_mat, k = 2)
+
+# 5. Dataframe para graficar
+df_mds <- data.frame(
+  Coordinate_1 = mds_res[, 1],
+  Coordinate_2 = mds_res[, 2],
+  Satisfaction = sub_target
+)
+
+# 6. Gráfico con estética idéntica a la presentada en clase
+ggplot(df_mds, aes(x = Coordinate_1, y = Coordinate_2, color = Satisfaction)) +
+  geom_point(size = 2, alpha = 0.85) +
+  theme_minimal() +
+  labs(
+    title = "Matriz MDS",
+    x = "Coordinate 1",
+    y = "Coordinate 2",
+    color = "Satisfacción"
+  )
+```
+
+**Interpretación del gráfico de Metric MDS:**
+
+* **Estructura espacial y coordenadas:** El eje horizontal (*Coordinate 1*) recoge la mayor parte de la disimilitud global del servicio, ordenando a los pasajeros desde valoraciones desfavorables en la zona izquierda hasta puntuaciones óptimas hacia la derecha.
+* **Separabilidad de clases:** Se aprecia una división nítida entre los viajeros satisfechos y los no satisfechos/neutrales, confirmando que las distancias multidimensionales calculadas sobre las 13 encuestas discriminan eficazmente el grado de satisfacción global sin necesidad de supervisión previa.
 
 ## Principales hallazgos y conclusiones
 
