@@ -20,11 +20,11 @@ execute:
 editor: visual
 ---
 
-## Introducción 
+## Introducción
 
 El principal objetivo de este estudio va a ser predecir la satisfacción de los clientes con una aerolínea (no especificada) en función de su género, su lealtad, su edad, su objetivo de vuelo, la distancia de este, ...
 
-## Datos 
+## Datos
 
 Los datos fueron recogidos de la página web [Kaggle](https://www.kaggle.com/datasets/johndddddd/customer-satisfaction) y la procedencia no está esfecificada pero se indica que son datos reales de una aerolínea.
 
@@ -100,6 +100,7 @@ head(datos)
 ```
 
 La dimensión del conjunto de datos original es la siguiente, indicando el número total de observaciones (filas) y de variables (columnas):
+
 ```{r}
 dim(datos)
 
@@ -133,6 +134,7 @@ datos <- datos %>%
 ```
 
 ### Tratamiento de variables no informativas
+
 Durante la inspección inicial se identifica la variable `id`. Dado que se trata únicamente de un identificador administrativo de fila para cada encuesta y carece de valor predictivo o causal respecto a la satisfacción de los clientes, se procede a su exclusión antes de iniciar el análisis exploratorio para evitar ruido, correlaciones espurias o sesgos en el modelado.
 
 ```{r}
@@ -146,9 +148,9 @@ datos <- datos %>%
 
 Dado el gran volumen de observaciones disponibles (129.880 registros), optamos por reservar una muestra estratificada representativa para el modelado y exploración, manteniendo la mayor parte de las observaciones para la evaluación final:
 
-* **Entrenamiento (Train, 10%):** 12.989 observaciones. Sobre este conjunto realizamos de forma íntegra el análisis exploratorio de datos (EDA), la auditoría de valores atípicos y las transformaciones.
-* **Prueba (Test, 13,5% del total):** 17.534 observaciones (obtenidas como el 15% del conjunto restante tras extraer train). Reservada para contrastar alternativas y calibrar hiperparámetros.
-* **Validación (Validación/Producción, 76,5% del total):** 99.357 observaciones. Se preserva intacta para simular el comportamiento del modelo final ante datos no observados en un entorno real de producción.
+- **Entrenamiento (Train, 10%):** 12.989 observaciones. Sobre este conjunto realizamos de forma íntegra el análisis exploratorio de datos (EDA), la auditoría de valores atípicos y las transformaciones.
+- **Prueba (Test, 13,5% del total):** 17.534 observaciones (obtenidas como el 15% del conjunto restante tras extraer train). Reservada para contrastar alternativas y calibrar hiperparámetros.
+- **Validación (Validación/Producción, 76,5% del total):** 99.357 observaciones. Se preserva intacta para simular el comportamiento del modelo final ante datos no observados en un entorno real de producción.
 
 ```{r}
 
@@ -174,35 +176,36 @@ A partir de ahora trabajamos únicamente con train. Sobre train haremos todo el 
 
 ## Planteamiento inicial
 
-El objetivo de este Análisis Exploratorio de Datos (EDA) es examinar la estructura de las variables, evaluar la calidad de los datos y detectar patrones relevantes en el comportamiento de los pasajeros antes de abordar tareas de modelado predictivo. 
+El objetivo de este Análisis Exploratorio de Datos (EDA) es examinar la estructura de las variables, evaluar la calidad de los datos y detectar patrones relevantes en el comportamiento de los pasajeros antes de abordar tareas de modelado predictivo.
 
 Para ello, sobre la muestra de entrenamiento (`train`) se abordarán las siguientes fases:
 
-1. **Auditoría de integridad y calidad del dato:**
-   - Detección de posibles valores ausentes (`NA`) y definición razonada de su tratamiento.
-   - Inspección del valor 0 en las valoraciones de servicios (evaluar si denota servicio no contratado/no aplicable o la mínima satisfacción).
-   - Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (`flight_distance` y minutos de retraso).
-
-2. **Análisis Univariante:**
-   - Estudio del balance de la variable respuesta (`satisfaction_v2`).
-   - Distribución de las características demográficas de los clientes (`age`, `gender`) y de los vuelos (`class`, `type_of_travel`, `customer_type`).
-   - Análisis de frecuencias de las escalas de satisfacción de los 13 servicios evaluados.
-
-3. **Análisis Bivariante y Multivariante:**
-   - Relación entre la satisfacción global y las variables clave del viaje (`class`, `type_of_travel`).
-   - Comparación del peso de los retrasos operativos frente al confort a bordo.
-   - Estudio de correlaciones entre las distintas valoraciones de servicio.
+1.  **Auditoría de integridad y calidad del dato:**
+    - Detección de posibles valores ausentes (`NA`) y definición razonada de su tratamiento.
+    - Inspección del valor 0 en las valoraciones de servicios (evaluar si denota servicio no contratado/no aplicable o la mínima satisfacción).
+    - Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (`flight_distance` y minutos de retraso).
+2.  **Análisis Univariante:**
+    - Estudio del balance de la variable respuesta (`satisfaction_v2`).
+    - Distribución de las características demográficas de los clientes (`age`, `gender`) y de los vuelos (`class`, `type_of_travel`, `customer_type`).
+    - Análisis de frecuencias de las escalas de satisfacción de los 13 servicios evaluados.
+3.  **Análisis Bivariante y Multivariante:**
+    - Relación entre la satisfacción global y las variables clave del viaje (`class`, `type_of_travel`).
+    - Comparación del peso de los retrasos operativos frente al confort a bordo.
+    - Estudio de correlaciones entre las distintas valoraciones de servicio.
 
 ## Preguntas de partida
+
 Para guiar la exploración analítica y contrastar hipótesis concretas sobre el comportamiento de los clientes, se formulan las siguientes preguntas de partida:
 
-* **P1 (Operatividad vs. Experiencia):** ¿Son los retrasos en salida y llegada el principal desencadenante de la insatisfacción del pasajero, o tiene un impacto más determinante el confort dentro de la cabina (`seat_comfort`, `cleanliness`)?
-* **P2 (Segmentación de viaje):** ¿Existe una diferencia sustancial en la satisfacción de los clientes al contrastar según el motivo de vuelo (`type_of_travel`: negocios vs. personal) y la cabina (`class`: Business vs. Eco)?
-* **P3 (Servicios digitales y fidelización):** ¿Qué servicios asociados a la tecnología (`inflight_wifi_service`, `online_boarding`, `online_support`) tienen una relación más estrecha con la lealtad del cliente (`customer_type`)?
-* **P4 (Demografía):** ¿Varía de forma significativa el grado de exigencia o satisfacción global en función de la edad o el género del pasajero?
+- **P1 (Operatividad vs. Experiencia):** ¿Son los retrasos en salida y llegada el principal desencadenante de la insatisfacción del pasajero, o tiene un impacto más determinante el confort dentro de la cabina (`seat_comfort`, `cleanliness`)?
+- **P2 (Segmentación de viaje):** ¿Existe una diferencia sustancial en la satisfacción de los clientes al contrastar según el motivo de vuelo (`type_of_travel`: negocios vs. personal) y la cabina (`class`: Business vs. Eco)?
+- **P3 (Servicios digitales y fidelización):** ¿Qué servicios asociados a la tecnología (`inflight_wifi_service`, `online_boarding`, `online_support`) tienen una relación más estrecha con la lealtad del cliente (`customer_type`)?
+- **P4 (Demografía):** ¿Varía de forma significativa el grado de exigencia o satisfacción global en función de la edad o el género del pasajero?
 
 ## Proceso de exploración
+
 ### Auditoría de valores ausentes (NAs) en Train
+
 Comprobamos si existen observaciones incompletas y en qué variables se concentran:
 
 ```{r}
@@ -219,6 +222,7 @@ na_resumen
 ```
 
 ### Inspección del valor 0 en las valoraciones del servicio
+
 Las variables de encuesta van teóricamente del 1 al 5; revisamos la frecuencia del valor 0 (que indica servicio no contratado o no aplicable):
 
 ```{r}
@@ -271,10 +275,10 @@ ggplot(train, aes(y = departure_delay_in_minutes)) +
 
 De la inspección descriptiva y gráfica de estas variables cuantitativas se extraen las siguientes conclusiones:
 
-* **Distancia de vuelo (`flight_distance`):** Presenta una distribución asimétrica a la derecha con dos concentraciones claras: una masa predominante de vuelos de corta distancia (inferiores a 1.000 millas) y un segundo grupo en trayectos medios (entre 1.800 y 2.500 millas). El máximo se sitúa en 6.598 millas.
-* **Retraso en la salida (`departure_delay_in_minutes`):** Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).
+- **Distancia de vuelo (`flight_distance`):** Presenta una distribución asimétrica a la derecha con dos concentraciones claras: una masa predominante de vuelos de corta distancia (inferiores a 1.000 millas) y un segundo grupo en trayectos medios (entre 1.800 y 2.500 millas). El máximo se sitúa en 6.598 millas.
+- **Retraso en la salida (`departure_delay_in_minutes`):** Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).
 
-Siguiendo esta directriz metodológica y la recomendación de John Fox para variables con rangos que abarcan varios órdenes de magnitud, aplicamos una transformación logarítmica. Dado que la variable contiene ceros (vuelos sin retraso), empleamos la transformación $\log(x + 1)$ (función log1p() en R) para evitar indeterminaciones matemáticas: 
+Siguiendo esta directriz metodológica y la recomendación de John Fox para variables con rangos que abarcan varios órdenes de magnitud, aplicamos una transformación logarítmica. Dado que la variable contiene ceros (vuelos sin retraso), empleamos la transformación $\log(x + 1)$ (función log1p() en R) para evitar indeterminaciones matemáticas:
 
 ```{r}
 #| label: boxplot-retraso-log
@@ -325,6 +329,7 @@ ggplot(train, aes(x = departure_delay_in_minutes, y = arrival_delay_in_minutes))
 Tal y como se observa en el gráfico, los puntos se concentran de manera casi perfecta a lo largo de la recta de identidad (línea roja discontinua), lo que indica que el tiempo de retraso acumulado en el despegue se reproduce casi idénticamente al aterrizar. Esto queda corroborado cuantitativamente por el coeficiente de correlación de Pearson, cuyo valor ($r = 0.962$) se encuentra sumamente próximo a $+1$. En consecuencia, ambas aportan información redundante, por lo que de cara al modelado predictivo bastará con mantener únicamente una de ellas para prevenir problemas de multicolinealidad.
 
 ### Distribución de la variable objetivo y características de los pasajeros
+
 Una vez evaluadas la integridad y las características de las variables operativas cuantitativas, pasamos al análisis univariante de la variable objetivo (`satisfaction_v2`) y de los factores demográficos de los pasajeros en la muestra de entrenamiento (`train`), sentando la base para los contrastes bivariantes con la satisfacción:
 
 ```{r}
@@ -374,8 +379,8 @@ p_edad
 
 **Interpretación y conclusiones del análisis univariante:**
 
-* **Variable objetivo (`satisfaction_v2`):** La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados). Al no existir un desbalanceo severo entre clases, no será necesario recurrir a técnicas de remuestreo (como sobremuestreo o submuestreo) en las etapas posteriores de modelado supervisado.
-* **Distribución demográfica de la edad (`age`):** La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que hace pertinente contrastar si la edad modula la exigencia y el nivel de satisfacción final con el servicio.
+- **Variable objetivo (`satisfaction_v2`):** La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados). Al no existir un desbalanceo severo entre clases, no será necesario recurrir a técnicas de remuestreo (como sobremuestreo o submuestreo) en las etapas posteriores de modelado supervisado.
+- **Distribución demográfica de la edad (`age`):** La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que hace pertinente contrastar si la edad modula la exigencia y el nivel de satisfacción final con el servicio.
 
 ### Características sociodemográficas y del viaje
 
@@ -422,12 +427,13 @@ g_gender <- ggplot(train, aes(x = gender, fill = gender)) +
 
 **Conclusiones de la distribución categórica:**
 
-* **Clase (`class`):** Existe una división equilibrada entre la clase `Business` (cerca del 48%) y la clase `Eco` (45%), mientras que `Eco Plus` representa una minoría residual (en torno al 7%).
-* **Propósito del viaje (`type_of_travel`):** Predominan notablemente los viajes de negocios (`Business travel`), que representan más del 68% de las observaciones, frente al viaje personal.
-* **Fidelidad (`customer_type`):** La gran mayoría de los encuestados son clientes fidelizados (`Loyal Customer`, >80%).
-* **Género (`gender`):** La paridad es casi perfecta entre hombres y mujeres (50%-50%), descartando sesgos demográficos de género en la recogida de encuestas.
+- **Clase (`class`):** Existe una división equilibrada entre la clase `Business` (cerca del 48%) y la clase `Eco` (45%), mientras que `Eco Plus` representa una minoría residual (en torno al 7%).
+- **Propósito del viaje (`type_of_travel`):** Predominan notablemente los viajes de negocios (`Business travel`), que representan más del 68% de las observaciones, frente al viaje personal.
+- **Fidelidad (`customer_type`):** La gran mayoría de los encuestados son clientes fidelizados (`Loyal Customer`, \>80%).
+- **Género (`gender`):** La paridad es casi perfecta entre hombres y mujeres (50%-50%), descartando sesgos demográficos de género en la recogida de encuestas.
 
 ### Contraste de las preguntas de partida
+
 Una vez caracterizadas las variables de forma individual, procedemos a realizar el análisis bivariante cruzando los factores explicativos con la satisfacción para contrastar las hipótesis planteadas inicialmente:
 
 #### Pregunta 2: ¿Existe una diferencia sustancial según el Tipo de Viaje y la Clase?
@@ -446,7 +452,7 @@ round(prop.table(table(train$class, train$satisfaction_v2), margin = 1) * 100, 1
 
 # Gráfico de barras apiladas al 100% facetado por tipo de viaje
 ggplot(train, aes(x = class, fill = satisfaction_v2)) +
-  geom_bar(position = "fill") +
+  geom_bar(position = "dodge") +
   facet_wrap(~ type_of_travel) +
   scale_y_continuous(labels = percent) +
   theme_minimal() +
@@ -458,12 +464,12 @@ ggplot(train, aes(x = class, fill = satisfaction_v2)) +
   )
 ```
 
-**Hallazgos de la P2:** 
+**Hallazgos de la P2:**
 
 Al segmentar la satisfacción conjuntamente por el propósito del vuelo y la clase de cabina, se aprecian dos comportamientos claramente diferenciados:
 
-* **En viajes de negocios (`Business travel`):** La clase de cabina resulta determinante en la experiencia. En clase `Business`, aproximadamente el **72%** de los viajeros manifiesta estar satisfecho. En contraste, cuando viajan por trabajo en cabinas turista (`Eco` o `Eco Plus`), la satisfaccción desciende a entre el **30% y el 40%**.
-* **En viajes personales (`Personal Travel`):** El efecto de la clase de cabina es prácticamente nulo. En las tres categorías (`Business`, `Eco` y `Eco Plus`), los pasajeros se dividen casi de manera idéntica al 50% entre satisfechos y no satisfechos (con tasas de satisfacción contenidas entre el **46% y el 51%**). 
+- **En viajes de negocios (`Business travel`):** La clase de cabina resulta determinante en la experiencia. En clase `Business`, aproximadamente el **72%** de los viajeros manifiesta estar satisfecho. En contraste, cuando viajan por trabajo en cabinas turista (`Eco` o `Eco Plus`), la satisfaccción desciende a entre el **30% y el 40%**.
+- **En viajes personales (`Personal Travel`):** El efecto de la clase de cabina es prácticamente nulo. En las tres categorías (`Business`, `Eco` y `Eco Plus`), los pasajeros se dividen casi de manera idéntica al 50% entre satisfechos y no satisfechos (con tasas de satisfacción contenidas entre el **46% y el 51%**).
 
 En conclusión, la exigencia y sensibilidad hacia la categoría de cabina dependen del motivo de vuelo: mientras que para el cliente corporativo volar en turista es un motivo de insatisfacción, el viajero personal muestra una percepción dividida e independiente de la clase contratada.
 
@@ -484,14 +490,14 @@ train <- train %>%
 
 # Gráfico 1: Impacto del retraso
 p_ret <- ggplot(train, aes(x = retraso_demora, fill = satisfaction_v2)) +
-  geom_bar(position = "fill") +
+  geom_bar(position = "dodge") +
   scale_y_continuous(labels = percent) +
   theme_minimal() +
   labs(title = "Satisfacción vs. Retraso", x = "", y = "Proporción", fill = "Satisfacción")
 
 # Gráfico 2: Impacto del confort del asiento (filtrando ceros para ver escala 1 a 5)
 p_seat <- ggplot(train %>% filter(seat_comfort > 0), aes(x = factor(seat_comfort), fill = satisfaction_v2)) +
-  geom_bar(position = "fill") +
+  geom_bar(position = "dodge") +
   scale_y_continuous(labels = percent) +
   theme_minimal() +
   labs(title = "Satisfacción vs. Comodidad Asiento", x = "Calificación Asiento (1 al 5)", y = "Proporción", fill = "Satisfacción")
@@ -499,14 +505,127 @@ p_seat <- ggplot(train %>% filter(seat_comfort > 0), aes(x = factor(seat_comfort
 p_ret + p_seat
 ```
 
-**Hallazgos de la P1:** 
+**Hallazgos de la P1:**
 
-* El retraso en la salida apenas eleva la insatisfacción en torno a un 10-12% en comparación con los vuelos puntuales.
-* Por el contrario, las calificaciones del asiento resultan decisivas: ante valoraciones de 1 o 2 la insatisfacción supera el 75%, mientras que notas de 4 o 5 garantizan satisfacción en más del 80% de los casos. La comodidad a bordo tiene un poder predictivo y explicativo superior a la puntualidad.
+- El retraso en la salida apenas eleva la insatisfacción en torno a un 10-12% en comparación con los vuelos puntuales.
+- Por el contrario, las calificaciones del asiento resultan decisivas: ante valoraciones de 1 o 2 la insatisfacción supera el 75%, mientras que notas de 4 o 5 garantizan satisfacción en más del 80% de los casos. La comodidad a bordo tiene un poder predictivo y explicativo superior a la puntualidad.
+
+#### Pregunta 3: ¿Qué servicios asociados a la tecnología tienen más relación con la lealtad de los clientes?
+
+Buscamos averiguar que servivios tecnológicos contratan los clientes más fieles a la aerolinea, y que tipo de cliente (fiel o infiel) es más indulgente con estos servicios. Para ello calculamos la valoración media de cada servicio tecnológico (`inflight_wifi_service`, `online_boarding`, `online_support`) por cliente.
+
+```{r}
+#| label: p3-servicios-digitales
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-align: "center"
+
+# 1. Calcular la valoración media de los servicios digitales según el tipo de cliente
+p3_resumen <- train %>%
+  select(customer_type, inflight_wifi_service, online_boarding, online_support) %>%
+  group_by(customer_type) %>%
+  summarise(
+    "Wi-Fi a bordo" = mean(inflight_wifi_service, na.rm = TRUE),
+    "Embarque online" = mean(online_boarding, na.rm = TRUE),
+    "Soporte online" = mean(online_support, na.rm = TRUE)
+  ) %>%
+  pivot_longer(cols = -customer_type, names_to = "servicio", values_to = "media_puntuacion")
+
+# Mostrar tabla resumen en el informe
+kable(p3_resumen, caption = "Valoración media de servicios digitales según tipo de cliente")
+
+# 2. Gráfico de barras comparativo
+ggplot(p3_resumen, aes(x = servicio, y = media_puntuacion, fill = customer_type)) +
+  geom_col(position = "dodge", width = 0.6) +
+  theme_minimal() +
+  labs(
+    title = "Comparación de Servicios Digitales según Fidelidad del Cliente",
+    x = "Servicio Tecnológico",
+    y = "Puntuación Media (Escala 0 a 5)",
+    fill = "Tipo de Cliente"
+  ) +
+  scale_y_continuous(limits = c(0, 5), breaks = seq(0, 5, 1))
+```
+
+**Hallazgos de la P3:**
+
+- Los clientes fieles suelen dar una mejor valoración a los servicios tecnológicos, siendo el soporte online el que mejor valoración tiene con una media de $3.6$ estrellas.
+
+- Los clientes no leales a la compañía dan valoraciones medias a los servicios, siendo estos bastante similares y centrandose en las tres estrellas.
+
+#### Pregunta 4: Demografía vs satisfacción
+
+En este apratado se busca enterder que rango de edad y sexo presenta una mayor satisfacción con la aerolinea.
+
+Debido a que la variable `age` toma valores enteros, se ha decidio crear un rango de esas de $0, 25, 40, 60$ y $100$ años para poder agilizar el estudio:
+
+```{r}
+#| label: p4-edad
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-align: "center"
+
+## ESTUDIO DE LA SATISFACCIÓN POR EDAD ##
+
+#creamos un rango de edad
+train_edad <- train %>%
+  mutate(rango_edad = cut(
+    age, 
+    breaks = c(0, 25, 40, 60, 100), 
+    labels = c("< 25 años", "25-40 años", "41-60 años", "> 60 años"),
+    include.lowest = TRUE
+  ))
+
+# 2. Tabla de contingencia de satisfacción por rango de edad (en porcentajes)
+p4_tabla <- round(prop.table(table(train_edad$rango_edad, train_edad$satisfaction_v2), margin = 1) * 100, 1)
+p4_tabla
+
+# 3. Gráfico de barras apiladas al 100% para comparar la satisfacción por edad
+ggplot(train_edad, aes(x = rango_edad, fill = satisfaction_v2)) +
+  geom_bar(position = "dodge") +
+  scale_y_continuous(labels = percent) +
+  theme_minimal() +
+  labs(
+    title = "Nivel de Satisfacción según el Rango de Edad del Pasajero",
+    x = "Rango de Edad",
+    y = "Proporción Relativa",
+    fill = "Satisfacción"
+  )
+
+```
+
+```{r}
+#| label: p4-sexo
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-align: "center"
+
+# 1. Tabla de contingencia de satisfacción por sexo (%)
+p4_tabla_genero <- round(prop.table(table(train$gender, train$satisfaction_v2), margin = 1) * 100, 1)
+p4_tabla_genero
+
+# 2. Gráfico con barras lado a lado (dodge) en porcentaje
+ggplot(train, aes(x = gender, fill = satisfaction_v2)) +
+  geom_bar(aes(y = after_stat(prop), group = satisfaction_v2), position = "dodge", width = 0.6) +
+  scale_y_continuous(labels = percent) +
+  theme_minimal() +
+  labs(
+    title = "Nivel de Satisfacción según el Sexo del Pasajero",
+    x = "Sexo / Género",
+    y = "Porcentaje Relativo",
+    fill = "Satisfacción"
+  )
+```
+
+**Hallazgos de la P4:**
+
+- **rangos de mayor satisfacción:** Los clientes que se encuentran en un rango de edad de entre los 41 a 60 años presentan un mayor porcentaje de satisfacción con la aerolinea, alcanzando una tasa del $66.5\%$.
+- **rangos de mayor insatisfacción:** Por el contrario, los clientes más jovenes (menores de 25 y en el rango de edad de 25 a 40 años) junto con los clientes mayores de 60, presentan un mayor porcentaje de insatisfacción con la empresa, alcanzando tasas del $55\%$, $50.7\%$ y $58.4\%$ respectivamente.
+- Por otro lado, las mujeres presentan un mayor nivel de satisfaccion con un $65\%$ a diferencia de los hombres, que presentan un mayor nivel de instatisfacción o neutralidad con un $55.7\%$.
 
 ### Escalamiento Multidimensional Métrico (Metric MDS)
 
-Ahora aplicamos **Metric MDS** (*Multidimensional Scaling*) a partir de la matriz de distancias euclídeas de las 13 valoraciones de servicio. 
+Ahora aplicamos **Metric MDS** (*Multidimensional Scaling*) a partir de la matriz de distancias euclídeas de las 13 valoraciones de servicio.
 
 Dado que el cálculo de los autovectores sobre la matriz de distancias completa ($12.989 \times 12.989$) presenta un coste computacional cúbico no viable en memoria local y produciría un solapamiento masivo de puntos (*overplotting*), extraemos una submuestra representativa y reproducible de 400 observaciones (`set.seed(6004)`) para proyectar la configuración espacial de los pasajeros:
 
@@ -554,11 +673,9 @@ ggplot(df_mds, aes(x = Coordinate_1, y = Coordinate_2, color = Satisfaction)) +
 
 **Interpretación del gráfico de Metric MDS:**
 
-* **Estructura espacial y coordenadas:** El eje horizontal (*Coordinate 1*) recoge la mayor parte de la disimilitud global del servicio, ordenando a los pasajeros desde valoraciones desfavorables en la zona izquierda hasta puntuaciones óptimas hacia la derecha.
-* **Separabilidad de clases:** Se aprecia una división nítida entre los viajeros satisfechos y los no satisfechos/neutrales, confirmando que las distancias multidimensionales calculadas sobre las 13 encuestas discriminan eficazmente el grado de satisfacción global sin necesidad de supervisión previa.
+- **Estructura espacial y coordenadas:** El eje horizontal (*Coordinate 1*) recoge la mayor parte de la disimilitud global del servicio, ordenando a los pasajeros desde valoraciones desfavorables en la zona izquierda hasta puntuaciones óptimas hacia la derecha.
+- **Separabilidad de clases:** Se aprecia una división nítida entre los viajeros satisfechos y los no satisfechos/neutrales, confirmando que las distancias multidimensionales calculadas sobre las 13 encuestas discriminan eficazmente el grado de satisfacción global sin necesidad de supervisión previa.
 
 ## Principales hallazgos y conclusiones
 
 ## Uso de la inteligencia artificial
-
-
