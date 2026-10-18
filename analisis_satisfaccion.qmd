@@ -512,7 +512,7 @@ p_ret + p_seat
 
 #### Pregunta 3: ¿Qué servicios asociados a la tecnología tienen más relación con la lealtad de los clientes?
 
-Buscamos averiguar que servivios tecnológicos contratan los clientes más fieles a la aerolinea, y que tipo de cliente (fiel o infiel) es más indulgente con estos servicios. Para ello calculamos la valoración media de cada servicio tecnológico (`inflight_wifi_service`, `online_boarding`, `online_support`) por cliente.
+Buscamos averiguar qué servivios tecnológicos contratan los clientes más fieles a la aerolinea, y que tipo de cliente (leal o desleal) es más indulgente con estos servicios. Para ello calculamos la valoración media de cada servicio tecnológico (`inflight_wifi_service`, `online_boarding`, `online_support`) por cliente.
 
 ```{r}
 #| label: p3-servicios-digitales
@@ -555,9 +555,9 @@ ggplot(p3_resumen, aes(x = servicio, y = media_puntuacion, fill = customer_type)
 
 #### Pregunta 4: Demografía vs satisfacción
 
-En este apratado se busca enterder que rango de edad y sexo presenta una mayor satisfacción con la aerolinea.
+En este apratado se busca enterder qué rango de edad y sexo presenta una mayor satisfacción con la aerolínea.
 
-Debido a que la variable `age` toma valores enteros, se ha decidio crear un rango de esas de $0, 25, 40, 60$ y $100$ años para poder agilizar el estudio:
+Debido a que la variable `age` toma valores enteros, se ha decidio crear un rango de edad de $0, 25, 40, 60$ y $100$ años para poder agilizar el estudio:
 
 ```{r}
 #| label: p4-edad
@@ -619,8 +619,8 @@ ggplot(train, aes(x = gender, fill = satisfaction_v2)) +
 
 **Hallazgos de la P4:**
 
-- **rangos de mayor satisfacción:** Los clientes que se encuentran en un rango de edad de entre los 41 a 60 años presentan un mayor porcentaje de satisfacción con la aerolinea, alcanzando una tasa del $66.5\%$.
-- **rangos de mayor insatisfacción:** Por el contrario, los clientes más jovenes (menores de 25 y en el rango de edad de 25 a 40 años) junto con los clientes mayores de 60, presentan un mayor porcentaje de insatisfacción con la empresa, alcanzando tasas del $55\%$, $50.7\%$ y $58.4\%$ respectivamente.
+- **rangos de mayor satisfacción:** Los clientes que se encuentran en un rango de edad de entre los 41 a 60 años presentan un mayor porcentaje de satisfacción con la aerolínea, alcanzando una tasa del $66.5\%$.
+- **rangos de mayor insatisfacción:** Por el contrario, los clientes más jovenes (menores de 25 y en el rango de edad de 25 a 40 años) junto con los clientes mayores de 60, presentan un mayor porcentaje de insatisfacción con la empresa, alcanzando tasas del $55\%$, $50.7\%$ y $58.4\%$, respectivamente.
 - Por otro lado, las mujeres presentan un mayor nivel de satisfaccion con un $65\%$ a diferencia de los hombres, que presentan un mayor nivel de instatisfacción o neutralidad con un $55.7\%$.
 
 ### Escalamiento Multidimensional Métrico (Metric MDS)
@@ -671,10 +671,11 @@ ggplot(df_mds, aes(x = Coordinate_1, y = Coordinate_2, color = Satisfaction)) +
   )
 ```
 
-**Interpretación del gráfico de Metric MDS:**
+**Interpretación y conclusiones de la Matriz MDS:**
 
-- **Estructura espacial y coordenadas:** El eje horizontal (*Coordinate 1*) recoge la mayor parte de la disimilitud global del servicio, ordenando a los pasajeros desde valoraciones desfavorables en la zona izquierda hasta puntuaciones óptimas hacia la derecha.
-- **Separabilidad de clases:** Se aprecia una división nítida entre los viajeros satisfechos y los no satisfechos/neutrales, confirmando que las distancias multidimensionales calculadas sobre las 13 encuestas discriminan eficazmente el grado de satisfacción global sin necesidad de supervisión previa.
+* **Separación de la variable objetivo:** La proyección bidimensional revela una clara separación espacial entre ambas clases: los pasajeros insatisfechos o neutrales (en salmón) se concentran en la región central e izquierda, mientras que los satisfechos (en azul) se sitúan hacia la derecha y en los extremos verticales.
+* **Gradiente de satisfacción (`Coordinate 1`):** El primer eje representa la evaluación global del servicio, ordenando a los pasajeros de menor a mayor satisfacción media percibida conforme se avanza de izquierda a derecha en el gráfico.
+* **Segmentación en la satisfacción (`Coordinate 2`):** En la zona derecha, los clientes satisfechos se dispersan hacia dos polos verticales, lo que sugiere la existencia de dos perfiles de experiencia: aquellos cuya satisfacción depende prioritariamente de la comodidad en cabina frente a quienes valoran en mayor medida la eficiencia en las plataformas digitales y la logística de embarque.
 
 ## Principales hallazgos y conclusiones
 
