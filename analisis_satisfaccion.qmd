@@ -105,11 +105,11 @@ La dimensión del conjunto de datos original es la siguiente, indicando el núme
 dim(datos)
 
 ```
-
+También hemos estandarizado los nombres de las columnas a minúsculas y guiones bajos. Además de convertir a factores las variables categóricas.
 ```{r}
 #| label: preparacion-tipos
 
-# Convertimos a tibble y estandarizamos nombres a minúsculas y guiones bajos (snake_case)
+# Convertimos a tibble y estandarizamos nombres a minúsculas y guiones bajos
 datos <- as_tibble(datos) %>%
   clean_names()
 
@@ -123,11 +123,6 @@ cols_categoricas <- c(
   "satisfaction_v2"
 )
 
-# Ajuste condicional por si 'flight_cancelled' existe como columna independiente
-if ("flight_cancelled" %in% names(datos)) {
-  cols_categoricas <- c(cols_categoricas, "flight_cancelled")
-}
-
 datos <- datos %>%
   mutate(across(all_of(cols_categoricas), as.factor))
 
@@ -135,7 +130,7 @@ datos <- datos %>%
 
 ### Tratamiento de variables no informativas
 
-Durante la inspección inicial se identifica la variable `id`. Dado que se trata únicamente de un identificador administrativo de fila para cada encuesta y carece de valor predictivo o causal respecto a la satisfacción de los clientes, se procede a su exclusión antes de iniciar el análisis exploratorio para evitar ruido, correlaciones espurias o sesgos en el modelado.
+Durante la inspección inicial se identifica la variable `id`. Dado que se trata únicamente de un identificador para cada encuesta, realmente no aporta ningún tipo de información relevante para el estudio, por lo que decidimos eliminarla.
 
 ```{r}
 # Eliminación del identificador para todo el flujo de trabajo
@@ -472,6 +467,33 @@ Al segmentar la satisfacción conjuntamente por el propósito del vuelo y la cla
 - **En viajes personales (`Personal Travel`):** El efecto de la clase de cabina es prácticamente nulo. En las tres categorías (`Business`, `Eco` y `Eco Plus`), los pasajeros se dividen casi de manera idéntica al 50% entre satisfechos y no satisfechos (con tasas de satisfacción contenidas entre el **46% y el 51%**).
 
 En conclusión, la exigencia y sensibilidad hacia la categoría de cabina dependen del motivo de vuelo: mientras que para el cliente corporativo volar en turista es un motivo de insatisfacción, el viajero personal muestra una percepción dividida e independiente de la clase contratada.
+
+```{r}
+#| label: test-chi-tabla-centrada
+#| echo: true
+
+library(knitr)
+
+# 1. Realizamos el test de Chi-cuadrado
+res_chi <- chisq.test(table(train$class, train$satisfaction_v2))
+
+# 2. Creamos la tabla resumen con los resultados
+tabla_resultado_chi <- data.frame(
+  "Test Estadístico" = "Chi-cuadrado de Pearson",
+  "X-squared"        = round(res_chi$statistic, 2),
+  "Grados de libertad" = res_chi$parameter,
+  "p-valor"          = format.pval(res_chi$p.value, digits = 4, eps = 2.2e-16)
+)
+
+# 3. Imprimimos la tabla especificando align = c("l", "c", "c", "c") para centrar las columnas numéricas
+kable(
+  tabla_resultado_chi, 
+  caption = "Resultado del contraste de Chi-cuadrado para la dependencia entre variables",
+  align = c("l", "c", "c", "c")
+)
+```
+
+Dado que el test de Chi-cuadrado nos da un p-valor inferior a 0.05, se rechaza la hipótesis nula de independencia, confirmando que existe una asociación estadísticamente significativa entre la clase y el nivel de satisfacción de los clientes
 
 #### Pregunta 1: Operatividad (retrasos) vs. Confort en cabina (asiento y limpieza)
 
