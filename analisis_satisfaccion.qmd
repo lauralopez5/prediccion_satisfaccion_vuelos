@@ -28,26 +28,26 @@ El principal objetivo de este estudio va a ser predecir la satisfacción de los 
 
 Los datos proceden de la plataforma Kaggle ([Customer Satisfaction, John D.](https://www.kaggle.com/datasets/johndddddd/customer-satisfaction)). La descripción indica que se trata de una encuesta de satisfacción a pasajeros de una aerolínea que no se especifica; no se detalla cómo se recogieron los datos ni en qué periodo. Por ello, no podemos verificar de forma independiente su procedencia y lo tenemos en cuenta como limitación.
 
-Cada **observación** es la respuesta de un pasajero a la encuesta sobre un vuelo concreto. El conjunto contiene **129.880 observaciones y 24 variables** (23 tras eliminar el identificador).
+Cada observación es la respuesta de un pasajero a la encuesta sobre un vuelo concreto. El conjunto contiene 129.880 observaciones y 24 variables (23 tras eliminar el identificador, ver 3.1).
 
 **Variable respuesta**
 
-- `satisfaction_v2`: satisfacción global del pasajero, con dos categorías: *satisfied* (71.087) y *neutral or dissatisfied* (58.793).
+- `satisfaction_v2`: satisfacción global del pasajero, con dos categorías: *satisfied* y *neutral or dissatisfied*.
 
 **Perfil del pasajero y del viaje**
 
-- `id`: identificador de la encuesta (se elimina, ver 3.1).
+- `id`: identificador de la encuesta.
 - `Gender`: género (*Female*, *Male*).
 - `Customer Type`: tipo de cliente (*Loyal Customer*, *disloyal Customer*).
-- `Age`: edad en años (de 7 a 85).
+- `Age`: edad en años.
 - `Type of Travel`: motivo del viaje (*Business travel*, *Personal Travel*).
 - `Class`: clase de cabina (*Business*, *Eco*, *Eco Plus*).
-- `Flight Distance`: distancia del vuelo (de 50 a 6.951; la documentación no indica la unidad).
+- `Flight Distance`: distancia del vuelo (la documentación no indica la unidad).
 
 **Operativa del vuelo**
 
 - `Departure Delay in Minutes`: retraso en la salida, en minutos.
-- `Arrival Delay in Minutes`: retraso en la llegada, en minutos (393 valores ausentes).
+- `Arrival Delay in Minutes`: retraso en la llegada, en minutos.
 
 **Valoraciones del servicio (14 variables)**
 
@@ -63,14 +63,14 @@ Escala ordinal de 1 (mínima satisfacción) a 5 (máxima). Algunas variables tam
 - `Ease of Online booking`: facilidad de reserva en línea.
 - `On-board service`: servicio a bordo.
 - `Leg room service`: espacio para las piernas.
-- `Baggage handling`: manejo de equipaje (única variable sin ceros).
+- `Baggage handling`: el proceso de recogida, transporte, clasificación y entrega del equipaje de los pasajeros (única variable sin ceros).
 - `Checkin service`: servicio de registro.
 - `Cleanliness`: limpieza.
 - `Online boarding`: embarque en línea.
 
 ## Preparación y partición de los datos
 
-Antes de proceder a la división de los datos, verificamos la estructura interna del conjunto original, la consistencia de los nombres de las variables y el tipo asignado a cada columna.
+Antes de empezar con la exploración de los datos, veamos la estructura interna del archivo, los nombres de las variables y de qué tipo es inicialmente cada una.
 
 ```{r}
 #| label: exploracion-tipos
@@ -89,16 +89,22 @@ La dimensión del conjunto de datos original es la siguiente, indicando el núme
 dim(datos)
 
 ```
-También hemos estandarizado los nombres de las columnas a minúsculas y guiones bajos. Además de convertir a factores las variables categóricas.
+
+Viendo los nombres de las variables, decidimos estandarizarlos, poniéndolos en minúsculas y con guiones bajos, todos con el mismo formato.
+
 ```{r}
-#| label: preparacion-tipos
+#| label: estandarizamos
 
 # Convertimos a tibble y estandarizamos nombres a minúsculas y guiones bajos
 datos <- as_tibble(datos) %>%
   clean_names()
+```
 
+Además, convertimos las 5 variables categóricas a tipo factor, para que R almacene los distintos tipos. Por ejemplo, la variable género tendrá dos factores: "Male" y "Female".
 
-# Conversión a factores de las variables categóricas
+```{r}
+#| label: categoricas-a-factor
+
 cols_categoricas <- c(
   "gender", 
   "customer_type", 
@@ -117,7 +123,8 @@ datos <- datos %>%
 Durante la inspección inicial se identifica la variable `id`. Dado que se trata únicamente de un identificador para cada encuesta, realmente no aporta ningún tipo de información relevante para el estudio, por lo que decidimos eliminarla.
 
 ```{r}
-# Eliminación del identificador para todo el flujo de trabajo
+#| label: eliminacion-id
+
 datos <- datos %>% 
   select(-id)
 
@@ -125,11 +132,11 @@ datos <- datos %>%
 
 ## Particion de los datos
 
-Dado el gran volumen de observaciones disponibles (129.880 registros), optamos por reservar una muestra estratificada representativa para el modelado y exploración, manteniendo la mayor parte de las observaciones para la evaluación final:
+Dado el gran volumen de observaciones (129.880 registros), optamos por quedarnos con una muestra estratificada representativa para el modelado y exploración (el train):
 
-- **Entrenamiento (Train, 10%):** 12.989 observaciones. Sobre este conjunto realizamos de forma íntegra el análisis exploratorio de datos (EDA), la auditoría de valores atípicos y las transformaciones.
-- **Prueba (Test, 13,5% del total):** 17.534 observaciones (obtenidas como el 15% del conjunto restante tras extraer train). Reservada para contrastar alternativas y calibrar hiperparámetros.
-- **Validación (Validación/Producción, 76,5% del total):** 99.357 observaciones. Se preserva intacta para simular el comportamiento del modelo final ante datos no observados en un entorno real de producción.
+- **Entrenamiento (Train, 10%):** 12.989 observaciones. Sobre este conjunto realizaremos todo el proceso de exploración, detectaremos los valores atípicos y haremos las transformaciones necesarias. Normalmente suele ser un 60% del conjunto de datos totales pero, en nuestro caso, lo cómodo es trabajar con el 10%.
+- **Prueba (Test, 13,5% del total):** 17.534 observaciones (obtenidas como el 15% del conjunto restante tras extraer train). Se usará para entrenar al modelo, ajustar parámetros y evaluar el rendimiento.
+- **Validación (Validación/Producción, 76,5% del total):** 99.357 observaciones. Se preserva intacta para simular el comportamiento del modelo final ante datos no observados.
 
 ```{r}
 
@@ -151,18 +158,18 @@ dim(test)
 dim(valid)
 ```
 
-A partir de ahora trabajamos únicamente con train. Sobre train haremos todo el análisis exploratorio de datos. Usaremos test para ir evaluando y estudiando la
+A partir de ahora trabajamos únicamente con train. Sobre train haremos todo el análisis exploratorio de datos.
 
 ## Planteamiento inicial
 
-El objetivo de este Análisis Exploratorio de Datos (EDA) es examinar la estructura de las variables, evaluar la calidad de los datos y detectar patrones relevantes en el comportamiento de los pasajeros antes de abordar tareas de modelado predictivo.
+El objetivo de este análisis de datos es examinar la estructura de las variables, evaluar la calidad de los datos y detectar patrones relevantes en el comportamiento de los pasajeros antes de abordar tareas de modelado predictivo.
 
 Para ello, sobre la muestra de entrenamiento (`train`) se abordarán las siguientes fases:
 
-1.  **Auditoría de integridad y calidad del dato:**
+1.  **Análisis de consistencia y veracidad de los datos:**
     - Detección de posibles valores ausentes (`NA`) y definición razonada de su tratamiento.
     - Inspección del valor 0 en las valoraciones de servicios (evaluar si denota servicio no contratado/no aplicable o la mínima satisfacción).
-    - Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (`flight_distance` y minutos de retraso).
+    - Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (`flight_distance`, `departure_delay_in_minutes` y `arrival_delay_in_minutes`).
 2.  **Análisis Univariante:**
     - Estudio del balance de la variable respuesta (`satisfaction_v2`).
     - Distribución de las características demográficas de los clientes (`age`, `gender`) y de los vuelos (`class`, `type_of_travel`, `customer_type`).
@@ -170,19 +177,18 @@ Para ello, sobre la muestra de entrenamiento (`train`) se abordarán las siguien
 3.  **Análisis Bivariante y Multivariante:**
     - Relación entre la satisfacción global y las variables clave del viaje (`class`, `type_of_travel`).
     - Comparación del peso de los retrasos operativos frente al confort a bordo.
-    - Ranking global de las variables frente a la satisfacción con una misma medida (test de Wilcoxon y AUC).
+    - Ranking global de las variables frente a la satisfacción.
     - Estudio de correlaciones entre las distintas valoraciones de servicio.
 
 ## Preguntas de partida
 
-Para guiar la exploración analítica y contrastar hipótesis concretas sobre el comportamiento de los clientes, se formulan las siguientes preguntas de partida:
+Para guiar la exploración de los datos y contrastar hipótesis concretas sobre el comportamiento de los clientes, se formulan las siguientes preguntas de partida:
 
 - **P1 (Operatividad vs. Experiencia):** ¿Son los retrasos en salida y llegada el principal desencadenante de la insatisfacción del pasajero, o tiene un impacto más determinante el confort dentro de la cabina (`seat_comfort`, `cleanliness`)?
-- **P2 (Segmentación de viaje):** ¿Existe una diferencia sustancial en la satisfacción de los clientes al contrastar según el motivo de vuelo (`type_of_travel`: negocios vs. personal) y la cabina (`class`: Business vs. Eco)?
+- **P2 (Segmentación de viaje):** ¿Existe una diferencia en la satisfacción de los clientes al contrastar según el motivo de vuelo (`type_of_travel`: negocios vs. personal) y la cabina (`class`: Business vs. Eco)?
 - **P3 (Servicios digitales y fidelización):** ¿Qué servicios asociados a la tecnología (`inflight_wifi_service`, `online_boarding`, `online_support`) tienen una relación más estrecha con la lealtad del cliente (`customer_type`)?
 - **P4 (Demografía):** ¿Varía la satisfacción global con la edad del pasajero?
 - **P5 (surgida de la exploración):** Al ver que en P2 el viaje personal daba un 50 % “redondo” en las tres cabinas, nos preguntamos: ¿el género modifica la relación entre tipo de viaje y satisfacción?
-
 
 ## Proceso de exploración
 
@@ -214,6 +220,7 @@ servicios <- names(train)[match("seat_comfort", names(train)):match("online_boar
 ```
 
 #### (a) % de ceros por servicio
+
 ```{r}
 ceros_resumen <- train %>%
   summarise(across(all_of(servicios), ~ round(mean(. == 0) * 100, 1))) %>%
@@ -241,6 +248,7 @@ ceros_vs_sat <- train %>%
 kable(ceros_vs_sat, digits = 1,
       caption = "% de satisfechos con valor 0 vs. valor 1-5 (n_ceros = nº de pasajeros con 0)")
 ```
+
 #### (c) ¿Dónde se concentran los ceros? Nº de ceros por pasajero según viaje y clase
 
 ```{r}
@@ -257,12 +265,11 @@ train %>%
   kable(caption = "Ceros y satisfacción por tipo de viaje y clase")
 ```
 
+Por tanto, de los 14 servicios, cuatro concentran los ceros (`departure_arrival_time_convenient` 5,1%, `food_and_drink` 4,5%, `seat_comfort` 3,7%, `inflight_entertainment` 2,2%); en el resto son prácticamente inexistentes.
 
-Por tanto, de los 14 servicios, cuatro concentran los ceros (`departure_arrival_time_convenient` 5,1%, `food_and_drink` 4,5%, `seat_comfort` 3,7%, `inflight_entertainment` 2,2%); en el resto son prácticamente inexistentes. 
+Estos ceros no son neutros: el 99,6% de quienes puntúan 0 en comodidad del asiento está satisfecho (frente al 53% del resto), y valores similares aparecen en comida (80%), espacio para las piernas (74%) y entretenimiento (71%).
 
-Estos ceros no son neutros: el 99,6% de quienes puntúan 0 en comodidad del asiento está satisfecho (frente al 53% del resto), y valores similares aparecen en comida (80%), espacio para las piernas (74%) y entretenimiento (71%). 
-
-Además, no se concentran en ningún tipo de viaje ni clase concretos. Como la documentación no explica qué significa el 0 y un asiento “no aplicable” carece de sentido físico, lo interpretamos como una posible característica del proceso de recogida o generación de los datos. 
+Además, no se concentran en ningún tipo de viaje ni clase concretos. Como la documentación no explica qué significa el 0 y un asiento “no aplicable” carece de sentido físico, lo interpretamos como una posible característica del proceso de recogida o generación de los datos.
 
 Decisiones:
 
@@ -332,7 +339,7 @@ Con la escala logarítmica la dispersión de los datos queda estabilizada y el r
 
 #### Relación entre retraso de salida y retraso de llegada
 
-A nivel operativo en la industria aeronáutica, cabe esperar que el retraso en la salida condicione de forma directa el retraso en la llegada, dado que difícilmente un avión puede recuperar en ruta demoras prolongadas producidas antes del despegue. Para contrastar esta hipótesis, evaluar si ambas variables varían de forma conjunta y comprobar si aportan información redundante, recurrimos a dos de las herramientas vistas en la asignatura: el diagrama de dispersión (*scatter plot*) y el coeficiente de correlación lineal de Pearson.
+Habitualmente, si un avión se retrasa en su salida, lo más natural es que tambien se retrase en su llegada. Para contrastar esta hipótesis, recurrimos a dos de las herramientas vistas en la asignatura: el diagrama de dispersión (*scatter plot*) y el coeficiente de correlación lineal de Pearson. De esta manera tambien solucionaríamos el problema de los valores ausentes en `arrival_delay_in_minutes`, pudiendo quedarnos únicamente con la variable de salida.
 
 ```{r}
 #| label: relacion-retrasos
@@ -545,7 +552,6 @@ Una vez caracterizadas las variables de forma individual, procedemos a realizar 
 
 Evaluamos conjuntamente el impacto del propósito del vuelo (`type_of_travel`) y la cabina contratada (`class`) sobre la satisfacción global mediante barras normalizadas al 100%:
 
-
 ```{r}
 #| label: p2-clase-tipo-viaje
 #| echo: true
@@ -701,7 +707,6 @@ round(prop.table(table(train$seat_comfort_f, train$satisfaction_v2), 1) * 100, 1
 - Por el contrario, las calificaciones del asiento resultan decisivas: ante valoraciones de 1 o 2 la insatisfacción supera el 75%, mientras que notas de 4 o 5 se asocian con satisfacción en más del 80% de los casos. La comodidad a bordo tiene un poder predictivo y explicativo superior a la puntualidad.
 - Al comparar con el resto de variables (ranking de 7.6), la comodidad del asiento ocupa el puesto `r which(ranking$variable == "seat_comfort")` y los retrasos de llegada y de salida el `r which(ranking$variable == "arrival_delay_in_minutes")` y el `r which(ranking$variable == "departure_delay_in_minutes")` de `r nrow(ranking)`, lo que sitúa a la puntualidad entre los factores menos asociados con la satisfacción.
 
-
 #### Pregunta 3: ¿Qué servicios asociados a la tecnología tienen más relación con la lealtad de los clientes?
 
 Buscamos averiguar qué servivios tecnológicos contratan los clientes más fieles a la aerolinea, y que tipo de cliente (leal o desleal) es más indulgente con estos servicios. Para ello calculamos la valoración media de cada servicio tecnológico (`inflight_wifi_service`, `online_boarding`, `online_support`) por cliente.
@@ -826,12 +831,13 @@ anova(glm(sat ~ gender + type_of_travel + class, binomial, train),
 
 Al analizar conjuntamente el género del pasajero (`gender`) y el motivo del viaje (`type_of_travel`) respecto a la variable objetivo, se observa una clara interacción entre ambas características que condiciona la experiencia del usuario:
 
-* **Viajes de negocios (*Business travel*):** El comportamiento es muy homogéneo entre ambos sexos. Los hombres presentan una tasa de satisfacción ligeramente superior (**60.3%** sobre $n = 4374$) frente a las mujeres (**56.9%** sobre $n = 4545$), lo que supone una diferencia moderada de apenas 3.4 puntos porcentuales.
-* **Viajes personales (*Personal Travel*):** Se produce una divergencia extrema en función del género. Mientras que las mujeres que viajan por motivos personales alcanzan el porcentaje de satisfacción más alto de todo el segmento (**83.2%** sobre $n = 2015$), la satisfacción en los hombres dentro de esta misma categoría se desploma hasta un **10.0%** ($n = 2055$).
-* **Contraste estadístico (Análisis de Devianza):** El contraste mediante el modelo lineal generalizado confirma que estas diferencias no son atribuibles al azar. La reducción de la devianza residual en **1886.28 unidades** (pasando de $15855.65$ a $13969.37$ con $1$ grado de libertad) arroja un p-valor de **0** ($\text{Pr(>Chi)} < 2.2 \times 10^{-16}$), demostrando que el efecto evaluado es estadísticamente muy significativo.
+- **Viajes de negocios (*Business travel*):** El comportamiento es muy homogéneo entre ambos sexos. Los hombres presentan una tasa de satisfacción ligeramente superior (**60.3%** sobre $n = 4374$) frente a las mujeres (**56.9%** sobre $n = 4545$), lo que supone una diferencia moderada de apenas 3.4 puntos porcentuales.
+- **Viajes personales (*Personal Travel*):** Se produce una divergencia extrema en función del género. Mientras que las mujeres que viajan por motivos personales alcanzan el porcentaje de satisfacción más alto de todo el segmento (**83.2%** sobre $n = 2015$), la satisfacción en los hombres dentro de esta misma categoría se desploma hasta un **10.0%** ($n = 2055$).
+- **Contraste estadístico (Análisis de Devianza):** El contraste mediante el modelo lineal generalizado confirma que estas diferencias no son atribuibles al azar. La reducción de la devianza residual en **1886.28 unidades** (pasando de $15855.65$ a $13969.37$ con $1$ grado de libertad) arroja un p-valor de **0** ($\text{Pr(>Chi)} < 2.2 \times 10^{-16}$), demostrando que el efecto evaluado es estadísticamente muy significativo.
 
-::: {.callout-note}
+::: callout-note
 ## Conclusión del contraste
+
 El género no actúa de forma aislada sobre la satisfacción, sino que su impacto depende totalmente del tipo de viaje. Mientras que el perfil corporativo mantiene estándares de satisfacción estables con independencia del sexo, el segmento de viajes personales revela una brecha crítica entre hombres y mujeres que resultará altamente discriminante para la fase de modelado predictivo.
 :::
 
@@ -972,11 +978,11 @@ cor(rowMeans(sub_scaled), mds_res$points[, 1:2])
 - **Coordenada 1 (valoración global):** correlaciona con la valoración media de los 10 servicios con r = 0,98, y de forma positiva con 9 de los 10 servicios (la más alta, la facilidad de reserva online, r = 0,89). Ordena por tanto a los pasajeros de menor a mayor valoración global de izquierda a derecha. La única excepción es la ubicación de la puerta (r ≈ 0), que no se relaciona con ninguno de los dos ejes.
 - **Relación con la satisfacción:** a lo largo de la coordenada 1 los pasajeros insatisfechos o neutrales se concentran a la izquierda y los satisfechos a la derecha, pero existe un solapamiento considerable en la zona central y algunos insatisfechos en la parte inferior derecha. La valoración media de estos 10 servicios se asocia con la satisfacción global, pero no la separa por completo.
 - **Coordenada 2 (perfil digital vs. presencial):** no guarda relación con la valoración media (r = 0,10). Contrapone los servicios digitales (wifi, r = −0,61; embarque online, −0,52; soporte online, −0,46) a los presenciales o de a bordo (equipaje, 0,61; servicio a bordo, 0,55; limpieza, 0,50; espacio para las piernas, 0,51). Sugiere dos tipos de pasajeros: los que valoran relativamente mejor lo digital (parte inferior) y los que valoran mejor lo presencial (parte superior). Ambos extremos contienen tanto satisfechos como insatisfechos, por lo que esta diferencia de perfil no distingue por sí sola la satisfacción.
-- **Limitaciones:** 
+- **Limitaciones:**
 
-(i) las valoraciones son ordinales y se tratan como numéricas, lo que explica las alineaciones visibles en la nube de puntos; 
-(ii) se proyectan 400 de los ≈12.939 pasajeros; 
-(iii) se excluyen cuatro variables (asiento, comida, entretenimiento y horario) por los ceros asociados a la satisfacción (apartado 7.2); 
+(i) las valoraciones son ordinales y se tratan como numéricas, lo que explica las alineaciones visibles en la nube de puntos;
+(ii) se proyectan 400 de los ≈12.939 pasajeros;
+(iii) se excluyen cuatro variables (asiento, comida, entretenimiento y horario) por los ceros asociados a la satisfacción (apartado 7.2);
 (iv) el análisis es descriptivo y no permite inferir causalidad.
 
 ## Principales hallazgos y conclusiones
