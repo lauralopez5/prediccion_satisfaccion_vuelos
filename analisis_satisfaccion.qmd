@@ -291,8 +291,7 @@ Decisiones:
 
 Vamos a analizar `departure_delay_in_minutes`, `arrival_delay_in_minutes` y `flight_distance`, para ver cómo se distribuyen, si hay valores extremos y si es necesario descartar alguna de estas variables.
 
-Para la distancia de vuelo hemos considerado que se vería bien con un histograma y, para los retrasos, mejor con uno de caja.
-Veamos primero los estadísticos descriptivos.
+Para la distancia de vuelo hemos considerado que se vería bien con un histograma y, para los retrasos, mejor con uno de caja. Veamos primero los estadísticos descriptivos.
 
 ```{r}
 #| label: estad-descrip-var-num
@@ -307,7 +306,6 @@ resumen_stats <- train %>%
 
 kable(resumen_stats, caption = "Estadísticos descriptivos de las variables cuantitativas de vuelo")
 ```
-
 
 Observando la tabla anterior, vemos que las columnas dos y tres son muy parecidas. Y es que, habitualmente, si un avión se retrasa en su salida, lo más natural es que tambien se retrase en su llegada. Para contrastar esta hipótesis, recurrimos a dos de las herramientas vistas en la asignatura: el diagrama de dispersión (*scatter plot*) y el coeficiente de correlación lineal de Pearson. Esta relación también es relevante para el tratamiento de los valores ausentes de `arrival_delay_in_minutes` vistos en el 6.1.1..
 
@@ -369,10 +367,10 @@ ggplot(train, aes(y = departure_delay_in_minutes)) +
   )
 ```
 
-De esta  tabla y gráfica extraemos las siguientes conlusiones:
+De esta tabla y gráfica extraemos las siguientes conlusiones:
 
 - **Distancia de vuelo (`flight_distance`):** Hay una asimetría a la derecha, viendo cómo hay menos vuelos por esa zona, cosa que tiene sentido porque los vuelos de tanta distancia (internacionales) son menos frecuentes. La masa predominante de vuelos está entre las 1500 y 2500 millas, siendo el pico más alto (mayor parte de los vuelos) 6598 millas, como se vio en la tabla.
-- **Retraso en la salida (`departure_delay_in_minutes`):** Más de la mitad de los vuelos salen puntuales, ya vimos que el mínimo, la mediana y el primer cuartil valían 0. Es por eso por lo que sale la caja aplastada en el 0. Luego se ven puntos morados (''outliers''), que son vuelos específicos que sufrieron fuertes demoras (de hasta 933 minutos). 
+- **Retraso en la salida (`departure_delay_in_minutes`):** Más de la mitad de los vuelos salen puntuales, ya vimos que el mínimo, la mediana y el primer cuartil valían 0. Es por eso por lo que sale la caja aplastada en el 0. Luego se ven puntos morados (''outliers''), que son vuelos específicos que sufrieron fuertes demoras (de hasta 933 minutos).
 
 Para solucionar esto, vamos a seguir la recomendación de John Fox para este tipo de variables y realizar una transformación logarítmica. Usando: $\log(x + 1)$ (`log1p()` en R). El +1 se usa para evitar la indeterminación en los vuelos cuyo retraso es 0. Y, como $\log(0+1)=\log(1)=0$, se mantiene el orden entre observaciones, y los valores enormes disminuyen. Consiguiendo así que el boxplot deje de verse aplastado y se distinga mejor la estructura de los retrasos.
 
@@ -390,9 +388,7 @@ ggplot(train, aes(y = log1p(departure_delay_in_minutes))) +
   )
 ```
 
-
 Con la escala logarítmica la dispersión de los datos queda estabilizada y el rango intercuartílico se expande visualmente, permitiendo distinguir la estructura de las demoras y evaluar con mayor claridad la separación entre los vuelos puntuales y aquellos con retrasos significativos.
-
 
 ### Análisis Univariante: variable objetivo, demografía y variables categóricas.
 
@@ -672,7 +668,7 @@ round(prop.table(table(train$cleanliness,  train$satisfaction_v2), 1) * 100, 1)
 
 **Hallazgos de la P1:**
 
-- **Retraso vs. satisfacción:** los vuelos con retraso de más de 15 minutos tienen un 52,5 % de pasajeros neutrales o insatisfechos, frente al 43,2 % de los vuelos puntuales. El retraso eleva la insatisfacción unos 9,3 puntos porcentuales. Es decir, el retraso afecta, pero moderadamente. Incluso con retraso, casi la mitad de los pasajeros sigue satisfecha.
+- **Retraso vs. satisfacción:** los vuelos con retraso de más de 15 minutos tienen un 52,5 % de pasajeros neutrales o insatisfechos, frente al 43,2 % de los vuelos puntuales. El retraso eleva la insatisfacción unos 9,3 puntos porcentuales. Es decir, el retraso afecta, pero moderadamente. Incluso con retraso, casi la mitad de los pasajeros siguen satisfechos.
 
 - **Comodidad del asiento vs. satisfacción:** con notas de 2 y 3, en torno al 65 % de los pasajeros no está satisfecho; con un 4 el 65,0 % sí lo está, y con un 5 lo está el 99,1 %. El salto entre el 3 (35,9 % de satisfechos) y el 5 es enorme. La categoría con valor 0 tiene un 99,6 % de satisfechos, un comportamiento parecido al de la nota 5 y no al de la mínima satisfacción, lo que refuerza lo visto en 6.1.2.
 
@@ -1075,4 +1071,6 @@ cor(rowMeans(sub_scaled), mds_res$points[, 1:2])
 
 ## Principales hallazgos y conclusiones
 
+
 ## Uso de la inteligencia artificial
+
