@@ -289,10 +289,13 @@ Decisiones:
 
 #### Asimetrías y valores atípicos en variables numéricas
 
-Analizamos el rango, dispersión y posible presencia de valores extremos en la distancia y los retrasos mediante estadísticos descriptivos tabulados y representaciones gráficas:
+Vamos a analizar `departure_delay_in_minutes`, `arrival_delay_in_minutes` y `flight_distance`, para ver cómo se distribuyen, si hay valores extremos y si es necesario descartar alguna de estas variables.
+
+Para la distancia de vuelo hemos considerado que se vería bien con un histograma y, para los retrasos, mejor con uno de caja.
+Veamos primero los estadísticos descriptivos.
 
 ```{r}
-#| label: asimetrias-atipicos
+#| label: estad-descrip-var-num
 #| fig-width: 9
 #| fig-height: 4
 
@@ -303,62 +306,10 @@ resumen_stats <- train %>%
   summary()
 
 kable(resumen_stats, caption = "Estadísticos descriptivos de las variables cuantitativas de vuelo")
-
-# Histograma de distancia de vuelo
-ggplot(train, aes(x = flight_distance)) +
-  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
-  theme_minimal() +
-  labs(
-    title = "Distribución de la Distancia de Vuelo",
-    x = "Distancia",
-    y = "Frecuencia"
-  )
-
-# Diagrama de caja para los retrasos (detección de outliers y asimetría a la derecha)
-ggplot(train, aes(y = departure_delay_in_minutes)) +
-  geom_boxplot(fill = "pink", outlier.color = "purple", alpha = 0.6) +
-  theme_minimal() +
-  labs(
-    title = "Diagrama de Caja: Retraso en la Salida (minutos)",
-    y = "Minutos de retraso"
-  )
 ```
 
-De la inspección descriptiva y gráfica de estas variables cuantitativas se extraen las siguientes conclusiones:
 
-- **Distancia de vuelo (`flight_distance`):** Presenta una distribución asimétrica a la derecha con dos concentraciones claras: una masa predominante de vuelos de corta distancia (inferiores a 1.000 millas) y un segundo grupo en trayectos medios (entre 1.800 y 2.500 millas). El máximo se sitúa en 6.598 millas.
-- **Retraso en la salida (`departure_delay_in_minutes`):** Al observar el gráfico resultante, la caja del boxplot aparece completamente colapsada sobre el valor 0 en la base. Esto se debe a que más del 50% de los vuelos no sufrieron demora (mínimo, primer cuartil y mediana coinciden en 0 minutos) y el tercer cuartil se sitúa en tan solo 12 minutos. Por el contrario, existen vuelos con demoras extremas que alcanzan hasta 933 minutos (más de 15 horas).
-
-Dado que el retraso en la salida es muy asimétrico (más de la mitad de los 
-vuelos tienen retraso 0, mientras que el máximo llega a 933 minutos) y abarca 
-varios órdenes de magnitud, seguimos la recomendación de John Fox para este 
-tipo de variables y aplicamos una transformación logarítmica. Como la 
-variable contiene ceros (vuelos sin retraso), usamos $\log(x + 1)$ 
-(`log1p()` en R) para evitar indeterminaciones:
-
-```{r}
-#| label: boxplot-retraso-log
-#| fig-width: 8
-#| fig-height: 4
-
-ggplot(train, aes(y = log1p(departure_delay_in_minutes))) +
-  geom_boxplot(fill = "pink", outlier.color = "purple", alpha = 0.6) +
-  theme_minimal() +
-  labs(
-    title = "Diagrama de Caja Transformado: Retraso en la Salida (log(minutos + 1))",
-    y = "log(Minutos de retraso + 1)"
-  )
-```
-
-La transformación preserva el orden de las observaciones y asigna el valor 0 
-a los vuelos puntuales ($\log(0+1)=0$). La usaremos en adelante con el nombre 
-$\text{log\_ret\_salida} = \log(\text{departure\_delay\_in\_minutes} + 1)$.
-
-Con la escala logarítmica la dispersión de los datos queda estabilizada y el rango intercuartílico se expande visualmente, permitiendo distinguir la estructura de las demoras y evaluar con mayor claridad la separación entre los vuelos puntuales y aquellos con retrasos significativos.
-
-##### Relación entre retraso de salida y retraso de llegada
-
-Habitualmente, si un avión se retrasa en su salida, lo más natural es que tambien se retrase en su llegada. Para contrastar esta hipótesis, recurrimos a dos de las herramientas vistas en la asignatura: el diagrama de dispersión (*scatter plot*) y el coeficiente de correlación lineal de Pearson. Esta relación también es relevante para el tratamiento de los valores ausentes de `arrival_delay_in_minutes` vistos en el 6.1.1..
+Observando la tabla anterior, vemos que las columnas dos y tres son muy parecidas. Y es que, habitualmente, si un avión se retrasa en su salida, lo más natural es que tambien se retrase en su llegada. Para contrastar esta hipótesis, recurrimos a dos de las herramientas vistas en la asignatura: el diagrama de dispersión (*scatter plot*) y el coeficiente de correlación lineal de Pearson. Esta relación también es relevante para el tratamiento de los valores ausentes de `arrival_delay_in_minutes` vistos en el 6.1.1..
 
 ```{r}
 #| label: relacion-retrasos
@@ -386,12 +337,62 @@ ggplot(train, aes(x = departure_delay_in_minutes, y = arrival_delay_in_minutes))
   )
 ```
 
-Tal y como se observa en el gráfico, los puntos se concentran de manera casi perfecta a lo largo de la recta de identidad (línea roja discontinua), lo que indica que el tiempo de retraso acumulado en el despegue se reproduce casi idénticamente al aterrizar. Esto queda corroborado cuantitativamente por el coeficiente de correlación de Pearson, cuyo valor ($r = 0.962$) se encuentra sumamente próximo a $+1$. En consecuencia, ambas aportan información redundante, por lo que de cara al modelado predictivo bastará con mantener únicamente una de ellas para prevenir problemas de multicolinealidad. Conservamos `departure_delay_in_minutes` 
-(sin ausentes) y descartamos `arrival_delay_in_minutes`, lo que resuelve 
-a la vez la redundancia y los NAs.
+Tal y como se observa en el gráfico, los puntos se concentran de manera casi perfecta a lo largo de la recta de identidad (línea roja discontinua), lo que indica que el tiempo de retraso acumulado en el despegue se reproduce casi idénticamente al aterrizar. Esto queda corroborado cuantitativamente por el coeficiente de correlación de Pearson, cuyo valor ($r = 0.962$) se encuentra sumamente próximo a $+1$. En consecuencia, ambas aportan información redundante, por lo que de cara al modelado predictivo bastará con mantener únicamente una de ellas para prevenir problemas de multicolinealidad. Conservamos `departure_delay_in_minutes` (sin ausentes) y descartamos `arrival_delay_in_minutes`, lo que resuelve a la vez la redundancia y los NAs.
+
 ```{r}
 train <- train %>% select(-arrival_delay_in_minutes)
 ```
+
+Una vez solucionado esto, retomamos los gráficos de `flight_distance` y `departure_delay_in_minutes`.
+
+```{r}
+#| label: graficos-var-num
+#| fig-width: 9
+#| fig-height: 4
+# Histograma de distancia de vuelo
+ggplot(train, aes(x = flight_distance)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  theme_minimal() +
+  labs(
+    title = "Distribución de la Distancia de Vuelo",
+    x = "Distancia",
+    y = "Frecuencia"
+  )
+
+# Diagrama de caja para los retrasos (detección de outliers y asimetría a la derecha)
+ggplot(train, aes(y = departure_delay_in_minutes)) +
+  geom_boxplot(fill = "pink", outlier.color = "purple", alpha = 0.6) +
+  theme_minimal() +
+  labs(
+    title = "Diagrama de Caja: Retraso en la Salida (minutos)",
+    y = "Minutos de retraso"
+  )
+```
+
+De esta  tabla y gráfica extraemos las siguientes conlusiones:
+
+- **Distancia de vuelo (`flight_distance`):** Hay una asimetría a la derecha, viendo cómo hay menos vuelos por esa zona, cosa que tiene sentido porque los vuelos de tanta distancia (internacionales) son menos frecuentes. La masa predominante de vuelos está entre las 1500 y 2500 millas, siendo el pico más alto (mayor parte de los vuelos) 6598 millas, como se vio en la tabla.
+- **Retraso en la salida (`departure_delay_in_minutes`):** Más de la mitad de los vuelos salen puntuales, ya vimos que el mínimo, la mediana y el primer cuartil valían 0. Es por eso por lo que sale la caja aplastada en el 0. Luego se ven puntos morados (''outliers''), que son vuelos específicos que sufrieron fuertes demoras (de hasta 933 minutos). 
+
+Para solucionar esto, vamos a seguir la recomendación de John Fox para este tipo de variables y realizar una transformación logarítmica. Usando: $\log(x + 1)$ (`log1p()` en R). El +1 se usa para evitar la indeterminación en los vuelos cuyo retraso es 0. Y, como $\log(0+1)=\log(1)=0$, se mantiene el orden entre observaciones, y los valores enormes disminuyen. Consiguiendo así que el boxplot deje de verse aplastado y se distinga mejor la estructura de los retrasos.
+
+```{r}
+#| label: boxplot-retraso-log
+#| fig-width: 8
+#| fig-height: 4
+
+ggplot(train, aes(y = log1p(departure_delay_in_minutes))) +
+  geom_boxplot(fill = "pink", outlier.color = "purple", alpha = 0.6) +
+  theme_minimal() +
+  labs(
+    title = "Diagrama de Caja Transformado: Retraso en la Salida (log(minutos + 1))",
+    y = "log(Minutos de retraso + 1)"
+  )
+```
+
+
+Con la escala logarítmica la dispersión de los datos queda estabilizada y el rango intercuartílico se expande visualmente, permitiendo distinguir la estructura de las demoras y evaluar con mayor claridad la separación entre los vuelos puntuales y aquellos con retrasos significativos.
+
 
 ### Análisis Univariante: variable objetivo, demografía y variables categóricas.
 
@@ -526,7 +527,7 @@ train %>%
   theme_minimal()
 ```
 
-**Conclusiones:** 
+**Conclusiones:**
 
 - **Mayor parte de valoraciones altas.** En la mayoría de servicios la moda es 4 y las notas 4 y 5 suman más de la mitad de las respuestas. Siendo los mejor valorados: `baggage_handling` (64 %), `cleanliness` (66 %), `online_support` (60 %), `ease_of_online_booking` (57 %), `leg_room_service` (57 %), `on_board_service` (56 %) e `inflight_entertainment` (55 %).
 - **Distribuciones más uniformes** `seat_comfort`, `food_and_drink`, `departure_arrival_time_convenient`, `gate_location` e `inflight_wifi_service` reparten las respuestas de forma más homogénea entre las cinco categorías. En las cuatro primeras, además, entre un 15 % y un 17 % de los pasajeros dan la nota mínima (1).
@@ -777,7 +778,6 @@ kable(binom_por_grupo(train, type_of_travel, class), digits = 3,
       caption = "Satisfacción por tipo de viaje y clase (H0: proporción = tasa global)")
 ```
 
-
 ##### Pregunta 3: ¿Qué servicios asociados a la tecnología tienen más relación con la lealtad de los clientes?
 
 Queremos saber con qué servicios tecnológicos (`inflight_wifi_service`, `online_boarding`, `online_support`) se asocia más la lealtad del cliente. Para cada uno comparamos las valoraciones de clientes leales y desleales con el mismo estadístico que en el ranking: el AUC de Wilcoxon, aquí interpretado como la probabilidad de que un cliente leal, elegido al azar, valore el servicio más alto que uno desleal (0,5 = sin relación).
@@ -929,7 +929,7 @@ Al analizar conjuntamente el género del pasajero (`gender`) y el motivo del via
 - **Viajes de negocios (*Business travel*):** El comportamiento es muy homogéneo entre ambos sexos. Los hombres presentan una tasa de satisfacción ligeramente superior (**60.3%** sobre $n = 4374$) frente a las mujeres (**56.9%** sobre $n = 4545$), lo que supone una diferencia moderada de apenas 3.4 puntos porcentuales.
 - **Viajes personales (*Personal Travel*):** Se produce una divergencia extrema en función del género. Mientras que las mujeres que viajan por motivos personales alcanzan el porcentaje de satisfacción más alto de todos los grupos (**83.2%** sobre $n = 2015$), la satisfacción en los hombres dentro de esta misma categoría se desploma hasta un **10.0%** ($n = 2055$).
 - **Descartamos un efecto de composición:** la tabla anterior muestra que la distribución de clases es prácticamente idéntica en hombres y mujeres, por lo que la diferencia no se debe a que unos viajen más en una cabina concreta. Además, los dos modelos que comparamos incluyen la clase como variable de control.
-- **Contraste estadístico (análisis de devianza):** añadir la interacción género × tipo de viaje reduce la devianza residual en **1886,28 unidades** (de 15855,65 a 13969,37 con 1 grado de libertad), con un p-valor < 2,2·10⁻¹⁶. Esto indica que la interacción no se explica por el azar.
+- **Contraste estadístico (análisis de devianza):** añadir la interacción género × tipo de viaje reduce la devianza residual en **1886,28 unidades** (de 15855,65 a 13969,37 con 1 grado de libertad), con un p-valor \< 2,2·10⁻¹⁶. Esto indica que la interacción no se explica por el azar.
 
 En conclusión, el género no actúa de forma aislada sobre la satisfacción, sino que su impacto depende totalmente del tipo de viaje. Mientras que el perfil corporativo mantiene estándares de satisfacción estables con independencia del sexo, el segmento de viajes personales revela una brecha crítica entre hombres y mujeres que resultará altamente discriminante para la fase de modelado predictivo.
 
@@ -1074,6 +1074,5 @@ cor(rowMeans(sub_scaled), mds_res$points[, 1:2])
 (iv) el análisis es descriptivo y no permite inferir causalidad.
 
 ## Principales hallazgos y conclusiones
-
 
 ## Uso de la inteligencia artificial
