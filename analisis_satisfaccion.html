@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="analisis_satisfaccion_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="analisis_satisfaccion_files/libs/quarto-html/anchor.min.js"></script>
 <link href="analisis_satisfaccion_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="analisis_satisfaccion_files/libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="analisis_satisfaccion_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="analisis_satisfaccion_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="analisis_satisfaccion_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="analisis_satisfaccion_files/libs/bootstrap/bootstrap-9ff987616464a3a7814ddad382ba5609.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -431,7 +431,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Los valores ausentes se concentran únicamente en <code>arrival_delay_in_minutes</code> (41 observaciones, 0.32 % de <code>train</code>). Decidimos no tocar esas filas porque, como veremos en 6.1.3.1., esta variable es casi idéntica a <code>departure_delay_in_minutes</code> , que no tiene ausentes, así que de cara al modelado prescindiremos de ella. En el análisis exploratorio se calculan los estadísticos con las observaciones disponibles.</p>
+<p>Los valores ausentes se concentran únicamente en <code>arrival_delay_in_minutes</code> (41 observaciones, 0.32 % de <code>train</code>). Decidimos no tocar esas filas porque, como veremos en 6.1.3., esta variable es casi idéntica a <code>departure_delay_in_minutes</code> , que no tiene ausentes, así que de cara al modelado prescindiremos de ella. En el análisis exploratorio se calculan los estadísticos con las observaciones disponibles.</p>
 </section>
 <section id="inspección-del-valor-0-en-las-valoraciones-del-servicio" class="level4" data-number="6.1.2">
 <h4 data-number="6.1.2" class="anchored" data-anchor-id="inspección-del-valor-0-en-las-valoraciones-del-servicio"><span class="header-section-number">6.1.2</span> Inspección del valor 0 en las valoraciones del servicio</h4>
@@ -2087,7 +2087,7 @@ window.Quarto = {
 <h3 data-number="6.4" class="anchored" data-anchor-id="análisis-multivariante-correlaciones-y-mds."><span class="header-section-number">6.4</span> Análisis Multivariante: correlaciones y MDS.</h3>
 <section id="correlaciones-entre-las-valoraciones-y-otras-variables-numéricas" class="level4" data-number="6.4.1">
 <h4 data-number="6.4.1" class="anchored" data-anchor-id="correlaciones-entre-las-valoraciones-y-otras-variables-numéricas"><span class="header-section-number">6.4.1</span> Correlaciones entre las valoraciones y otras variables numéricas</h4>
-<p>Para ver qué variables varían de forma conjunta y cuáles aportan información redundante, calculamos la matriz de correlaciones lineales de Pearson (ya usada en 6.1.3.1.) entre las 14 valoraciones de servicio, la edad, la distancia y los retrasos. Los ceros de las valoraciones se tratan como valores ausentes (ver 6.1.2.) y los retrasos se transforman con <span class="math inline">\(\log(x+1)\)</span>, como en 6.1.3..</p>
+<p>Para ver qué variables varían de forma conjunta y cuáles aportan información redundante, calculamos la matriz de correlaciones lineales de Pearson (ya usada en 6.1.3.) entre las 14 valoraciones de servicio, la edad, la distancia y los retrasos. Los ceros de las valoraciones se tratan como valores ausentes (ver 6.1.2.) y los retrasos se transforman con <span class="math inline">\(\log(x+1)\)</span>, como en 6.1.3..</p>
 <div class="cell" data-layout-align="center">
 <details class="code-fold">
 <summary>Code</summary>
@@ -3046,7 +3046,7 @@ window.Quarto = {
 <span id="cb64-230"><a href="#cb64-230" aria-hidden="true" tabindex="-1"></a>na_resumen</span>
 <span id="cb64-231"><a href="#cb64-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb64-232"><a href="#cb64-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-233"><a href="#cb64-233" aria-hidden="true" tabindex="-1"></a>Los valores ausentes se concentran únicamente en <span class="in">`arrival_delay_in_minutes`</span> (<span class="in">`r sum(is.na(train$arrival_delay_in_minutes))`</span> observaciones, <span class="in">`r round(mean(is.na(train$arrival_delay_in_minutes)) * 100, 2)`</span> % de <span class="in">`train`</span>). Decidimos no tocar esas filas porque, como veremos en 6.1.3.1., esta variable es casi idéntica a <span class="in">`departure_delay_in_minutes`</span> , que no tiene ausentes, así que de cara al modelado prescindiremos de ella. En el análisis exploratorio se calculan los estadísticos con las observaciones disponibles.</span>
+<span id="cb64-233"><a href="#cb64-233" aria-hidden="true" tabindex="-1"></a>Los valores ausentes se concentran únicamente en <span class="in">`arrival_delay_in_minutes`</span> (<span class="in">`r sum(is.na(train$arrival_delay_in_minutes))`</span> observaciones, <span class="in">`r round(mean(is.na(train$arrival_delay_in_minutes)) * 100, 2)`</span> % de <span class="in">`train`</span>). Decidimos no tocar esas filas porque, como veremos en 6.1.3., esta variable es casi idéntica a <span class="in">`departure_delay_in_minutes`</span> , que no tiene ausentes, así que de cara al modelado prescindiremos de ella. En el análisis exploratorio se calculan los estadísticos con las observaciones disponibles.</span>
 <span id="cb64-234"><a href="#cb64-234" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-235"><a href="#cb64-235" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Inspección del valor 0 en las valoraciones del servicio</span></span>
 <span id="cb64-236"><a href="#cb64-236" aria-hidden="true" tabindex="-1"></a></span>
@@ -3764,7 +3764,7 @@ window.Quarto = {
 <span id="cb64-992"><a href="#cb64-992" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-993"><a href="#cb64-993" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Correlaciones entre las valoraciones y otras variables numéricas</span></span>
 <span id="cb64-994"><a href="#cb64-994" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-995"><a href="#cb64-995" aria-hidden="true" tabindex="-1"></a>Para ver qué variables varían de forma conjunta y cuáles aportan información redundante, calculamos la matriz de correlaciones lineales de Pearson (ya usada en 6.1.3.1.) entre las 14 valoraciones de servicio, la edad, la distancia y los retrasos. Los ceros de las valoraciones se tratan como valores ausentes (ver 6.1.2.) y los retrasos se transforman con $\log(x+1)$, como en 6.1.3..</span>
+<span id="cb64-995"><a href="#cb64-995" aria-hidden="true" tabindex="-1"></a>Para ver qué variables varían de forma conjunta y cuáles aportan información redundante, calculamos la matriz de correlaciones lineales de Pearson (ya usada en 6.1.3.) entre las 14 valoraciones de servicio, la edad, la distancia y los retrasos. Los ceros de las valoraciones se tratan como valores ausentes (ver 6.1.2.) y los retrasos se transforman con $\log(x+1)$, como en 6.1.3..</span>
 <span id="cb64-996"><a href="#cb64-996" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-999"><a href="#cb64-999" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb64-1000"><a href="#cb64-1000" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: correlaciones</span></span>
@@ -3900,8 +3900,7 @@ window.Quarto = {
 <span id="cb64-1134"><a href="#cb64-1134" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-1135"><a href="#cb64-1135" aria-hidden="true" tabindex="-1"></a><span class="fu">## Principales hallazgos y conclusiones</span></span>
 <span id="cb64-1136"><a href="#cb64-1136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-1137"><a href="#cb64-1137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-1138"><a href="#cb64-1138" aria-hidden="true" tabindex="-1"></a><span class="fu">## Uso de la inteligencia artificial</span></span>
+<span id="cb64-1137"><a href="#cb64-1137" aria-hidden="true" tabindex="-1"></a><span class="fu">## Uso de la inteligencia artificial</span></span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
