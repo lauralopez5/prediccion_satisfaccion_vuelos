@@ -661,8 +661,13 @@ p_clean <- grafico_confort("cleanliness",  "Satisfacción vs. Limpieza")
 p_ret + p_seat + p_clean + plot_layout(guides = "collect")
 
 # Cifras exactas (% por fila)
+cat("porcentaje de satisfaccion/insatisfaccion según el retraso del avión")
 round(prop.table(table(train$retraso_demora, train$satisfaction_v2), 1) * 100, 1)
+cat("\n")
+cat("porcentaje de satisfaccion/insatisfaccion según la comodidad del asiento")
 round(prop.table(table(train$seat_comfort, train$satisfaction_v2), 1) * 100, 1)
+cat("\n")
+cat("porcentaje de satisfaccion/insatisfaccion según la limpieza del avión" )
 round(prop.table(table(train$cleanliness,  train$satisfaction_v2), 1) * 100, 1)
 ```
 
@@ -1071,6 +1076,15 @@ cor(rowMeans(sub_scaled), mds_res$points[, 1:2])
 
 ## Principales hallazgos y conclusiones
 
+Este analisis exploratorio de los datos que nos ha permitido comprender mejor la estructura de la muestra que nos servirá para poder realizar un modelo prodictivo que nos indique si un pasajero estará satisfecho o insatisfecho con su futuro vuelo.
+
+Las principales conclusiones a las que hemos llegado son:
+- **Redundancia en las variables**: La variable `arrival_delay_in_minutes` aporta la misma información que la variable `departure_delay_in_minutes`, por lo que decidimos eliminarla.
+-**Comodidad y retrasos**: Las variables `seat_confort` y `cleanliness` son muy influyentes en la satisfacción de los clientes.
+-**Edad y genero**: Las mujeres suelen presentar mayores porcentajes de satisfacción con respecto a los hombres. Además, las personas más jovenes y de edad más avanzada suelen presentar un comportamiento más critico a la hora de valorar los servicios del avión.
+-**Fidelidad**: Los clientes fieles suelen presentar unos mayores niveles de satisfaccion con respecto a aquellos que no suelen usar tanto la aerilinea, dandole principla importancia al soporte online.
 
 ## Uso de la inteligencia artificial
+
+Para este trabajo se ha usado la inteligencia artificial como medio de apoyo en la elaboración de código, usandolo principalmente como herramienta de corrección y deputación de errores, además de servir como guía para aprender la sintaxis de R.
 
