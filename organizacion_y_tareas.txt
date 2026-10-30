@@ -1,0 +1,25 @@
+**Organización de tareas y reparto del trabajo**
+
+El trabajo ha sido realizado por las tres integrantes del grupo:
+- Gabriela Súñer Silva
+- Paula María Arroyo Botica
+- Laura López Barroso
+
+Una vez se nos asignaron los grupos, llegamos al acuerdo de ir avanzándolo en clase y lo que no diera tiempo, se iba avanzando en casa, cada una por su cuenta. Evidentemente, los cambios tenían que ir siendo comunicados por el grupo de WhatsApp.
+
+Las tareas realizadas por las tres fueron:
+- Búsqueda y elección de datos usando Kaggle como fuente
+- Revisión de faltas de ortografía en el HTML
+- Elección de la estructura general del trabajo y de las preguntas iniciales
+
+Por separado, las tareas de cada una en los distintos apartados fueron:
+
+- Redacción del PDF:
+Laura:
+Paula:
+Gabriela:
+
+- Desarrollo del .qmd:
+Laura: creó el borrador inicial. Realizó los análisis univariante y multivariante. Del bivariante hizo los requeridos para las preguntas P1, P2 y P3. Tambien se encargó de la limpieza de los datos.
+Paula:
+Gabriela:
