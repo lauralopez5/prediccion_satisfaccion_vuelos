@@ -17,9 +17,9 @@ Por separado, las tareas de cada una en los distintos apartados fueron:
 - Redacción del PDF:
 Laura:
 Paula:
-Gabriela:
+Gabriela: 
 
 - Desarrollo del .qmd:
-Laura: creó el borrador inicial. Realizó los análisis univariante y multivariante. Del bivariante hizo los requeridos para las preguntas P1, P2 y P3. Tambien se encargó de la limpieza de los datos.
-Paula:
-Gabriela:
+Laura: creó el borrador inicial. Realizó los análisis univariante y multivariante. Del bivariante hizo los requeridos para las preguntas P1, P2 y P5. Tambien se encargó de la limpieza de los datos.
+Paula: También creó el borrador inicial. Respondió las preguntas P3 y P4. Redactó las conclusiones finales y el uso de la IA. Hizo retoques en el código de Laura
+Gabriela: 
