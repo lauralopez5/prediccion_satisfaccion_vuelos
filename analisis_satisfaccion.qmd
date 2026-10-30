@@ -180,7 +180,7 @@ El objetivo de este análisis de datos es examinar la estructura de las variable
 Para ello, sobre la muestra de entrenamiento (`train`) se abordarán las siguientes fases:
 
 1.  **Análisis de consistencia y veracidad de los datos:**
-    - Detección de posibles valores ausentes (`NA`) y decisión de cómo se tratará con él.
+    - Detección de posibles valores ausentes (`NA`) y decisión de cómo se tratará con ellos.
     - Inspección del valor 0 en las valoraciones de servicios (evaluar si denota servicio no contratado/no aplicable o la mínima satisfacción).
     - Comprobación de asimetrías y detección de valores atípicos (*outliers*) en las variables cuantitativas continuas (`flight_distance`, `departure_delay_in_minutes` y `arrival_delay_in_minutes`).
 2.  **Análisis Univariante:**
@@ -377,7 +377,7 @@ ggplot(train, aes(y = departure_delay_in_minutes)) +
 
 De esta tabla y gráfica extraemos las siguientes conlusiones:
 
-- **Distancia de vuelo (`flight_distance`):** Hay una asimetría a la derecha, viendo cómo hay menos vuelos por esa zona, cosa que tiene sentido porque los vuelos de tanta distancia (internacionales) son menos frecuentes. La masa predominante de vuelos está entre las 1500 y 2500 millas, siendo el pico más alto (mayor parte de los vuelos) 6598 millas, como se vio en la tabla.
+- **Distancia de vuelo (`flight_distance`):** Hay una asimetría a la derecha, viendo cómo hay menos vuelos por esa zona, cosa que tiene sentido porque los vuelos de tanta distancia (internacionales) son menos frecuentes. La masa predominante de vuelos está entre las 1500 y 2500 millas, siendo el máximo 6598 millas, como se vio en la tabla.
 - **Retraso en la salida (`departure_delay_in_minutes`):** Más de la mitad de los vuelos salen puntuales, ya vimos que el mínimo, la mediana y el primer cuartil valían 0. Es por eso por lo que sale la caja aplastada en el 0. Luego se ven puntos morados (''outliers''), que son vuelos específicos que sufrieron fuertes demoras (de hasta 933 minutos).
 
 Para solucionar esto, vamos a seguir la recomendación de John Fox para este tipo de variables y realizar una transformación logarítmica. Usando: $\log(x + 1)$ (`log1p()` en R). El +1 se usa para evitar la indeterminación en los vuelos cuyo retraso es 0. Y, como $\log(0+1)=\log(1)=0$, se mantiene el orden entre observaciones, y los valores enormes disminuyen. Consiguiendo así que el boxplot deje de verse aplastado y se distinga mejor la estructura de los retrasos.
@@ -668,15 +668,18 @@ p_clean <- grafico_confort("cleanliness",  "Satisfacción vs. Limpieza")
 
 p_ret + p_seat + p_clean + plot_layout(guides = "collect")
 
-# Cifras exactas (% por fila)
-cat("porcentaje de satisfaccion/insatisfaccion según el retraso del avión")
-round(prop.table(table(train$retraso_demora, train$satisfaction_v2), 1) * 100, 1)
-cat("\n")
-cat("porcentaje de satisfaccion/insatisfaccion según la comodidad del asiento")
-round(prop.table(table(train$seat_comfort, train$satisfaction_v2), 1) * 100, 1)
-cat("\n")
-cat("porcentaje de satisfaccion/insatisfaccion según la limpieza del avión" )
-round(prop.table(table(train$cleanliness,  train$satisfaction_v2), 1) * 100, 1)
+# Tabla con título: % por fila (cada fila suma 100)
+tabla_pct <- function(x, y, titulo) {
+  kable(as.data.frame.matrix(round(prop.table(table(x, y), 1) * 100, 1)),
+        caption = titulo)
+}
+
+tabla_pct(train$retraso_demora, train$satisfaction_v2,
+          "% de satisfacción según el retraso del avión")
+tabla_pct(train$seat_comfort, train$satisfaction_v2,
+          "% de satisfacción según la comodidad del asiento (0 = valor sin documentar)")
+tabla_pct(train$cleanliness, train$satisfaction_v2,
+          "% de satisfacción según la limpieza del avión (0 = valor sin documentar)")
 ```
 
 **Hallazgos de la P1:**
@@ -687,7 +690,7 @@ round(prop.table(table(train$cleanliness,  train$satisfaction_v2), 1) * 100, 1)
 
 - **Limpieza vs. satisfacción:** con notas de 1 a 3 la satisfacción queda entre el 32,0 % y el 41,4 %, y con un 4 o un 5 sube al 58,4 % y al 73,2 %. Sin embargo, aun con la nota máxima, el 26,8 % de los pasajeros no está satisfecho, frente al 0,9 % en el asiento. La limpieza se asocia con la satisfacción, pero bastante menos que la comodidad del asiento.
 
-En conclusión, el confort en cabina condiciona la satisfacción más que la puntualidad y la limpieza. Aunque el retraso del vuelo tiene un efecto importante en la insatisfacción del cliente.
+En conclusión, el confort en cabina condiciona la satisfacción más que la puntualidad y la limpieza. El retraso tiene efecto, pero moderado (unos 9 puntos porcentuales más de insatisfechos), y la limpieza queda en un nivel intermedio.
 
 ##### Pregunta 2: ¿Existe una diferencia sustancial según el Tipo de Viaje y la Clase?
 
@@ -701,7 +704,8 @@ Evaluamos conjuntamente el impacto del propósito del vuelo (`type_of_travel`) y
 #| fig-align: "center"
 
 # Tabla de contingencia en porcentajes
-round(prop.table(table(train$class, train$satisfaction_v2), margin = 1) * 100, 1)
+tabla_pct(train$class, train$satisfaction_v2,
+          "% de satisfacción según la clase de cabina")
 
 # Tamaño de cada grupo
 train %>% count(type_of_travel, class) %>% kable(caption = "Número de pasajeros por grupo")
@@ -734,7 +738,7 @@ Al segmentar la satisfacción conjuntamente por el propósito del vuelo y la cla
 - **En viajes de negocios (`Business travel`):** La clase de cabina resulta determinante en la experiencia. En clase `Business`, aproximadamente el **72%** de los viajeros manifiesta estar satisfecho. En contraste, cuando viajan por trabajo en cabinas turista (`Eco` o `Eco Plus`), la satisfaccción desciende a entre el **30% y el 40%**.
 - **En viajes personales (`Personal Travel`):** La satisfacción es similar en las tres cabinas (46-51 %). Aquí es donde nos surge la pregunta 5, de si este promedio oculta una fuerte diferencia entre géneros.
 
-En conclusión, la exigencia y sensibilidad hacia la categoría de cabina dependen del motivo de vuelo: mientras que para el cliente corporativo volar en turista es un motivo de insatisfacción, el viajero personal muestra una percepción dividida e independiente de la clase contratada.
+En conclusión, la satisfacción de cabina depende del motivo de vuelo: para el cliente corporativo volar en turista es un motivo claro de insatisfacción, mientras que en viaje personal la satisfacción global es similar en las tres cabinas. Sin embargo, ese promedio oculta dos subgrupos muy distintos según el género, que analizamos en la P5.
 
 ```{r}
 #| label: test-chi-tabla-centrada
@@ -761,7 +765,7 @@ kable(
 )
 ```
 
-Dado que el test de Chi-cuadrado nos da un p-valor inferior a 0.05, se rechaza la hipótesis nula de independencia, confirmando que existe una asociación estadísticamente significativa entre la clase y el nivel de satisfacción de los clientes
+Dado que el test de Chi-cuadrado nos da un p-valor inferior a 0.05, se rechaza la hipótesis nula de independencia, confirmando que existe una asociación estadísticamente significativa entre la clase y el nivel de satisfacción de los clientes. Este contraste considera a todos los pasajeros a la vez, sin separar por tipo de viaje. Los gráficos anteriores muestran que la diferencia entre clases aparece sobre todo en los viajes de negocios, mientras que en los personales las tres cabinas tienen tasas de satisfacción parecidas.
 
 Para cuantificar la incertidumbre de cada grupo (los grupos pequeños, como `Eco Plus` en viaje personal, estimarán la proporción con menos precisión), aplicamos el **test binomial** a cada combinación de tipo de viaje y clase. En cada una obtenemos la proporción de satisfechos, su intervalo de confianza al 95 % y el contraste de la hipótesis nula de que la proporción coincide con la tasa global de satisfacción de `train`.
 
@@ -870,8 +874,8 @@ train_edad <- train %>%
   ))
 
 # Tabla de contingencia de satisfacción por rango de edad (% por fila)
-p4_tabla <- round(prop.table(table(train_edad$rango_edad, train_edad$satisfaction_v2), margin = 1) * 100, 1)
-p4_tabla
+tabla_pct(train_edad$rango_edad, train_edad$satisfaction_v2,
+          "% de satisfacción según el rango de edad")
 
 # Gráfico: % de cada nivel de satisfacción DENTRO de cada rango de edad
 train_edad %>%
@@ -923,7 +927,8 @@ ggplot(tab, aes(type_of_travel, pct_sat / 100, fill = gender)) +
   theme_minimal()
 
 # ¿Se reparte igual la clase entre hombres y mujeres? (% por fila)
-round(prop.table(table(train$gender, train$class), 1) * 100, 1)
+tabla_pct(train$gender, train$class,
+          "% de cada clase de cabina dentro de cada género (cada fila suma 100)")
 
 # ¿Es una interacción real?
 train$sat <- as.integer(train$satisfaction_v2 == "satisfied")
@@ -1001,13 +1006,13 @@ as.data.frame(cor_p) %>%
 
 La pareja más correlacionada es `r pares$v1[1]` y `r pares$v2[1]` (r = `r round(pares$r[1], 2)`). Las correlaciones entre servicios indican que las valoraciones no son independientes entre sí, es decir, si el vuelo les resulta cómodo, suelen puntuar alto en la mayoría de los apartados de cabina. Esto explica que, en el siguiente apartado, la primera coordenada del MDS (6.4.2.) funcione como una valoración global.
 
-Sin embargo, podemos observar que las correlaciones entre los servicios (como la comodidad del asiento o la limpieza) y variables como la edad, la distancia de vuelo o los retrasos, son prácticamente nulas. Esto significa que un pasajero joven o mayor, o alguien que haya sufrido un retraso, no puntúa de manera distinta los servicios por el mero hecho de pertenecer a un rango de edad o volar más lejos; son dimensiones independientes en la percepción del cliente.
+Sin embargo, podemos observar que las correlaciones entre los servicios (como la comodidad del asiento o la limpieza) y variables como la edad, la distancia de vuelo o los retrasos, son prácticamente nulas. Esto significa que un pasajero joven o mayor, o alguien que haya sufrido un retraso, no puntúa de manera distinta los servicios por el mero hecho de pertenecer a un rango de edad o volar más lejos; son dimensiones prácticamente independientes en la percepción del cliente.
 
 #### Escalamiento Multidimensional Métrico (Metric MDS)
 
 Ahora aplicamos **Metric MDS** (*Multidimensional Scaling*) a partir de la matriz de distancias euclídeas de las 10 valoraciones de servicio sin ceros informativos (se excluyen asiento, comida, entretenimiento y horario conveniente por lo observado en 6.1.2.)
 
-Dado que el cálculo de los autovectores sobre la matriz de distancias $(≈12.939 × 12.939)$ presenta un coste computacional cúbico no viable en memoria local (lo hemos intentado y a los 5 minutos seguía sin renderizar el qmd), extraemos una submuestra representativa y reproducible de 400 observaciones (`set.seed(6004)`) para proyectar la configuración espacial de los pasajeros:
+Dado que el cálculo de los autovectores sobre la matriz de distancias $(≈12.939 × 12.939)$ presenta un coste computacional cúbico no viable en memoria local, por lo que extraemos una submuestra representativa y reproducible de 400 observaciones (`set.seed(6004)`) para proyectar la configuración espacial de los pasajeros:
 
 ```{r}
 #| label: matriz-mds
@@ -1077,9 +1082,9 @@ kable(cor_media, digits = 2, caption = "Correlación de las coordenadas con la n
 
 **Interpretación y conclusiones de la Matriz MDS:**
 
-- **Calidad del ajuste:** como se observa en la segunda línea de código que se ha impreso por pantalla de esta sección, las dos primeras coordenadas recogen un 57,8 % de la variabilidad de las distancias entre pasajeros (GOF = 0,58). Esto es un resumen visual bastante acercado a la realidad, aunque hay un 42% de matrices que no salen representadas.
-- **Coordenada 1 (valoración global):** para saber qué representaba, hemos calculado su correlación con la nota media de cada pasajero y ha dado $r=0,98$, es decir, casi 1. Eso significa que el eje horizontal ordena a los pasajeros según lo contentos que están en general con los servicios. La única excepción es la ubicación de la puerta (r ≈ 0), que no se relaciona con ninguno de los dos ejes, porque la gente la puntúa de forma independiente a cómo haya ido el resto del vuelo.
-- **Relación con la satisfacción:** a lo largo de la coordenada 1 los pasajeros insatisfechos o neutrales se concentran a la izquierda y los satisfechos a la derecha, pero en el centro se mezclan ambos colores (solapamiento) y abajo a la derecha hay algunos insatisfechos. Esto demuestra que sacar una buena media en esos 10 servicios ayuda mucho a estar satisfecho, pero no lo garantiza al 100 % (hay que tener en cuenta que faltan factores clave fuera de esos 10 ítems, como la comodidad del asiento, el entretenimiento o el tipo de viaje).
+- **Calidad del ajuste:** como se observa en la segunda línea de código que se ha impreso por pantalla de esta sección, las dos primeras coordenadas recogen un 57,8 % de la variabilidad de las distancias entre pasajeros (GOF = 0,58). Esto es un resumen visual bastante acercado a la realidad, aunque un 42 % de la variabilidad de las distancias no queda representada.
+- **Coordenada 1 (valoración global):** para saber qué representaba, hemos calculado su correlación con la nota media de cada pasajero y ha dado $r=0,98$, es decir, casi 1. Eso significa que el eje horizontal ordena a los pasajeros según lo contentos que están en general con los servicios. La única excepción es la ubicación de la puerta (r ≈ 0), que no se relaciona con ninguno de los dos ejes.
+- **Relación con la satisfacción:** a lo largo de la coordenada 1 los pasajeros insatisfechos o neutrales se concentran a la izquierda y los satisfechos a la derecha, pero en el centro se mezclan ambos colores (solapamiento) y abajo a la derecha hay algunos insatisfechos. Esto indica que sacar una buena media en esos 10 servicios se asocia con estar satisfecho, pero no lo garantiza al 100 % (hay que tener en cuenta que faltan factores clave fuera de esos 10 ítems, como la comodidad del asiento, el entretenimiento o el tipo de viaje).
 - **Coordenada 2 (perfil digital vs. presencial):** aquí hicimos lo mismo que con la coordenada 1, pero los resultados fueron distintos ($r=0,10$). Al mirar la tabla de correlaciones con los servicios, se ve que algunas tienen signo negativo y otras positivo. Si nos fijamos, los que son negativos son los relacionados con lo "online", y los que son positivos son los servicios presenciales o físicos en cabina. Es decir, si un pasajero ha valorado bien la parte tecnológica/online frente al resto, se situará muy abajo del gráfico, mientras que si da mayor nota a lo presencial, aparecerá por arriba. Tanto arriba como abajo hay puntos de ambos colores, es decir, tener un perfil u otro no hace que estés más o menos satisfecho globalmente.
 
 - **Limitaciones:**
@@ -1093,13 +1098,30 @@ kable(cor_media, digits = 2, caption = "Correlación de las coordenadas con la n
 
 Este análisis exploratorio de los datos que nos ha permitido comprender mejor la estructura de la muestra que nos servirá para poder realizar un modelo predictivo que nos indique si un pasajero estará satisfecho o insatisfecho con su futuro vuelo.
 
-Las principales conclusiones a las que hemos llegado son:
-- **Redundancia en las variables**: La variable `arrival_delay_in_minutes` aporta la misma información que la variable `departure_delay_in_minutes`, por lo que decidimos eliminarla.
--**Comodidad y retrasos**: Las variables `seat_confort` y `cleanliness` son muy influyentes en la satisfacción de los clientes.
--**Edad y genero**: Las mujeres suelen presentar mayores porcentajes de satisfacción con respecto a los hombres. Además, las personas más jovenes y de edad más avanzada suelen presentar un comportamiento más critico a la hora de valorar los servicios del avión.
--**Fidelidad**: Los clientes fieles suelen presentar unos mayores niveles de satisfaccion con respecto a aquellos que no suelen usar tanto la aerilinea, dandole principla importancia al soporte online.
+Las principales conclusiones son:
+
+- **Redundancia entre retrasos:** `arrival_delay_in_minutes` aporta prácticamente la misma información que `departure_delay_in_minutes` (r = 0,96), por lo que la eliminamos.
+- **Confort y retrasos:** la comodidad del asiento es, con diferencia, la variable más asociada a la satisfacción; la limpieza se asocia menos, y el retraso tiene un efecto real pero moderado (en torno a 9 puntos porcentuales).
+- **Género y tipo de viaje:** el género solo se asocia con la satisfacción en viaje personal (mujeres 83 %, hombres 10 %); en viaje de negocios apenas hay diferencia.
+- **Edad:** la satisfacción es máxima entre los 41 y 60 años y menor en los más jóvenes y en los mayores de 60.
+- **Fidelidad:** los clientes fieles valoran mejor los servicios digitales, sobre todo el soporte online.
+
+**Limitaciones:** el significado del valor 0 en las valoraciones no está documentado y en ocasiones se comporta como una nota alta (6.1.2.); la relación casi determinista entre el asiento y la satisfacción y el patrón de la P5 son poco habituales en datos reales y pueden indicar que el conjunto está generado o manipulado.
 
 ## Uso de la inteligencia artificial
 
 Para este trabajo se ha usado la inteligencia artificial como medio de apoyo en la elaboración de código y creación de gráficos, usandolo principalmente como herramienta de corrección y deputación de errores, además de servir como guía para aprender la sintaxis de R.
+
+**Tareas para las que se ha utilizado**
+
+- Escritura y depuración de código en R (gráficos con `ggplot2`, tablas, funciones auxiliares) y ayuda para aprender la sintaxis.
+- Resolución de errores en R: en varias ocasiones nos aparecieron errores al ejecutar el código. Consultamos a la IA el mensaje de error y nos propuso posibles causas y correcciones. Siempre comprobamos que la solución funcionaba volviendo a ejecutar el código y que el resultado era el esperado, sin alterar las cifras.
+- Revisión del informe: detección de incoherencias entre texto y datos, errores de redacción y afirmaciones que no eran del todo correctas (por ejemplo, el uso de "demuestra" para asociaciones).
+- Sugerencias de análisis: por ejemplo, durante una revisión se nos sugirió cruzar género con tipo de viaje, lo que dio lugar a la pregunta P5.
+
+**Cómo se ha verificado**
+
+- **Código:** ejecutamos todo el código sobre nuestros datos y comprobamos que funcionaba y que los resultados eran coherentes con las tablas y los gráficos generados.
+- **Conceptos:** contrastamos las técnicas (Wilcoxon/AUC, MDS, análisis de devianza) con los apuntes de la asignatura.
+
 
