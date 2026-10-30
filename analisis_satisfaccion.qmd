@@ -225,7 +225,7 @@ na_resumen <- train %>%
 na_resumen
 ```
 
-Los valores ausentes se concentran únicamente en `arrival_delay_in_minutes` (`r sum(is.na(train$arrival_delay_in_minutes))` observaciones, `r round(mean(is.na(train$arrival_delay_in_minutes)) * 100, 2)` % de `train`). Decidimos no tocar esas filas porque, como veremos en 6.1.3.1., esta variable es casi idéntica a `departure_delay_in_minutes` , que no tiene ausentes, así que de cara al modelado prescindiremos de ella. En el análisis exploratorio se calculan los estadísticos con las observaciones disponibles.
+Los valores ausentes se concentran únicamente en `arrival_delay_in_minutes` (`r sum(is.na(train$arrival_delay_in_minutes))` observaciones, `r round(mean(is.na(train$arrival_delay_in_minutes)) * 100, 2)` % de `train`). Decidimos no eliminar esas filas ni imputar valores: son muy pocas, y como veremos en 6.1.3., esta variable es casi idéntica a `departure_delay_in_minutes`, que no tiene ausentes. Conservamos `arrival_delay_in_minutes` y, cuando se usa (estadísticos descriptivos y correlación con la salida), se calculan los resultados con las observaciones disponibles. En los análisis multivariantes no se incluye por redundancia (6.1.3.).
 
 #### Inspección del valor 0 en las valoraciones del servicio
 
@@ -297,7 +297,7 @@ Decisiones:
 
 #### Asimetrías y valores atípicos en variables numéricas
 
-Vamos a analizar `departure_delay_in_minutes`, `arrival_delay_in_minutes` y `flight_distance`, para ver cómo se distribuyen, si hay valores extremos y si es necesario descartar alguna de estas variables.
+Vamos a analizar `departure_delay_in_minutes`, `arrival_delay_in_minutes` y `flight_distance`, para ver cómo se distribuyen, si hay valores extremos y si alguna de ellas aporta información redundante.
 
 Para la distancia de vuelo hemos considerado que se vería bien con un histograma y, para los retrasos, mejor con uno de caja. Veamos primero los estadísticos descriptivos.
 
@@ -343,13 +343,9 @@ ggplot(train, aes(x = departure_delay_in_minutes, y = arrival_delay_in_minutes))
   )
 ```
 
-Tal y como se observa en el gráfico, los puntos se concentran de manera casi perfecta a lo largo de la recta de identidad (línea roja discontinua), lo que indica que el tiempo de retraso acumulado en el despegue se reproduce casi idénticamente al aterrizar. Esto queda corroborado cuantitativamente por el coeficiente de correlación de Pearson, cuyo valor ($r = 0.962$) se encuentra sumamente próximo a $+1$. En consecuencia, ambas aportan información redundante, por lo que de cara al modelado predictivo bastará con mantener únicamente una de ellas para prevenir problemas de multicolinealidad. Conservamos `departure_delay_in_minutes` (sin ausentes) y descartamos `arrival_delay_in_minutes`, lo que resuelve a la vez la redundancia y los NAs.
+Tal y como se observa en el gráfico, los puntos se concentran de manera casi perfecta a lo largo de la recta de identidad (línea roja discontinua), lo que indica que el tiempo de retraso acumulado en el despegue se reproduce casi idénticamente al aterrizar. Esto queda corroborado cuantitativamente por el coeficiente de correlación de Pearson, cuyo valor ($r = 0.962$) se encuentra sumamente próximo a $+1$. En consecuencia, ambas aportan información prácticamente redundante. Mantenemos `arrival_delay_in_minutes` en el conjunto de datos, pero en los análisis multivariantes (matriz de correlaciones, MDS) y en el ranking de asociación usaremos solo `departure_delay_in_minutes`, ya que incluir las dos duplicaría la misma información y daría un peso artificial al retraso frente al resto de variables; además, `departure_delay_in_minutes` no tiene valores ausentes.
 
-```{r}
-train <- train %>% select(-arrival_delay_in_minutes)
-```
-
-Una vez solucionado esto, retomamos los gráficos de `flight_distance` y `departure_delay_in_minutes`.
+Una vez estudiada esta relación, retomamos los gráficos de `flight_distance` y `departure_delay_in_minutes`.
 
 ```{r}
 #| label: graficos-var-num
@@ -953,7 +949,7 @@ En conclusión, el género no actúa de forma aislada sobre la satisfacción, si
 
 #### Correlaciones entre las valoraciones y otras variables numéricas
 
-Para ver qué variables varían de forma conjunta y cuáles aportan información redundante, calculamos la matriz de correlaciones lineales de Pearson (ya usada en 6.1.3.1.) entre las 14 valoraciones de servicio, la edad, la distancia y los retrasos. Los ceros de las valoraciones se tratan como valores ausentes (ver 6.1.2.) y los retrasos se transforman con $\log(x+1)$, como en 6.1.3..
+Para ver qué variables varían de forma conjunta y cuáles aportan información redundante, calculamos la matriz de correlaciones lineales de Pearson (ya usada en 6.1.3.) entre las 14 valoraciones de servicio, la edad, la distancia y el retraso en la salida (el retraso en la llegada se omite por ser casi idéntico). Los ceros de las valoraciones se tratan como valores ausentes (ver 6.1.2.) y los retrasos se transforman con $\log(x+1)$, como en 6.1.3..
 
 ```{r}
 #| label: correlaciones
@@ -1100,7 +1096,7 @@ Este análisis exploratorio de los datos que nos ha permitido comprender mejor l
 
 Las principales conclusiones son:
 
-- **Redundancia entre retrasos:** `arrival_delay_in_minutes` aporta prácticamente la misma información que `departure_delay_in_minutes` (r = 0,96), por lo que la eliminamos.
+- **Redundancia entre retrasos:** `arrival_delay_in_minutes` aporta prácticamente la misma información que `departure_delay_in_minutes` (r = 0,96). Conservamos ambas variables en los datos, pero en los análisis multivariantes utilizamos solo la de salida para no duplicar información.
 - **Confort y retrasos:** la comodidad del asiento es, con diferencia, la variable más asociada a la satisfacción; la limpieza se asocia menos, y el retraso tiene un efecto real pero moderado (en torno a 9 puntos porcentuales).
 - **Género y tipo de viaje:** el género solo se asocia con la satisfacción en viaje personal (mujeres 83 %, hombres 10 %); en viaje de negocios apenas hay diferencia.
 - **Edad:** la satisfacción es máxima entre los 41 y 60 años y menor en los más jóvenes y en los mayores de 60.
