@@ -158,15 +158,21 @@ idx_test <- createDataPartition(test_valid$satisfaction_v2, p = 0.15, list = FAL
 test <- test_valid[idx_test, ]
 valid <- test_valid[-idx_test, ]
 ```
+
 Por tanto, la dimensión de `train` es
+
 ```{r}
 dim(train)
 ```
+
 la de `test`
+
 ```{r}
 dim(test)
 ```
+
 y la de `valid`
+
 ```{r}
 dim(valid)
 ```
@@ -1079,8 +1085,11 @@ kable(cor_media, digits = 2, caption = "Correlación de las coordenadas con la n
 **Interpretación y conclusiones de la Matriz MDS:**
 
 - **Calidad del ajuste:** como se observa en la segunda línea de código que se ha impreso por pantalla de esta sección, las dos primeras coordenadas recogen un 57,8 % de la variabilidad de las distancias entre pasajeros (GOF = 0,58). Esto es un resumen visual bastante acercado a la realidad, aunque un 42 % de la variabilidad de las distancias no queda representada.
+
 - **Coordenada 1 (valoración global):** para saber qué representaba, hemos calculado su correlación con la nota media de cada pasajero y ha dado $r=0,98$, es decir, casi 1. Eso significa que el eje horizontal ordena a los pasajeros según lo contentos que están en general con los servicios. La única excepción es la ubicación de la puerta (r ≈ 0), que no se relaciona con ninguno de los dos ejes.
+
 - **Relación con la satisfacción:** a lo largo de la coordenada 1 los pasajeros insatisfechos o neutrales se concentran a la izquierda y los satisfechos a la derecha, pero en el centro se mezclan ambos colores (solapamiento) y abajo a la derecha hay algunos insatisfechos. Esto indica que sacar una buena media en esos 10 servicios se asocia con estar satisfecho, pero no lo garantiza al 100 % (hay que tener en cuenta que faltan factores clave fuera de esos 10 ítems, como la comodidad del asiento, el entretenimiento o el tipo de viaje).
+
 - **Coordenada 2 (perfil digital vs. presencial):** aquí hicimos lo mismo que con la coordenada 1, pero los resultados fueron distintos ($r=0,10$). Al mirar la tabla de correlaciones con los servicios, se ve que algunas tienen signo negativo y otras positivo. Si nos fijamos, los que son negativos son los relacionados con lo "online", y los que son positivos son los servicios presenciales o físicos en cabina. Es decir, si un pasajero ha valorado bien la parte tecnológica/online frente al resto, se situará muy abajo del gráfico, mientras que si da mayor nota a lo presencial, aparecerá por arriba. Tanto arriba como abajo hay puntos de ambos colores, es decir, tener un perfil u otro no hace que estés más o menos satisfecho globalmente.
 
 - **Limitaciones:**
@@ -1106,7 +1115,7 @@ Las principales conclusiones son:
 
 ## Uso de la inteligencia artificial
 
-Para este trabajo se ha usado la inteligencia artificial como medio de apoyo en la elaboración de código y creación de gráficos, usandolo principalmente como herramienta de corrección y deputación de errores, además de servir como guía para aprender la sintaxis de R.
+Para este trabajo se ha usado la inteligencia artificial como medio de apoyo en la elaboración de código y creación de gráficos, usándolo principalmente como herramienta de corrección y deputación de errores, además de servir como guía para aprender la sintaxis de R y como corrector a la hora de la redacción del trabajo.
 
 **Tareas para las que se ha utilizado**
 
@@ -1114,10 +1123,9 @@ Para este trabajo se ha usado la inteligencia artificial como medio de apoyo en 
 - Resolución de errores en R: en varias ocasiones nos aparecieron errores al ejecutar el código. Consultamos a la IA el mensaje de error y nos propuso posibles causas y correcciones. Siempre comprobamos que la solución funcionaba volviendo a ejecutar el código y que el resultado era el esperado, sin alterar las cifras.
 - Revisión del informe: detección de incoherencias entre texto y datos, errores de redacción y afirmaciones que no eran del todo correctas (por ejemplo, el uso de "demuestra" para asociaciones).
 - Sugerencias de análisis: por ejemplo, durante una revisión se nos sugirió cruzar género con tipo de viaje, lo que dio lugar a la pregunta P5.
+- Redacción de explicaciones: mejora de la redacción de ciertas explicaciones con el fin de que todo quedara más claro.
 
 **Cómo se ha verificado**
 
 - **Código:** ejecutamos todo el código sobre nuestros datos y comprobamos que funcionaba y que los resultados eran coherentes con las tablas y los gráficos generados.
 - **Conceptos:** contrastamos las técnicas (Wilcoxon/AUC, MDS, análisis de devianza) con los apuntes de la asignatura.
-
-
