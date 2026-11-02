@@ -5,21 +5,21 @@ El trabajo ha sido realizado por las tres integrantes del grupo:
 - Paula María Arroyo Botica
 - Laura López Barroso
 
-Una vez se nos asignaron los grupos, llegamos al acuerdo de ir avanzándolo en clase y lo que no diera tiempo, se iba avanzando en casa, cada una por su cuenta. Evidentemente, los cambios tenían que ir siendo comunicados por el grupo de WhatsApp.
+Una vez se nos asignaron los grupos, llegamos al acuerdo de ir avanzándolo en clase y, lo que no diera tiempo, se iba avanzando en casa, cada una por su cuenta. Los cambios se iban indicando al subirlos al git y en la clase siguiente se ponían en común.
 
 Las tareas realizadas por las tres fueron:
 - Búsqueda y elección de datos usando Kaggle como fuente
 - Revisión de faltas de ortografía en el HTML
-- Elección de la estructura general del trabajo y de las preguntas iniciales
+- Elección de la estructura general del trabajo
+- Creación del primer borrador del qmd
+- Limpieza de los datos y planteamiento inicial y de las preguntas de partida (apartados 3, 4 y 5)
 
 Por separado, las tareas de cada una en los distintos apartados fueron:
 
 - Redacción del PDF:
-Laura:
-Paula:
-Gabriela: Desarrollo y redacción del pdf de resumen ejecutivo
+Gabriela: Desarrollo y redacción del pdf del resumen ejecutivo.
 
 - Desarrollo del .qmd:
-Laura: creó el borrador inicial. Realizó los análisis univariante y multivariante. Del bivariante hizo los requeridos para las preguntas P1, P2 y P5. Tambien se encargó de la limpieza de los datos.
-Paula: También creó el borrador inicial. Respondió las preguntas P3 y P4. Redactó las conclusiones finales y el uso de la IA. Hizo retoques en el código de Laura
-Gabriela: Repasó el código y la redacción. Hizo retoques en el uso de la IA de Paula.
+Laura: Realizó los análisis univariante y multivariante. Del bivariante hizo los requeridos para las preguntas P1, P2 y P5.
+Paula: Respondió las preguntas P3 y P4. Redactó las conclusiones finales y el uso de la IA. Fue haciendo retoques en el código de Laura.
+Gabriela: Repasó el código del qmd y la redacción. Hizo retoques en el uso de la IA de Paula.
