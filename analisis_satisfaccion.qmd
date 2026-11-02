@@ -1,6 +1,5 @@
 ---
-title: "Estudio Predictivo de Satisfacción de Vuelos"
-subtitle: "Parte I: análisis exploratorio"
+title: "Análisis Exploratorio de Datos (EDA)"
 author: "Laura López, Gabriela Súñer y Paula Arroyo"
 format: 
   html:
@@ -453,8 +452,8 @@ p_edad
 
 **Interpretación y conclusiones del análisis univariante:**
 
-- **Variable objetivo (`satisfaction_v2`):** La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados). Al no existir un desbalanceo severo entre clases, no será necesario recurrir a técnicas de remuestreo (como sobremuestreo o submuestreo) en las etapas posteriores de modelado supervisado.
-- **Distribución demográfica de la edad (`age`):** La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que hace pertinente contrastar si la edad modula la exigencia y el nivel de satisfacción final con el servicio.
+- **Variable objetivo (`satisfaction_v2`):** La muestra de entrenamiento presenta una distribución bastante equilibrada, con un 54,7% de clientes satisfechos (7.109 encuestados) frente a un 45,3% de clientes neutrales o insatisfechos (5.880 encuestados).
+- **Distribución demográfica de la edad (`age`):** La variable edad exhibe una distribución unimodal y aproximadamente simétrica, centrada en torno a los 40 años (mediana señalada por la línea discontinua roja) y con la mayor concentración de viajeros situada entre los 25 y los 55 años. Este rango abarca tanto perfiles de viajeros profesionales como de ocio familiar, lo que nos sugiere analizar si existen diferencias significativas en la experiencia del cliente según los distintos tramos de edad.
 
 #### Características sociodemográficas y del viaje
 
@@ -947,7 +946,7 @@ Al analizar conjuntamente el género del pasajero (`gender`) y el motivo del via
 - **Descartamos un efecto de composición:** la tabla anterior muestra que la distribución de clases es prácticamente idéntica en hombres y mujeres, por lo que la diferencia no se debe a que unos viajen más en una cabina concreta. Además, los dos modelos que comparamos incluyen la clase como variable de control.
 - **Contraste estadístico (análisis de devianza):** añadir la interacción género × tipo de viaje reduce la devianza residual en **1886,28 unidades** (de 15855,65 a 13969,37 con 1 grado de libertad), con un p-valor \< 2,2·10⁻¹⁶. Esto indica que la interacción no se explica por el azar.
 
-En conclusión, el género no actúa de forma aislada sobre la satisfacción, sino que su impacto depende totalmente del tipo de viaje. Mientras que el perfil corporativo mantiene estándares de satisfacción estables con independencia del sexo, el segmento de viajes personales revela una brecha crítica entre hombres y mujeres que resultará altamente discriminante para la fase de modelado predictivo.
+En conclusión, el género no actúa de forma aislada sobre la satisfacción, **sino que su impacto depende totalmente del tipo de viaje**. Mientras que el perfil corporativo mantiene estándares de satisfacción estables con independencia del sexo, el segmento de viajes personales revela una brecha crítica entre hombres y mujeres que resultará altamente discriminante para la fase de modelado predictivo.
 
 **Observación:** un patrón tan extremo (83 % frente a 10 % en viaje personal) y que desaparece por completo en viaje de negocios resulta poco habitual en datos reales de encuesta. Junto con lo observado en los ceros (apartado 6.1.2), puede indicar que el conjunto de datos ha sido generado o manipulado. Dado que no conocemos su procedencia exacta, tratamos este resultado como una asociación descriptiva, sin garantía de que se reproduzca en pasajeros reales.
 
