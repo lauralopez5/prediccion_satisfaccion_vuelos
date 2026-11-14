@@ -1,0 +1,110 @@
+---
+title: "Técnicas de minería de datos"
+author: "Laura López, Gabriela Súñer y Paula Arroyo"
+format: 
+  html:
+    theme: journal
+    toc: true
+    toc-depth: 5
+    toc-location: left
+    toc-title: "Menú desplegable"
+    code-fold: true
+    code-tools: true
+    df-print: paged
+    number-sections: true
+    
+execute:
+  warning: false
+  message: false
+  
+editor: visual
+---
+```{r}
+library(cluster) # daisy(): distancias de Gower
+```
+
+## Punto de partida y planteamiento del analisis
+
+El análisis exploratorio de los datos realizado en el trabjo anterior nos ha permitido comprender mejor la estructura de la muestra que nos servirá para poder realizar a continuación un modelo predictivo que nos indique si un pasajero estará satisfecho o insatisfecho con su futuro vuelo.
+
+Las principales conclusiones a las que hemos llegado son:
+
+- **Redundancia entre retrasos:** `arrival_delay_in_minutes` aporta prácticamente la misma información que `departure_delay_in_minutes` (r = 0,96). Conservamos ambas variables en los datos, pero en esta entrega utilizamos solo la de salida para no duplicar información.
+
+- **Confort y retrasos:** la comodidad del asiento es, con diferencia, la variable más asociada a la satisfacción; la limpieza se asocia menos, y el retraso tiene un efecto real pero moderado (en torno a 9 puntos porcentuales).
+
+- **Género y tipo de viaje:** el género solo se asocia con la satisfacción en viaje personal (mujeres 83 %, hombres 10 %); en viaje de negocios apenas hay diferencia.
+
+- **Edad:** la satisfacción es máxima entre los 41 y 60 años y menor en los más jóvenes y en los mayores de 60.
+
+- **Fidelidad:** los clientes fieles valoran mejor los servicios digitales, sobre todo el soporte online.
+
+**Limitaciones:** el significado del valor 0 en las valoraciones no está documentado y en ocasiones se comporta como una nota alta (6.1.2.); la relación casi determinista entre el asiento y la satisfacción y el patrón de la P5 son poco habituales en datos reales y pueden indicar que el conjunto está generado o manipulado.
+
+## Reducción en la dimensionalidad
+
+En este apartado reduciremos el número de variables utilizando el método **Metric MDS** (*Multidimensional Scaling*) para reducir la cantidad de variables en nuestro conjunto de datos mientras se intentamos retener la información más relevante, sin tener en cuenta que estas sean de distinto tipo.
+
+Dado que el cálculo de los autovectores sobre la matriz de distancias $(≈12.939 × 12.939)$ presenta un coste computacional cúbico no viable en memoria local, por lo que extraemos una submuestra representativa y reproducible de 400 observaciones (`set.seed(6004)`) para proyectar la configuración espacial de los pasajeros:
+
+```{r}
+d <- daisy(train, metric = "gower")
+
+# Un pequeño fragmento de la matriz de disimilitudes
+round(as.matrix(d)[1:5, 1:5], 2)
+```
+Como podemos observar no hay mucha diferencia entre las cinco primeras observaciones de nuestros datos, por lo que no son muy diferentes nuestros datos en general.
+
+```{r}
+# como vimos en el EDA, excluiremos las variables que mas ceros tienen porque no sabemos como tratarlos 
+servicios_mds=setdiff(servicios, c("seat_comfort", "food_and_drink",
+                                      "inflight_entertainment",                                                        "departure_arrival_time_convenient"))
+
+train_mds=train %>% select(-seat_comfort,
+         -food_and_drink,
+         -inflight_entertainment,
+         -departure_arrival_time_convenient)
+
+# el resto de servicios que tienen menor proporcion de ceros. tratamos los ceros como NA y eliminamos esas filas
+train_mds=train_mds %>% mutate(across(all_of(servicios_mds), ~ na_if(., 0)))
+
+# miramos que filas son no tiene na 
+completos=complete.cases(train_mds)
+# nos quedamos solo con las filas completas y con los servicios que son de servicion_mds y los estandarizamos
+train_completo=train_mds[completos,]
+
+# tomamos la satisfaccion de train_completo para graficar despues
+satisfaccion_completo=train_completo$satisfaction_v2
+
+# tomamos una submuestra de 400 pasajeros para graficar mejor los datos
+set.seed(6004)
+indice=sample(nrow(train_completo), 400)
+sub_train_completo=train_completo[indice, ]
+sub_satisfaccion_completo=satisfaccion_completo[indice]
+
+## al hacer mds tenemos que quitar n_ceros y el retraso en la llegada del vuelo
+
+```
+
+
+- **Observaciones**: Antes de realizar la reducción mediante el método anterior, intentamos usar componentes principales, sin embargo, la interpretación de estas era demasiado complejo.
+
+Para poder usar PCAs, primer debemos pasar las variables categóricas a tipo numérico mediante variables dummies, debido a que estas no seguían un orden, pero al hacer esta comversión aumentabamos el número de variables debido a que los caracteres que tomaban estas variables eran, en la mayoria de casos, mayor de dos. 
+Por otro lado, para poder mantener un porcentaje significate de información de nuestros datos, decidimos tomar $12$ componentes principales, que contenía un $82%$ de la información de la muestra. Sin embargo, la agrupación de estas variables era demasiado compleja y en ocasiones no podíamos deducir una relación entre las variables que pertenecia a la misma PCA. 
+
+A continuación podemos observar la matriz de rotación de las componentes principales para ilustrar el problema:
+
+```{r}
+datos_dummies <- dummy_cols(train, 
+                            select_columns = cols_categoricas, 
+                            remove_first_dummy = TRUE, 
+                            remove_selected_columns = TRUE)
+
+pca=prcomp(datos_dummies %>% 
+    select(-c(arrival_delay_in_minutes, n_ceros)) %>% 
+    select(where(is.numeric)), scale = TRUE)
+
+summary(pca)
+pca
+```
+
