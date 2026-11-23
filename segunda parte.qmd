@@ -1,0 +1,208 @@
+---
+title: "Técnicas de minería de datos"
+author: "Laura López, Gabriela Súñer y Paula Arroyo"
+format: 
+  html:
+    theme: journal
+    toc: true
+    toc-depth: 5
+    toc-location: left
+    toc-title: "Menú desplegable"
+    code-fold: true
+    code-tools: true
+    df-print: paged
+    number-sections: true
+    
+execute:
+  warning: false
+  message: false
+  
+editor: visual
+---
+
+```{r}
+library(cluster) # daisy(): distancias de Gower
+library(ggplot2)
+library(plotly)
+```
+
+## Punto de partida y planteamiento del analisis
+
+El análisis exploratorio de los datos realizado en el trabjo anterior nos ha permitido comprender mejor la estructura de la muestra que nos servirá para poder realizar a continuación un modelo predictivo que nos indique si un pasajero estará satisfecho o insatisfecho con su futuro vuelo.
+
+Las principales conclusiones a las que hemos llegado son:
+
+- **Redundancia entre retrasos:** `arrival_delay_in_minutes` aporta prácticamente la misma información que `departure_delay_in_minutes` (r = 0,96). Conservamos ambas variables en los datos, pero en esta entrega utilizamos solo la de salida para no duplicar información.
+
+- **Confort y retrasos:** la comodidad del asiento es, con diferencia, la variable más asociada a la satisfacción; la limpieza se asocia menos, y el retraso tiene un efecto real pero moderado (en torno a 9 puntos porcentuales).
+
+- **Género y tipo de viaje:** el género solo se asocia con la satisfacción en viaje personal (mujeres 83 %, hombres 10 %); en viaje de negocios apenas hay diferencia.
+
+- **Edad:** la satisfacción es máxima entre los 41 y 60 años y menor en los más jóvenes y en los mayores de 60.
+
+- **Fidelidad:** los clientes fieles valoran mejor los servicios digitales, sobre todo el soporte online.
+
+**Limitaciones:** el significado del valor 0 en las valoraciones no está documentado y en ocasiones se comporta como una nota alta (6.1.2.); la relación casi determinista entre el asiento y la satisfacción y el patrón de la P5 son poco habituales en datos reales y pueden indicar que el conjunto está generado o manipulado.
+
+## Reducción en la dimensionalidad
+
+En este apartado reduciremos el número de variables utilizando el método **Metric MDS** (*Multidimensional Scaling*), para reducir la cantidad de variables en nuestro conjunto de datos mientras intentamos retener la información más relevante.
+
+Como vimos en el EDA, primero deberemos excluir las variables de servicio que mas ceros tienen porque no sabemos como tratarlos, mientras que en el resto trataremos los ceros como valores faltantes NA y eliminaremos las observaciones que las contengan.
+
+```{r}
+# como vimos en el EDA, excluiremos las variables que mas ceros tienen porque no sabemos como tratarlos 
+servicios_mds=setdiff(servicios, c("seat_comfort", "food_and_drink",
+                                   "inflight_entertainment",                                                        "departure_arrival_time_convenient"))
+
+train_mds=train %>% select(-seat_comfort,
+                           -food_and_drink,
+                           -inflight_entertainment,
+                           -departure_arrival_time_convenient)
+
+# el resto de servicios que tienen menor proporcion de ceros. tratamos los ceros como NA y eliminamos esas filas
+train_mds=train_mds %>% mutate(across(all_of(servicios_mds), ~ na_if(., 0)))
+
+# miramos que filas son no tiene na 
+completos=complete.cases(train_mds)
+# nos quedamos solo con las filas completas y con los servicios que son de servicion_mds y los estandarizamos
+train_completo=train_mds[completos,]
+
+# tomamos la satisfaccion de train_completo para graficar despues
+satisfaccion_completo=train_completo$satisfaction_v2
+```
+
+El método MDS, a diferencia de las componentes principales, usa una matriz de distancias entre las observaciones. Para poder hacer esta reducción usaremos las distancia de Gower, que permite calcular las distancias entre las instancias sin tener el cuenta el tipo de variable.
+
+Esta distancia esta acotada por valores del uno al cero, donde los valores cercanos al cero marcan una mayor similitud y los cercanos al uno una mayor diferencia.
+
+Debido a la gran dimensinalidad de nuestros datos la matriz de distancias tiene una alta dimensionalidad, lo que provoca que los tiempos de ejecución sean demasiado altos. Para mejorar la optimalidad del proceso hemos elegido una muestra representantiva de $3000$ instancias.
+
+```{r}
+set.seed(123)
+idx <- sample(seq_len(nrow(train_completo)), size = 3000)
+datos_muestra <- train_completo[idx, ]
+
+d <- daisy(datos_muestra, metric = "gower")
+
+# Un pequeño fragmento de la matriz de disimilitudes
+round(as.matrix(d)[1:5, 1:5], 2)
+```
+
+Como podemos observar los valores son, en general, bastante bajos, lo que indica que las observaciones son bastante parecidas entre si.
+
+Para poder saber a cuantas dimensiones reduciremos nuestras variables, realizaremos el método con seis dimensiones y visualizaremos sus autovalores.
+
+```{r}
+mds <- cmdscale(d, k = 6, eig = TRUE)
+head(mds$eig, 10)
+```
+
+Como podemos observar las dos primeras dimensiones son las más altas, $52.72$ y $31.98$, mientras que las siguientes van bajando progresivamente, por lo que hemos decidido hacer la reducción con 2 dimensiones para poder graficarlo más facilemente y con 3 dimensiones para poder ver las distancias entre las observaciones de una forma más precida.
+
+**2 dimensiones:**
+
+```{r}
+k_final=2
+mds_final=cmdscale(d, k = k_final, eig = TRUE)
+
+coord=as.data.frame(mds_final$points)
+colnames(coord) <- c("Dim1", "Dim2")
+head(coord)
+
+colores=as.integer(train_completo$satisfaction_v2)
+plot(coord$Dim1, coord$Dim2,
+     pch = 19,
+     col = colores,
+     asp = 1,
+     xlab = "Dimensión 1",
+     ylab = "Dimensión 2",
+     main = "MDS dimensión 2")
+
+legend("topright",
+       legend = levels(train_completo$satisfaction_v2),
+       col = seq_along(levels(train_completo$satisfaction_v2)),
+       pch = 19,
+       bty = "n",
+       cex = 0.8)
+```
+
+Como podemos observar los puntos no forman una nube totalmente uniforme, sino que se ve dividida en tres franjas inclinadas a lo largo de la primera dimensión. Por otro lado, se puede ver como los puntos de satisfechos e insatisfechos se mezclan en las tres franjas.
+
+Por lo tanto al reducir los datos en dos dimensiones podemos ver como la muestra se divide en tres franjas de datos, sin embargo no podemos dividir los clientes satisfechos e insatisfechos.
+
+Para mejorar la interpretavilidad, aumentaremos el método a tres dimensiones.
+
+**3 dimensiones:**
+
+```{r}
+k_final=3
+mds_final=cmdscale(d, k = k_final, eig = TRUE)
+
+coord=as.data.frame(mds_final$points)
+colnames(coord) <- c("Dim1", "Dim2","Dim3")
+head(coord)
+```
+
+La tabla muestra las coordenadas de las seis primeras observaciones proyectadas en las tres dimensiones del MDS.
+
+Para poder interpretar los datos debemos de fijarnos en las observaciones con coordenadas próximas, que presentan perfiles más similares según las variables consideradas, mientras que las demás reflejarán un perfil distinto en el espacio reducido.
+
+En nuestro caso, por ejemplo, las tres primeras observaciones serán más similares que con respecto a la observacion seis debido a que gráficamente los puntos estan más próximos.
+
+```{r}
+# Si coord tiene menos filas que train_completo, tomamos las mismas filas (ej. idx)
+if (exists("idx") && length(idx) == nrow(coord)) {
+  sat_col <- train_completo$satisfaction_v2[idx]
+} else {
+  sat_col <- head(train_completo$satisfaction_v2, nrow(coord))
+}
+
+coord$satisfaction_v2 <- as.character(sat_col)
+
+plot_ly(
+  data = coord,
+  x = ~Dim1,
+  y = ~Dim2,
+  z = ~Dim3,
+  color = ~satisfaction_v2,
+  colors = c("#1f77b4", "#d62728"),
+  type = "scatter3d",
+  mode = "markers",
+  marker = list(size = 3, opacity = 0.75)
+) %>%
+  layout(
+    title = "MDS dimension 3",
+    scene = list(
+      xaxis = list(title = "Dimensión 1"),
+      yaxis = list(title = "Dimensión 2"),
+      zaxis = list(title = "Dimensión 3")
+    )
+  )
+```
+
+Como podemos observar la nube de puntos se sigue dividiento en tres franjas diferenciadas, sin embargo esta representación nos permite observar que los clientes satisfechos con la aerolinea tienden a aproximarse a valores negativos en la primer dimensión.
+
+\-**Conclusiones finales**: Finalmente, tras hacer la reducción de dimensionalidad aplicando el método del escalado multidimensional métrico (Metric MDS) sobre la matriz de distancias de Gower, hemos visto que nuestra base de datos se puede reducir a tres dimensiones (Dim1, Dim2 y Dim3), permitiendo visualizar su distribución y su relación con satisfaction_v2.
+
+\-**Limitaciones**: Debemos de tener en cuenta que para poder realizar este método hemos tenido que tomar una muestra de nuestra partición train debido a los grandes tiempos de ejecución que suponen usar este método, es decir, se proyectan $3000$ de los $≈12.939$ pasajeros. Por otro lado, se excluyen cuatro variables (asiento, comida, entretenimiento y horario) por los ceros asociados a la satisfacción.
+
+- **Observaciones**: Antes de realizar la reducción mediante el método anterior, intentamos usar componentes principales, sin embargo, la interpretación de estas era demasiado complejo.
+
+Para poder usar PCAs, primer debemos pasar las variables categóricas a tipo numérico mediante variables dummies, debido a que estas no seguían un orden, pero al hacer esta comversión aumentabamos el número de variables debido a que los caracteres que tomaban estas variables eran, en la mayoria de casos, mayor de dos. Por otro lado, para poder mantener un porcentaje significate de información de nuestros datos, decidimos tomar $12$ componentes principales, que contenía un $82%$ de la información de la muestra. Sin embargo, la agrupación de estas variables era demasiado compleja y en ocasiones no podíamos deducir una relación entre las variables que pertenecia a la misma PCA.
+
+A continuación podemos observar la matriz de rotación de las componentes principales para ilustrar el problema:
+
+```{r}
+datos_dummies <- dummy_cols(train, 
+                            select_columns = cols_categoricas, 
+                            remove_first_dummy = TRUE, 
+                            remove_selected_columns = TRUE)
+
+pca=prcomp(datos_dummies %>% 
+    select(-c(arrival_delay_in_minutes, n_ceros)) %>% 
+    select(where(is.numeric)), scale = TRUE)
+
+summary(pca)
+pca
+```
