@@ -1128,3 +1128,6 @@ Para este trabajo se ha usado la inteligencia artificial como medio de apoyo en 
 
 - **Código:** ejecutamos todo el código sobre nuestros datos y comprobamos que funcionaba y que los resultados eran coherentes con las tablas y los gráficos generados.
 - **Conceptos:** contrastamos las técnicas (Wilcoxon/AUC, MDS, análisis de devianza) con los apuntes de la asignatura.
+```{r}
+save(train, test, valid, servicios, file = "datos_procesados.Rdata")
+```

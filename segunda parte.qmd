@@ -21,9 +21,18 @@ editor: visual
 ---
 
 ```{r}
+library(tidyverse)
+library(knitr)
 library(cluster) # daisy(): distancias de Gower
 library(ggplot2)
 library(plotly)
+library(fastDummies)
+library(cluster)
+library(factoextra)
+library(dplyr)
+library(patchwork)
+load("datos_procesados.Rdata")
+load("datos.Rdata")
 ```
 
 ## Punto de partida y planteamiento del analisis
@@ -42,7 +51,7 @@ Las principales conclusiones a las que hemos llegado son:
 
 - **Fidelidad:** los clientes fieles valoran mejor los servicios digitales, sobre todo el soporte online.
 
-**Limitaciones:** el significado del valor 0 en las valoraciones no está documentado y en ocasiones se comporta como una nota alta (6.1.2.); la relación casi determinista entre el asiento y la satisfacción y el patrón de la P5 son poco habituales en datos reales y pueden indicar que el conjunto está generado o manipulado.
+**Limitaciones:** el significado del valor 0 en las valoraciones no está documentado y en ocasiones se comporta como una nota alta (6.1.2.); la relación casi determinista entre el asiento y la satisfacción y el patrón de la P5 son poco habituales en datos reales y podría sugerir que el conjunto está generado o manipulado.
 
 ## Reducción en la dimensionalidad
 
@@ -51,17 +60,18 @@ En este apartado reduciremos el número de variables utilizando el método **Met
 Como vimos en el EDA, primero deberemos excluir las variables de servicio que mas ceros tienen porque no sabemos como tratarlos, mientras que en el resto trataremos los ceros como valores faltantes NA y eliminaremos las observaciones que las contengan.
 
 ```{r}
-# como vimos en el EDA, excluiremos las variables que mas ceros tienen porque no sabemos como tratarlos 
-servicios_mds=setdiff(servicios, c("seat_comfort", "food_and_drink",
+# como vimos en el EDA, excluiremos las variables que mas ceros tienen porque no sabemos como tratarlos, además de la variable respuesta, el retraso en la llegada, y las variables auxiliares creadas en el EDA
+servicios_mds <- setdiff(servicios, c("seat_comfort", "food_and_drink",
                                    "inflight_entertainment",                                                        "departure_arrival_time_convenient"))
 
-train_mds=train %>% select(-seat_comfort,
-                           -food_and_drink,
-                           -inflight_entertainment,
-                           -departure_arrival_time_convenient)
+train_mds <- train %>%
+  select(-any_of(c("seat_comfort", "food_and_drink",
+                   "inflight_entertainment", "departure_arrival_time_convenient",
+                   "satisfaction_v2", "arrival_delay_in_minutes",
+                   "n_ceros", "retraso_demora", "sat"))) %>%
+  mutate(across(all_of(servicios_mds), ~ na_if(., 0)),
+         departure_delay_in_minutes = log1p(departure_delay_in_minutes))
 
-# el resto de servicios que tienen menor proporcion de ceros. tratamos los ceros como NA y eliminamos esas filas
-train_mds=train_mds %>% mutate(across(all_of(servicios_mds), ~ na_if(., 0)))
 
 # miramos que filas son no tiene na 
 completos=complete.cases(train_mds)
@@ -69,7 +79,7 @@ completos=complete.cases(train_mds)
 train_completo=train_mds[completos,]
 
 # tomamos la satisfaccion de train_completo para graficar despues
-satisfaccion_completo=train_completo$satisfaction_v2
+satisfaccion_completo <- train$satisfaction_v2[completos]
 ```
 
 El método MDS, a diferencia de las componentes principales, usa una matriz de distancias entre las observaciones. Para poder hacer esta reducción usaremos las distancia de Gower, que permite calcular las distancias entre las instancias sin tener el cuenta el tipo de variable.
@@ -110,7 +120,8 @@ coord=as.data.frame(mds_final$points)
 colnames(coord) <- c("Dim1", "Dim2")
 head(coord)
 
-colores=as.integer(train_completo$satisfaction_v2)
+colores <- as.integer(satisfaccion_completo[idx])
+
 plot(coord$Dim1, coord$Dim2,
      pch = 19,
      col = colores,
@@ -120,7 +131,7 @@ plot(coord$Dim1, coord$Dim2,
      main = "MDS dimensión 2")
 
 legend("topright",
-       legend = levels(train_completo$satisfaction_v2),
+       legend = levels(satisfaccion_completo),
        col = seq_along(levels(train_completo$satisfaction_v2)),
        pch = 19,
        bty = "n",
@@ -129,7 +140,7 @@ legend("topright",
 
 Como podemos observar los puntos no forman una nube totalmente uniforme, sino que se ve dividida en tres franjas inclinadas a lo largo de la primera dimensión. Por otro lado, se puede ver como los puntos de satisfechos e insatisfechos se mezclan en las tres franjas.
 
-Por lo tanto al reducir los datos en dos dimensiones podemos ver como la muestra se divide en tres franjas de datos, sin embargo no podemos dividir los clientes satisfechos e insatisfechos.
+Por lo tanto, al reducir los datos en dos dimensiones, podemos ver cómo la muestra se divide en tres franjas de datos. Sin embargo, no podemos dividir los clientes satisfechos e insatisfechos.
 
 Para mejorar la interpretavilidad, aumentaremos el método a tres dimensiones.
 
@@ -152,13 +163,8 @@ En nuestro caso, por ejemplo, las tres primeras observaciones serán más simila
 
 ```{r}
 # Si coord tiene menos filas que train_completo, tomamos las mismas filas (ej. idx)
-if (exists("idx") && length(idx) == nrow(coord)) {
-  sat_col <- train_completo$satisfaction_v2[idx]
-} else {
-  sat_col <- head(train_completo$satisfaction_v2, nrow(coord))
-}
+coord$satisfaction_v2 <- as.character(satisfaccion_completo[idx])
 
-coord$satisfaction_v2 <- as.character(sat_col)
 
 plot_ly(
   data = coord,
@@ -185,24 +191,170 @@ Como podemos observar la nube de puntos se sigue dividiento en tres franjas dife
 
 \-**Conclusiones finales**: Finalmente, tras hacer la reducción de dimensionalidad aplicando el método del escalado multidimensional métrico (Metric MDS) sobre la matriz de distancias de Gower, hemos visto que nuestra base de datos se puede reducir a tres dimensiones (Dim1, Dim2 y Dim3), permitiendo visualizar su distribución y su relación con satisfaction_v2.
 
-\-**Limitaciones**: Debemos de tener en cuenta que para poder realizar este método hemos tenido que tomar una muestra de nuestra partición train debido a los grandes tiempos de ejecución que suponen usar este método, es decir, se proyectan $3000$ de los $≈12.939$ pasajeros. Por otro lado, se excluyen cuatro variables (asiento, comida, entretenimiento y horario) por los ceros asociados a la satisfacción.
+\-**Limitaciones**: Debemos de tener en cuenta que para poder realizar este método hemos tenido que tomar una muestra de nuestra partición train debido a los grandes tiempos de ejecución que suponen usar este método, es decir, se proyectan $3000$ de los `r nrow(train)` pasajeros. Por otro lado, se excluyen cuatro variables (asiento, comida, entretenimiento y horario) por los ceros asociados a la satisfacción.
 
 - **Observaciones**: Antes de realizar la reducción mediante el método anterior, intentamos usar componentes principales, sin embargo, la interpretación de estas era demasiado complejo.
 
-Para poder usar PCAs, primer debemos pasar las variables categóricas a tipo numérico mediante variables dummies, debido a que estas no seguían un orden, pero al hacer esta comversión aumentabamos el número de variables debido a que los caracteres que tomaban estas variables eran, en la mayoria de casos, mayor de dos. Por otro lado, para poder mantener un porcentaje significate de información de nuestros datos, decidimos tomar $12$ componentes principales, que contenía un $82%$ de la información de la muestra. Sin embargo, la agrupación de estas variables era demasiado compleja y en ocasiones no podíamos deducir una relación entre las variables que pertenecia a la misma PCA.
+Para poder usar PCAs, primero debemos pasar las variables categóricas a tipo numérico mediante variables dummies, debido a que estas no seguían un orden, pero al hacer esta conversión aumentabamos el número de variables debido a que los caracteres que tomaban estas variables eran, en la mayoria de casos, mayor de dos. Por otro lado, para poder mantener un porcentaje significate de información de nuestros datos, decidimos tomar $12$ componentes principales, que contenía un $82%$ de la información de la muestra. Sin embargo, la agrupación de estas variables era demasiado compleja y en ocasiones no podíamos deducir una relación entre las variables que pertenecia a la misma PCA.
 
 A continuación podemos observar la matriz de rotación de las componentes principales para ilustrar el problema:
 
 ```{r}
-datos_dummies <- dummy_cols(train, 
-                            select_columns = cols_categoricas, 
+cols_explicativas_cat <- c("gender", "customer_type", "type_of_travel", "class")
+
+datos_dummies <- dummy_cols(train,
+                            select_columns = cols_explicativas_cat, 
                             remove_first_dummy = TRUE, 
                             remove_selected_columns = TRUE)
 
-pca=prcomp(datos_dummies %>% 
-    select(-c(arrival_delay_in_minutes, n_ceros)) %>% 
-    select(where(is.numeric)), scale = TRUE)
+pca <- prcomp(datos_dummies %>% 
+                mutate(departure_delay_in_minutes = log1p(departure_delay_in_minutes)) %>%
+                select(-any_of(c("arrival_delay_in_minutes", "n_ceros", "retraso_demora", "sat"))) %>% 
+                select(where(is.numeric)), 
+              scale. = TRUE)
 
 summary(pca)
-pca
 ```
+
+## Clustering
+
+Tras la reducción de dimensionalidad, utilizaremos técnicas de clustering para investigar si existen perfiles diferenciados de pasajeros dentro de la muestra.
+
+Dado que nuestra base de datos contiene variables tanto numéricas como categóricas, emplearemos el algoritmo PAM (Partitioning Around Medoids) sobre una matriz de distancias de Gower. Esta combinación permite trabajar con variables mixtas y resulta especialmente adecuada cuando los grupos se definen a partir de diferentes tipos de información.
+
+Además, los medoides corresponden a observaciones reales de la muestra, lo que facilita la interpretación de los resultados.
+
+Selección del número de clusters (k)
+
+```{r}
+#| label: clustering-k
+set.seed(123)
+ks <- 2:8
+fits <- lapply(ks, function(k) pam(d, k = k, diss = TRUE))
+
+sil_k <- sapply(fits, function(f) f$silinfo$avg.width)
+obj_k <- sapply(fits, function(f) f$objective[["swap"]])
+
+p_sil <- ggplot(data.frame(k = ks, valor = sil_k), aes(k, valor)) +
+  geom_line() + geom_point(size = 3) + scale_x_continuous(breaks = ks) +
+  theme_minimal() + labs(title = "Silueta media", y = "Anchura media")
+p_obj <- ggplot(data.frame(k = ks, valor = obj_k), aes(k, valor)) +
+  geom_line() + geom_point(size = 3) + scale_x_continuous(breaks = ks) +
+  theme_minimal() + labs(title = "Función objetivo de PAM (codo)", y = "Suma de distancias")
+
+p_sil + p_obj
+```
+
+El valor máximo de la anchura media de la silueta se alcanza para k = 2, por lo que seleccionamos esta partición como solución final.
+
+Sin embargo, el valor obtenido (0.162) es reducido. Según fuentes externas sobre la escala propuesta por Kaufman y Rousseeuw, valores inferiores a 0.25 suelen indicar una estructura de agrupamiento débil. Por ello, aunque el algoritmo identifica dos conglomerados, la separación entre ellos es limitada y no existe evidencia de grupos claramente diferenciados dentro de la muestra.
+
+Este resultado es coherente con el EDA de la práctica anterior, donde observamos que la satisfacción depende simultáneamente de numerosos factores relacionados con el tipo de viaje, la clase, la fidelización y diversas valoraciones de servicio. Por ello, es razonable que los pasajeros no formen grupos completamente separados.
+
+```{r}
+k_final  <- 2
+pam_final <- fits[[which(ks == k_final)]]
+cluster   <- factor(pam_final$clustering)
+```
+
+Partición final y proyección sobre el MDS:
+
+```{r}
+#| label: clustering-final
+table(cluster)
+fviz_silhouette(pam_final)
+
+mds_df <- data.frame(mds_final$points[, 1:2])
+colnames(mds_df) <- c("Dim1", "Dim2")
+mds_df$cluster <- cluster
+
+ggplot(mds_df, aes(Dim1, Dim2, color = cluster)) +
+  geom_point(alpha = 0.6, size = 1.2) +
+  theme_minimal() +
+  labs(title = "Clusters PAM sobre el plano MDS", color = "Cluster")
+```
+
+La partición divide la muestra de 3000 pasajeros en dos grupos semejantes en cantidad de miembros.
+
+- Cluster 1: con 1266 observaciones (pasajeros) que corresponden al $42,2%$
+- Cluster 2: con 1734 observaciones (pasajeros) que son el $57,8%$ restante
+
+Se indica que la anchura media global es 0,16, con una mayor cohesión en el Clúster 2 (0,2) frente al Clúster 1 (0,11). Si observamos la silueta de los clústeres, podemos ver cómo hay una pequeña franja de ambos que se encuentra en zona negativa, lo que representa a pasajeros que están "mal asignados" o en zona fronteriza entre ambos grupos, quizá porque comparten características mezcladas entre los dos.
+
+Al proyectar ambos grupos sobre la MDS de dos dimensiones, observamos cómo se distribuyen a lo largo de tres franjas ligeramente inclinadas formando líneas prácticamente rectas. El Clúster 2 predomina en la parte superior izquierda, mientras que el Clúster 1 tiene mayor presencia en la inferior a la derecha. Esto confirma que realmente los dos agrupamientos capturan diferencias reales de perfiles, pero hay cierto solapamiento, sin llegar a estar copletamente diferenciados.
+
+Perfilado
+
+```{r}
+#| label: clustering-perfil
+# Medoides: observaciones reales que representan cada cluster
+kable(datos_muestra[pam_final$id.med, ], caption = "Medoides de cada cluster")
+
+perfil <- datos_muestra %>% mutate(cluster = cluster)
+
+# Variables numéricas: media por cluster
+perfil %>%
+  group_by(cluster) %>%
+  summarise(n = n(), across(where(is.numeric), ~ round(mean(.), 2))) %>%
+  kable(caption = "Medias por cluster")
+
+# Variables categóricas: % dentro de cada cluster
+perfil %>%
+  select(cluster, where(is.character), where(is.factor)) %>%
+  pivot_longer(-cluster) %>%
+  count(cluster, name, value) %>%
+  group_by(cluster, name) %>%
+  mutate(pct = n / sum(n)) %>%
+  ggplot(aes(cluster, pct, fill = value)) +
+  geom_col() +
+  facet_wrap(~ name) +
+  scale_y_continuous(labels = scales::percent) +
+  theme_minimal() +
+  labs(y = "% dentro del cluster", fill = "")
+```
+
+
+```{r}
+# 1. Satisfacción (a posteriori)
+kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, satisfaccion_completo[idx]), 1) * 100, 1)),
+      caption = "% de satisfacción dentro de cada clúster (a posteriori)", align = "c")
+
+# 2. Género
+kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$gender), 1) * 100, 1)),
+      caption = "% de género dentro de cada clúster", align = "c")
+
+# 3. Clase de cabina
+kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$class), 1) * 100, 1)),
+      caption = "% de clase de cabina dentro de cada clúster", align = "c")
+
+# 4. Tipo de viaje
+kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$type_of_travel), 1) * 100, 1)),
+      caption = "% de tipo de viaje dentro de cada clúster", align = "c")
+
+# 5. Tipo de cliente
+kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$customer_type), 1) * 100, 1)),
+      caption = "% de tipo de cliente dentro de cada clúster", align = "c")
+```
+
+### Interpretación de los conglomerados
+
+Los conglomerados obtenidos presentan diferencias claras en cuanto al perfil de viaje de los pasajeros.
+
+El cluster 1 está formado principalmente por pasajeros de clase Economy (77,7 %), con una proporción ligeramente superior de viajes personales (53,5 %) frente a viajes de negocios (46,5 %). Además, existe una mayor presencia de hombres (72,8 %). En este grupo predominan los pasajeros neutrales o insatisfechos, que representan el 72,3 % de las observaciones.
+
+Por el contrario, el cluster 2 agrupa mayoritariamente pasajeros de clase Business (71,5 %) y viajeros de negocios (86,3 %). También destaca una mayor proporción de mujeres (67,1 %). En este conglomerado predominan claramente los pasajeros satisfechos, que representan el 73,5 % de las observaciones.
+
+Las variables relacionadas con la fidelización presentan porcentajes muy similares en ambos grupos, por lo que no parecen desempeñar un papel relevante en la separación de los conglomerados.
+
+Además de estas diferencias, el cluster 2 muestra valoraciones más elevadas en prácticamente todos los servicios analizados, especialmente en soporte online, facilidad de reserva, servicio a bordo, espacio para las piernas, gestión del equipaje y limpieza.
+
+Por ello, podemos identificar los siguientes perfiles:
+
+- Cluster 1: pasajeros de clase Economy, con mayor presencia de viajes personales y valoraciones de servicio más bajas.
+
+- Cluster 2: pasajeros de clase Business, principalmente viajeros de negocios y con valoraciones de servicio más elevadas.
+
+Estos resultados son coherentes con las conclusiones obtenidas durante el EDA, donde observamos que la satisfacción estaba estrechamente relacionada con la calidad de los servicios ofrecidos, el tipo de viaje y la clase en la que viajaba el pasajero.
+
+No obstante, debemos recordar que la anchura media de la silueta fue de 0,162, lo que indica una estructura de agrupamiento débil. Por tanto, los perfiles identificados deben interpretarse como tendencias generales y no como segmentos completamente diferenciados. El PAM obliga a asignar a cada observación el medoide más cercano, por lo que si un pasajero tiene características mixtas (por ejemplo, un viajero de negocios que vuela en clase Eco con valoraciones intermedias) puede quedar asignado en el Clúster 1 por su proximidad puntual a ese grupo, pero puede estar rodeado en el espacio de Gower por muchos pasajeros del otro Clúster. Esto explica los picos negativos que se ven en las siluetas.
+
