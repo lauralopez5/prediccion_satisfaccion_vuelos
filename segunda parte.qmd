@@ -484,3 +484,34 @@ $$0{,}422 \times 0{,}307 + 0{,}578 \times 0{,}693 \approx 0{,}53$$
 Es decir, **sin ningún acuerdo real ya se coincidiría en un 53 % de los casos**, por lo que el 72,3 % debe compararse con ese 53 % y no con 0. Descontando el azar, el acuerdo es moderado-bajo.
 :::
 
+
+
+
+## Aprendizaje supervisado
+
+### Planteamiento del problema
+
+El objetivo del aprendizaje supervisado es construir modelos
+capaces de predecir la satisfacción de los pasajeros a partir
+de las características de su vuelo y de las valoraciones de
+los servicios ofrecidos por la aerolínea.
+
+La variable respuesta será `satisfaction_v2`, que distingue
+entre pasajeros satisfechos y pasajeros neutrales o
+insatisfechos. Por tanto, se trata de un problema de
+clasificación.
+
+Para entrenar y evaluar los modelos utilizaremos las
+particiones `train`, `test` y `valid` definidas en el análisis
+anterior.
+
+# Comprobamos las dimensiones de los conjuntos
+dim(train)
+dim(test)
+dim(valid)
+
+# Comprobamos las variables disponibles
+names(train)
+
+# Comprobamos la distribución de la variable respuesta
+table(train$satisfaction_v2)
