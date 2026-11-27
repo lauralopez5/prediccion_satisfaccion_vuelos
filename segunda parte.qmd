@@ -87,11 +87,11 @@ El método MDS, a diferencia de las componentes principales, usa una matriz de d
 
 Esta distancia esta acotada por valores del uno al cero, donde los valores cercanos al cero marcan una mayor similitud y los cercanos al uno una mayor diferencia.
 
-Debido a la gran dimensinalidad de nuestros datos la matriz de distancias tiene una alta dimensionalidad, lo que provoca que los tiempos de ejecución sean demasiado altos. Para mejorar la optimalidad del proceso hemos elegido una muestra representantiva de $3000$ instancias.
+Debido a la gran dimensinalidad de nuestros datos la matriz de distancias tiene una alta dimensionalidad, lo que provoca que los tiempos de ejecución sean demasiado altos. Para mejorar la optimalidad del proceso hemos elegido una muestra representantiva de $1500$ instancias.
 
 ```{r}
 set.seed(123)
-idx <- sample(seq_len(nrow(train_completo)), size = 3000)
+idx <- sample(seq_len(nrow(train_completo)), size = 1500)
 datos_muestra <- train_completo[idx, ]
 
 d <- daisy(datos_muestra, metric = "gower")
@@ -100,13 +100,14 @@ d <- daisy(datos_muestra, metric = "gower")
 round(as.matrix(d)[1:5, 1:5], 2)
 ```
 
+
 Como podemos observar los valores son, en general, bastante bajos, lo que indica que las observaciones son bastante parecidas entre si.
 
 Para poder saber a cuantas dimensiones reduciremos nuestras variables, realizaremos el método con seis dimensiones y visualizaremos sus autovalores.
 
 ```{r}
+# 1. Cálculo inicial para obtener autovalores
 mds <- cmdscale(d, k = 6, eig = TRUE)
-head(mds$eig, 10)
 
 valores <- head(mds$eig, 10)
 datos_mds <- data.frame(
@@ -114,8 +115,32 @@ datos_mds <- data.frame(
   Autovalor = valores
 )
 
+# 2. Tabla de información por dimensión (autovalores positivos)
+eig_positivos <- mds$eig[mds$eig > 0]
+porcentaje <- eig_positivos / sum(eig_positivos) * 100
+
+tabla_porcentajes <- data.frame(
+  Dimension = paste("Dimensión", seq_along(eig_positivos)),
+  Autovalor = eig_positivos,
+  Porcentaje = porcentaje,
+  Porcentaje_acumulado = cumsum(porcentaje)
+)
+
+knitr::kable(
+  tabla_porcentajes,
+  digits = 2,
+  col.names = c(
+    "Dimensión",
+    "Autovalor",
+    "Porcentaje (%)",
+    "Porcentaje acumulado (%)"
+  ),
+  caption = "Autovalores y porcentajes de todas las dimensiones positivas"
+)
+
+# 3. Gráfica del codo para decidir cuántas dimensiones tomar
 ggplot(datos_mds, aes(x = Dimension, y = Autovalor)) +
-  geom_hline(yintercept = 0, linetype = "dotted", color = "gray50") + 
+  geom_hline(yintercept = 0, linetype = "dotted", color = "gray50") +
   geom_line(color = "#2b5c8f", linewidth = 1) +
   geom_point(color = "#2b5c8f", size = 3.5) +
   scale_x_continuous(breaks = 1:length(valores)) +
@@ -128,17 +153,11 @@ ggplot(datos_mds, aes(x = Dimension, y = Autovalor)) +
   theme_minimal() +
   theme(panel.grid.minor = element_blank())
 
-
-
 ```
 
-<<<<<<< HEAD
-Como podemos observar las dos primeras dimensiones son las más altas, $55.05$ y $41.46$, mientras que las siguientes van bajando progresivamente, por lo que hemos decidido hacer la reducción con 2 dimensiones para poder graficarlo más facilemente y con 3 dimensiones para poder ver las distancias entre las observaciones de una forma más precida.
-=======
-Como podemos observar las dos primeras dimensiones son las más altas, $52.72$ y $31.98$, mientras que las siguientes van bajando progresivamente, por lo que hemos decidido hacer la reducción con 2 dimensiones para poder graficarlo más facilemente y con 3 dimensiones para poder ver las distancias entre las observaciones de una forma más precisa.
+Según la tabla lo ideal sería reducir a seis dimensiones debido que así recogeriamos el $54,94\%$ de la información de la muestra sin llegar a hacer muy compleja la reducción, sin embargo esto sería muy poco representativo.
 
-MEJORAR LA REDACIION PONIENDO QUE LO D LOS CODOS NO MIRA MUCHO Y QUE ES MEJOR ELEGIR 6 DIMENSIONNES PERO QUE POR PRACTICIDAD ELEGIMOS 2 Y TRES DIIMENSIONES
->>>>>>> 71ad76e729c556565639c92c48abe09def5e7ff5
+Para poder reducir nuestras variasbles de una forma más sencilla, hemos decidio hacer primero la reducción a dos dimensiones y después a tres para mejorar un poco la interpretabilidad, aunque recogeriamos un $27.53\%$ y $36.53\%$ de la información repectivamente. 
 
 **2 dimensiones:**
 
@@ -221,7 +240,7 @@ Como podemos observar la nube de puntos se sigue dividiento en tres franjas dife
 
 \-**Conclusiones finales**: Finalmente, tras hacer la reducción de dimensionalidad aplicando el método del escalado multidimensional métrico (Metric MDS) sobre la matriz de distancias de Gower, hemos visto que nuestra base de datos se puede reducir a tres dimensiones (Dim1, Dim2 y Dim3), permitiendo visualizar su distribución y su relación con satisfaction_v2.
 
-\-**Limitaciones**: Debemos de tener en cuenta que para poder realizar este método hemos tenido que tomar una muestra de nuestra partición train debido a los grandes tiempos de ejecución que suponen usar este método, es decir, se proyectan $3000$ de los `r nrow(train)` pasajeros. Por otro lado, se excluyen cuatro variables (asiento, comida, entretenimiento y horario) por los ceros asociados a la satisfacción.
+\-**Limitaciones**: Debemos de tener en cuenta que para poder realizar este método hemos tenido que tomar una muestra de nuestra partición train debido a los grandes tiempos de ejecución que suponen usar este método, es decir, se proyectan $1500$ de los `r nrow(train)` pasajeros. Por otro lado, se excluyen cuatro variables (asiento, comida, entretenimiento y horario) por los ceros asociados a la satisfacción.
 
 - **Observaciones**: Antes de realizar la reducción mediante el método anterior, intentamos usar componentes principales, sin embargo, la interpretación de estas era demasiado complejo.
 
