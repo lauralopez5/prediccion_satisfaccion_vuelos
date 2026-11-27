@@ -491,27 +491,32 @@ Es decir, **sin ningún acuerdo real ya se coincidiría en un 53 % de los casos*
 
 ### Planteamiento del problema
 
-El objetivo del aprendizaje supervisado es construir modelos
-capaces de predecir la satisfacción de los pasajeros a partir
-de las características de su vuelo y de las valoraciones de
-los servicios ofrecidos por la aerolínea.
+A continuación, utilizaremos el aprendizaje supervisado para construir modelos que predigan la satisfacción de los pasajeros a partir de las características de su vuelo y de sus valoraciones a los servicios de la aerolínea. 
 
 La variable respuesta será `satisfaction_v2`, que distingue
 entre pasajeros satisfechos y pasajeros neutrales o
-insatisfechos. Por tanto, se trata de un problema de
+insatisfechos. Por tanto, es un problema de
 clasificación.
 
-Para entrenar y evaluar los modelos utilizaremos las
+Utilizaremos las
 particiones `train`, `test` y `valid` definidas en el análisis
-anterior.
+anterior. 
 
-# Comprobamos las dimensiones de los conjuntos
+Antes de empezar, vamos a hacer una serie de comprobaciones. 
+
+Comprobamos las dimensiones de los conjuntos:
+```{r}
 dim(train)
 dim(test)
 dim(valid)
+```
 
-# Comprobamos las variables disponibles
+Comprobamos las variables disponibles:
+```{r}
 names(train)
+```
 
-# Comprobamos la distribución de la variable respuesta
+Comprobamos la distribución de la variable respuesta:
+```{r}
 table(train$satisfaction_v2)
+```
