@@ -520,3 +520,43 @@ Comprobamos la distribución de la variable respuesta:
 ```{r}
 table(train$satisfaction_v2)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const tocLinks = document.querySelectorAll('#TOC a');
+
+  window.addEventListener('scroll', function () {
+    let current = '';
+
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(section => {
+      if (window.scrollY >= section.offsetTop - 150) {
+        current = section.id;
+      }
+    });
+
+    tocLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+});
+</script>
