@@ -5,7 +5,9 @@ format:
   html:
     theme: journal
     toc: true
+    embed-resources: true
     toc-depth: 5
+    toc-expand: true
     toc-location: left
     toc-title: "Menú desplegable"
     code-fold: true
@@ -539,3 +541,20 @@ Comprobamos la distribución de la variable respuesta:
 ```{r}
 table(train$satisfaction_v2)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
