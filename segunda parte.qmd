@@ -31,6 +31,7 @@ library(cluster)
 library(factoextra)
 library(dplyr)
 library(patchwork)
+library(kableExtra)
 load("datos_procesados.Rdata")
 load("datos.Rdata")
 ```
@@ -108,7 +109,7 @@ mds <- cmdscale(d, k = 6, eig = TRUE)
 head(mds$eig, 10)
 ```
 
-Como podemos observar las dos primeras dimensiones son las más altas, $52.72$ y $31.98$, mientras que las siguientes van bajando progresivamente, por lo que hemos decidido hacer la reducción con 2 dimensiones para poder graficarlo más facilemente y con 3 dimensiones para poder ver las distancias entre las observaciones de una forma más precida.
+Como podemos observar las dos primeras dimensiones son las más altas, $55.05$ y $41.46$, mientras que las siguientes van bajando progresivamente, por lo que hemos decidido hacer la reducción con 2 dimensiones para poder graficarlo más facilemente y con 3 dimensiones para poder ver las distancias entre las observaciones de una forma más precida.
 
 **2 dimensiones:**
 
@@ -218,6 +219,8 @@ summary(pca)
 
 ## Clustering
 
+### Clustering No Jerárquico
+
 Tras la reducción de dimensionalidad, utilizaremos técnicas de clustering para investigar si existen perfiles diferenciados de pasajeros dentro de la muestra.
 
 Dado que nuestra base de datos contiene variables tanto numéricas como categóricas, emplearemos el algoritmo PAM (Partitioning Around Medoids) sobre una matriz de distancias de Gower. Esta combinación permite trabajar con variables mixtas y resulta especialmente adecuada cuando los grupos se definen a partir de diferentes tipos de información.
@@ -247,7 +250,7 @@ p_sil + p_obj
 
 El valor máximo de la anchura media de la silueta se alcanza para k = 2, por lo que seleccionamos esta partición como solución final.
 
-Sin embargo, el valor obtenido (0.162) es reducido. Según fuentes externas sobre la escala propuesta por Kaufman y Rousseeuw, valores inferiores a 0.25 suelen indicar una estructura de agrupamiento débil. Por ello, aunque el algoritmo identifica dos conglomerados, la separación entre ellos es limitada y no existe evidencia de grupos claramente diferenciados dentro de la muestra.
+Sin embargo, el valor obtenido (0,162) es reducido. Según la escala de Kaufman y Rousseeuw, valores inferiores a 0,25 indican que no se ha encontrado una estructura de agrupamiento sustancial. La partición en dos grupos debe entenderse, por tanto, como un resumen útil de tendencias y no como evidencia de segmentos naturales.
 
 Este resultado es coherente con el EDA de la práctica anterior, donde observamos que la satisfacción depende simultáneamente de numerosos factores relacionados con el tipo de viaje, la clase, la fidelización y diversas valoraciones de servicio. Por ello, es razonable que los pasajeros no formen grupos completamente separados.
 
@@ -283,12 +286,20 @@ Se indica que la anchura media global es 0,16, con una mayor cohesión en el Cl�
 
 Al proyectar ambos grupos sobre la MDS de dos dimensiones, observamos cómo se distribuyen a lo largo de tres franjas ligeramente inclinadas formando líneas prácticamente rectas. El Clúster 2 predomina en la parte superior izquierda, mientras que el Clúster 1 tiene mayor presencia en la inferior a la derecha. Esto confirma que realmente los dos agrupamientos capturan diferencias reales de perfiles, pero hay cierto solapamiento, sin llegar a estar copletamente diferenciados.
 
+Como PAM es un algoritmo basado en medoides, cada conglomerado queda representado por una observación real de la muestra. La siguiente tabla muestra el medoide asociado a cada grupo.
+
 Perfilado
 
 ```{r}
 #| label: clustering-perfil
-# Medoides: observaciones reales que representan cada cluster
-kable(datos_muestra[pam_final$id.med, ], caption = "Medoides de cada cluster")
+medoides <- datos_muestra[pam_final$id.med, ]
+medoides$cluster <- paste(1:nrow(medoides))
+
+medoides %>%
+  select(cluster, everything()) %>%
+  knitr::kable(
+    caption = "Medoides representativos de cada cluster"
+  )
 
 perfil <- datos_muestra %>% mutate(cluster = cluster)
 
@@ -313,30 +324,34 @@ perfil %>%
   labs(y = "% dentro del cluster", fill = "")
 ```
 
-
 ```{r}
 # 1. Satisfacción (a posteriori)
-kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, satisfaccion_completo[idx]), 1) * 100, 1)),
-      caption = "% de satisfacción dentro de cada clúster (a posteriori)", align = "c")
+as.data.frame.matrix(round(prop.table(table(perfil$cluster, satisfaccion_completo[idx]), 1) * 100, 1)) %>%
+  rownames_to_column("Cluster") %>%
+  kable(caption = "% de satisfacción dentro de cada clúster (a posteriori)", align = "c")
 
 # 2. Género
-kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$gender), 1) * 100, 1)),
-      caption = "% de género dentro de cada clúster", align = "c")
+as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$gender), 1) * 100, 1)) %>%
+  rownames_to_column("Cluster") %>%
+  kable(caption = "% de género dentro de cada clúster", align = "c")
 
 # 3. Clase de cabina
-kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$class), 1) * 100, 1)),
-      caption = "% de clase de cabina dentro de cada clúster", align = "c")
+as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$class), 1) * 100, 1)) %>%
+  rownames_to_column("Cluster") %>%
+  kable(caption = "% de clase de cabina dentro de cada clúster", align = "c")
 
 # 4. Tipo de viaje
-kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$type_of_travel), 1) * 100, 1)),
-      caption = "% de tipo de viaje dentro de cada clúster", align = "c")
+as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$type_of_travel), 1) * 100, 1)) %>%
+  rownames_to_column("Cluster") %>%
+  kable(caption = "% de tipo de viaje dentro de cada clúster", align = "c")
 
 # 5. Tipo de cliente
-kable(as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$customer_type), 1) * 100, 1)),
-      caption = "% de tipo de cliente dentro de cada clúster", align = "c")
+as.data.frame.matrix(round(prop.table(table(perfil$cluster, perfil$customer_type), 1) * 100, 1)) %>%
+  rownames_to_column("Cluster") %>%
+  kable(caption = "% de tipo de cliente dentro de cada clúster", align = "c")
 ```
 
-### Interpretación de los conglomerados
+#### Interpretación de los conglomerados
 
 Los conglomerados obtenidos presentan diferencias claras en cuanto al perfil de viaje de los pasajeros.
 
@@ -358,3 +373,84 @@ Estos resultados son coherentes con las conclusiones obtenidas durante el EDA, d
 
 No obstante, debemos recordar que la anchura media de la silueta fue de 0,162, lo que indica una estructura de agrupamiento débil. Por tanto, los perfiles identificados deben interpretarse como tendencias generales y no como segmentos completamente diferenciados. El PAM obliga a asignar a cada observación el medoide más cercano, por lo que si un pasajero tiene características mixtas (por ejemplo, un viajero de negocios que vuela en clase Eco con valoraciones intermedias) puede quedar asignado en el Clúster 1 por su proximidad puntual a ese grupo, pero puede estar rodeado en el espacio de Gower por muchos pasajeros del otro Clúster. Esto explica los picos negativos que se ven en las siluetas.
 
+### Clustering Jerárquico Aglomerativo
+
+Para contrastar los resultados obtenidos mediante PAM y explorar la estructura de agrupamiento a distintos niveles de granularidad sin fijar el número de clústeres de antemano, aplicamos un **clustering jerárquico aglomerativo** reutilizando la misma matriz de disimilitudes de Gower `d` ($n = 3.000$).
+
+#### Selección del criterio de enlace
+
+Siguiendo lo visto en clase, comparamos los cuatro métodos de vinculación principales (*average*, *single*, *complete* y *ward*) mediante el **coeficiente aglomerativo** de `agnes()`, donde los valores próximos a 1 indican una estructura de agrupamiento más marcada:
+
+```{r}
+#| label: clustering-jerarquico-enlace
+
+metodos <- c("average", "single", "complete", "ward")
+names(metodos) <- metodos
+
+coef_aglom <- sapply(metodos, function(m) {
+  agnes(d, diss = TRUE, method = m)$ac
+})
+
+kable(
+  data.frame(Metodo = names(coef_aglom), Coeficiente_Aglomerativo = round(coef_aglom, 4)),
+  row.names = FALSE,
+  caption = "Comparación del coeficiente aglomerativo según el método de enlace"
+)
+```
+
+Por tanto, nos quedamos con el Método de Ward.
+
+```{r}
+#| label: clustering-jerarquico-dendrograma
+#| fig-width: 9
+#| fig-height: 4.5
+#| fig-align: "center"
+
+hc_ward <- hclust(d, method = "ward.D2")
+
+plot(hc_ward, labels = FALSE, hang = -1,
+     main = "Dendrograma Jerárquico (Distancia de Gower, Método de Ward)",
+     xlab = "Pasajeros muestreados (n = 3.000)",
+     ylab = "Altura (Disimilitud)")
+rect.hclust(hc_ward, k = 2, border = c("#E41A1C", "#377EB8"))
+
+# Corte en k = 2 y tabla cruzada frente a PAM
+cluster_hc <- factor(cutree(hc_ward, k = 2))
+
+tab_comp <- as.data.frame.matrix(table(cluster, cluster_hc))
+colnames(tab_comp) <- c("1", "2")
+rownames(tab_comp) <- c("1", "2")
+
+esquina_diag <- paste0(
+  '<div style="position:relative; width:120px; height:42px; ',
+  'background: linear-gradient(to top right, transparent 49%, #888 50%, transparent 51%);">',
+  '<span style="position:absolute; top:2px; right:6px; font-size:0.8em;">Jerárquico</span>',
+  '<span style="position:absolute; bottom:2px; left:6px; font-size:0.8em;">PAM</span>',
+  '</div>'
+)
+
+tab_comp %>%
+  rownames_to_column(esquina_diag) %>%
+  kbl(caption = "Tabla de contingencia: concordancia entre PAM y Ward Jerárquico",
+      align = "c", escape = FALSE) %>%
+  kable_styling(full_width = FALSE, position = "center") %>%
+  column_spec(1, bold = TRUE, border_right = TRUE)
+```
+
+### Conclusiones del análisis de agrupamiento
+
+Tras aplicar y comparar las técnicas de agrupamiento no supervisado (PAM y clustering jerárquico aglomerativo con método de Ward) sobre la matriz de disimilitudes de Gower ($n = 3.000$, sin utilizar `satisfaction_v2`), extraemos las siguientes conclusiones:
+
+1.  **Número óptimo de grupos (**$k = 2$): El máximo de la anchura media de silueta en PAM ($0,16$) señala una partición en **dos grandes conglomerados**, aunque su baja magnitud (estructura débil según Kaufman y Rousseeuw) indica que los pasajeros no forman compartimentos estancos, sino un continuo con dos polos diferenciados. El dendrograma de Ward refuerza esta misma lectura: las últimas fusiones del árbol se producen a alturas muy cercanas entre sí (en torno a $5,5$, $7,1$ y $8,4$), sin un gran salto que delate grupos aislados, por lo que fijamos el corte en $k = 2$ para comparar directamente ambos métodos.
+2.  **Concordancia entre métodos y elección de PAM:** Al cruzar ambas particiones en la tabla de contingencia, se observa una coincidencia del $72,3\%$ ($677 + 1.491 = 2.168$ de $3.000$ pasajeros asignados al mismo perfil en ambos algoritmos), pero descontando el azar la concordancia es solo moderada-baja, lo que refuerza que la estructura de agrupamiento es débil. Seleccionamos **PAM** como partición de referencia por ofrecer grupos más equilibrados ($42,2\%$ vs. $57,8\%$), optimizar globalmente las distancias y proporcionar medoides reales directamente interpretables.
+3.  **Implicación para el aprendizaje supervisado:** El hecho de que los métodos no supervisados separen grupos con tasas de satisfacción tan dispares ($27,7\%$ frente a $73,5\%$), pero con cierto solapamiento en la zona fronteriza, confirma que las variables de perfil y valoración contienen señal discriminante real y justifica el paso a modelos de **aprendizaje supervisado** para predecir con mayor precisión la satisfacción individual.
+
+::: {.callout-note title="Observación: ¿es alta una concordancia del 72,3 %?"}
+El porcentaje de pasajeros asignados al mismo grupo por ambos métodos (72,3 %) no debe leerse de forma aislada, porque con solo dos clusters una parte del acuerdo se debe al azar.
+
+Dados los tamaños de los grupos (PAM: 42,2 % y 57,8 %; Ward: 30,7 % y 69,3 %), la coincidencia esperada si ambas particiones fueran independientes sería:
+
+$$0{,}422 \times 0{,}307 + 0{,}578 \times 0{,}693 \approx 0{,}53$$
+
+Es decir, **sin ningún acuerdo real ya se coincidiría en un 53 % de los casos**, por lo que el 72,3 % debe compararse con ese 53 % y no con 0. Descontando el azar, el acuerdo es moderado-bajo.
+:::
