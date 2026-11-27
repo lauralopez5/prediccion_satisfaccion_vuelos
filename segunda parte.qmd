@@ -5,9 +5,7 @@ format:
   html:
     theme: journal
     toc: true
-    embed-resources: true
     toc-depth: 5
-    toc-expand: true
     toc-location: left
     toc-title: "Menú desplegable"
     code-fold: true
@@ -239,6 +237,8 @@ plot_ly(
 ```
 
 Como podemos observar la nube de puntos se sigue dividiento en tres franjas diferenciadas, sin embargo esta representación nos permite observar que los clientes satisfechos con la aerolinea tienden a aproximarse a valores negativos en la primer dimensión.
+
+arbol con todas las variables y despues otro con las tres para ver que pasa
 
 \-**Conclusiones finales**: Finalmente, tras hacer la reducción de dimensionalidad aplicando el método del escalado multidimensional métrico (Metric MDS) sobre la matriz de distancias de Gower, hemos visto que nuestra base de datos se puede reducir a tres dimensiones (Dim1, Dim2 y Dim3), permitiendo visualizar su distribución y su relación con satisfaction_v2.
 
@@ -541,20 +541,3 @@ Comprobamos la distribución de la variable respuesta:
 ```{r}
 table(train$satisfaction_v2)
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
