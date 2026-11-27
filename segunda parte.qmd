@@ -5,6 +5,7 @@ format:
   html:
     theme: journal
     toc: true
+    embed-resources: true
     toc-depth: 5
     toc-expand: true
     toc-location: left
