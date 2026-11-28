@@ -546,19 +546,19 @@ table(train$satisfaction_v2)
 
 ### Árboles de decisión
 
-Para el aprendizaje supervisado, en priemr lugar, vamos a aplicar el método de los árboles de decisión para clasificar a los pasajeros según su satisfacción.
+Para el aprendizaje supervisado, en primer lugar, vamos a aplicar el método de los árboles de decisión para clasificar a los pasajeros según su satisfacción.
 
 En nuestro caso, vamos a construir dos árboles de decisión. En el primero utilizaremos todas las variables originales, mientras que en el segundo usaremos las tres dimensiones obtenidas en la reducción de dimensionalidad.
 
 Así vamos a poder comparar la clasificación de los dos árboles y estudiar si la reducción de dimensionalidad conserva suficiente información para predecir la satisfacción de los pasajeros.
 
-En el análisis MDS hemos reducido la información de los pasajeros a tres dimensiones. Pero, estas dimensiones las hemos obtenido a partir de una muestra de 3000 observaciones del `train`, y no de las 12989 observaciones que tenía originalmente.
+En el análisis MDS hemos reducido la información de los pasajeros a tres dimensiones. Pero, estas dimensiones las hemos obtenido a partir de una muestra de 1500 observaciones del `train`, y no de las 12989 observaciones que tenía originalmente.
 
-Por lo tanto, para comparar los dos árboles, utilizaremos las mismas 3000 observaciones en ambos casos.
+Por lo tanto, para comparar los dos árboles, utilizaremos las mismas 1500 observaciones en ambos casos.
 
 
 
-En primer lugar recuperamos las 3000 pasajeros de `train` utilizadas en el MDS:
+En primer lugar recuperamos las 1500 pasajeros de `train` utilizadas en el MDS:
 ```{r}
 filas_muestra <- which(completos)[idx]
 ```
@@ -627,7 +627,7 @@ par(mfrow = c(1, 1))
 
 Evaluamos la capacidad predictiva de ambos árboles para comprobar si las tres dimensiones del MDS conservan suficiente información en comparación con las variables originales. 
 
-Para ello comparamos el porcentaje de aciertos **exactitud** en la muestra utilizada en el MDS y el **error de validación cruzada** que calacula `rpart`. Además, evaluamos el árbol con variables originales sobre el conjunto `test` para comprobar cómo predice con datos nuevos.
+Para ello comparamos el porcentaje de aciertos **exactitud** en la muestra utilizada en el MDS y el **error de validación cruzada** que calcula `rpart`. Además, evaluamos el árbol con variables originales sobre el conjunto `test` para comprobar cómo predice con datos nuevos.
 
 ```{r}
 #| label: arboles-evaluacion
@@ -682,7 +682,7 @@ Al comparar los resultados de ambos árboles, obtenemos las siguientes conclusio
 1. **El árbol con todas las variables predice mejor:** Con él, obtenemos un **87,13 %** de aciertos en la muestra (con un error de validación cruzada de `0,286`), en comparación con el **81,80 %** del árbol construido con las tres dimensiones del MDS (`xerror = 0,405`). 
 
 2. **¿Por qué pierde precisión el modelo del MDS?** Podría ser por dos razones principales según lo que obtuvimos en el análisis exploratorio:
-    * Para calcular el MDS eliminamos las variables con más ceros (`inflight_entertainment`, `seat_comfort`, `food_and_drink` y `departure_arrival_time_convenient`). Pero, en el EDA vimos que el entretenimiento a bordo y la comodidad del asiento eran las variables más relacionadas con la satisfacción. El árbol original sí puede usarlas, mientras que el del MDS nno coge esa información.
-    * Las tres dimensiones del MDS solo reocgen el **36,53 %** de la información original y resumen los datos son mirar la satisfacción, por tanto, perdemos información para separar ambos grupos. 
+    * Para calcular el MDS eliminamos las variables con más ceros (`inflight_entertainment`, `seat_comfort`, `food_and_drink` y `departure_arrival_time_convenient`). Pero, en el EDA vimos que el entretenimiento a bordo y la comodidad del asiento eran las variables más relacionadas con la satisfacción. El árbol original sí puede usarlas, mientras que el del MDS no coge esa información.
+    * Las tres dimensiones del MDS solo recogen el **36,53 %** de la información original y resumen los datos sin mirar la satisfacción, por tanto, perdemos información para separar ambos grupos. 
 
 3. **Buena capacidad para predecir datos nuevos:** al probar el árbol original en `test`, acierta el **85,9 %** (muy cerca del 87,13 % del entrenamiento). Además, según la matriz de confusión, los fallos están repartidos entre ambos grupos: clasifica mal a 1.123 pasajeros insatisfechos y a 1.349 satisfechos de un total de 17.534 pasajeros.
