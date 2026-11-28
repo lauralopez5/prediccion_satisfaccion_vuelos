@@ -541,3 +541,148 @@ Comprobamos la distribución de la variable respuesta:
 ```{r}
 table(train$satisfaction_v2)
 ```
+
+
+
+### Árboles de decisión
+
+Para el aprendizaje supervisado, en priemr lugar, vamos a aplicar el método de los árboles de decisión para clasificar a los pasajeros según su satisfacción.
+
+En nuestro caso, vamos a construir dos árboles de decisión. En el primero utilizaremos todas las variables originales, mientras que en el segundo usaremos las tres dimensiones obtenidas en la reducción de dimensionalidad.
+
+Así vamos a poder comparar la clasificación de los dos árboles y estudiar si la reducción de dimensionalidad conserva suficiente información para predecir la satisfacción de los pasajeros.
+
+En el análisis MDS hemos reducido la información de los pasajeros a tres dimensiones. Pero, estas dimensiones las hemos obtenido a partir de una muestra de 3000 observaciones del `train`, y no de las 12989 observaciones que tenía originalmente.
+
+Por lo tanto, para comparar los dos árboles, utilizaremos las mismas 3000 observaciones en ambos casos.
+
+
+
+En primer lugar recuperamos las 3000 pasajeros de `train` utilizadas en el MDS:
+```{r}
+filas_muestra <- which(completos)[idx]
+```
+
+Obtenemos las variables de esos pasajeros y la variable que queremos predecir, satisfaction_v2, para utilizarlas como datos del árbol con las variables originales:
+```{r}
+datos_arbol <- train[filas_muestra, ] %>%
+  select(-any_of(c("sat", "n_ceros", "retraso_demora",
+                   "arrival_delay_in_minutes")))
+```
+
+Por último, obtenemos los datos para el árbol con las tres dimensiones del MDS y la misma variable, satisfaction_v2:
+```{r}
+datos_arbol_mds <- data.frame(
+  Dim1 = mds_final$points[,1],
+  Dim2 = mds_final$points[,2],
+  Dim3 = mds_final$points[,3],
+  satisfaction_v2 = train$satisfaction_v2[filas_muestra]
+)
+```
+
+
+Creamos los árboles sobre la misma muestra del MDS:
+```{r}
+library(rpart)
+library(rpart.plot)
+
+set.seed(123)
+```
+```{r}
+arbol_orig <- rpart(
+  satisfaction_v2 ~ .,
+  data = datos_arbol,
+  method = "class"
+)
+
+arbol_mds <- rpart(
+  satisfaction_v2 ~ .,
+  data = datos_arbol_mds,
+  method = "class"
+)
+```
+
+Comparación de ambos árboles:
+```{r}
+par(mfrow = c(1, 2))
+rpart.plot(
+  arbol_orig,
+  type = 2, extra = 104, fallen.leaves = TRUE,
+  box.palette = "BuRd", cex = 0.65,
+  main = "Árbol con variables originales"
+)
+
+rpart.plot(
+  arbol_mds,
+  type = 2, extra = 104, fallen.leaves = TRUE,
+  box.palette = "BuRd", cex = 0.65,
+  main = "Árbol con 3 dimensiones MDS"
+)
+par(mfrow = c(1, 1))
+```
+
+
+
+#### Comparación del rendimiento
+
+Evaluamos la capacidad predictiva de ambos árboles para comprobar si las tres dimensiones del MDS conservan suficiente información en comparación con las variables originales. 
+
+Para ello comparamos el porcentaje de aciertos **exactitud** en la muestra utilizada en el MDS y el **error de validación cruzada** que calacula `rpart`. Además, evaluamos el árbol con variables originales sobre el conjunto `test` para comprobar cómo predice con datos nuevos.
+
+```{r}
+#| label: arboles-evaluacion
+
+# 1. Predicciones sobre la muestra de entrenamiento 
+pred_orig_train <- predict(arbol_orig, newdata = datos_arbol, type = "class")
+pred_mds_train  <- predict(arbol_mds,  newdata = datos_arbol_mds, type = "class")
+
+acc_orig_train <- mean(pred_orig_train == datos_arbol$satisfaction_v2)
+acc_mds_train  <- mean(pred_mds_train  == datos_arbol_mds$satisfaction_v2)
+
+# 2. Error relativo de validación cruzada 
+xerror_orig <- min(arbol_orig$cptable[, "xerror"])
+xerror_mds  <- min(arbol_mds$cptable[, "xerror"])
+
+# 3. Comparación de los árboles
+tabla_comp_arboles <- data.frame(
+  Modelo = c("Árbol con variables originales", "Árbol con 3 dimensiones MDS"),
+  Predictoras = c(ncol(datos_arbol) - 1, 3),
+  Nodos_terminales = c(sum(arbol_orig$frame$var == "<leaf>"),
+                       sum(arbol_mds$frame$var == "<leaf>")),
+  Exactitud_muestra = round(c(acc_orig_train, acc_mds_train) * 100, 2),
+  Error_CV = round(c(xerror_orig, xerror_mds), 3)
+)
+
+knitr::kable(
+  tabla_comp_arboles,
+  col.names = c("Modelo", "Nº variables", "Nodos terminales",
+                "Exactitud en muestra (%)", "Error relativo CV (xerror)"),
+  align = "c",
+  caption = "Comparación de rendimiento entre el árbol original y el árbol sobre MDS"
+)
+
+# 4. Evaluación del árbol original sobre el conjunto TEST completo
+pred_orig_test <- predict(arbol_orig, newdata = test, type = "class")
+acc_orig_test  <- mean(pred_orig_test == test$satisfaction_v2)
+
+cat("Exactitud del árbol con variables originales en TEST:", round(acc_orig_test * 100, 2), "%\n")
+
+# Matriz de confusión en TEST
+as.data.frame.matrix(table(Real = test$satisfaction_v2, Predicho = pred_orig_test)) %>%
+  rownames_to_column("Real \\ Predicho") %>%
+  knitr::kable(
+    align = "c",
+    caption = "Matriz de confusión del árbol original sobre el conjunto test"
+  )
+```
+
+#### Conclusiones de los árboles de decisión
+Al comparar los resultados de ambos árboles, obtenemos las siguientes conclusiones: 
+
+1. **El árbol con todas las variables predice mejor:** Con él, obtenemos un **87,13 %** de aciertos en la muestra (con un error de validación cruzada de `0,286`), en comparación con el **81,80 %** del árbol construido con las tres dimensiones del MDS (`xerror = 0,405`). 
+
+2. **¿Por qué pierde precisión el modelo del MDS?** Podría ser por dos razones principales según lo que obtuvimos en el análisis exploratorio:
+    * Para calcular el MDS eliminamos las variables con más ceros (`inflight_entertainment`, `seat_comfort`, `food_and_drink` y `departure_arrival_time_convenient`). Pero, en el EDA vimos que el entretenimiento a bordo y la comodidad del asiento eran las variables más relacionadas con la satisfacción. El árbol original sí puede usarlas, mientras que el del MDS nno coge esa información.
+    * Las tres dimensiones del MDS solo reocgen el **36,53 %** de la información original y resumen los datos son mirar la satisfacción, por tanto, perdemos información para separar ambos grupos. 
+
+3. **Buena capacidad para predecir datos nuevos:** al probar el árbol original en `test`, acierta el **85,9 %** (muy cerca del 87,13 % del entrenamiento). Además, según la matriz de confusión, los fallos están repartidos entre ambos grupos: clasifica mal a 1.123 pasajeros insatisfechos y a 1.349 satisfechos de un total de 17.534 pasajeros.
